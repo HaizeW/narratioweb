@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NarratioWeb\OeuvresBundle\Entity\OeuvreCineRepository")
  */
-class OeuvreCine
+class OeuvreCine extends Oeuvre
 {
     /**
      * @var integer
