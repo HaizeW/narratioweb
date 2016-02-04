@@ -1,0 +1,3 @@
+narratio_web_oeuvres_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: NarratioWebOeuvresBundle:Default:index }

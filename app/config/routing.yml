@@ -1,3 +1,7 @@
+narratio_web_oeuvres:
+    resource: "@NarratioWebOeuvresBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
