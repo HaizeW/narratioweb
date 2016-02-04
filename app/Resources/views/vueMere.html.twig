@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+		<script src="bootstrap-3.3.5-dist/js/jquery.js"></script>
+		<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="container">
+			<div class="col-sm-9">
+				<div class="row">
+					 {% block header %}
+					 	    
+					 {% endblock %}
+				</div>
+			
+				<div class="row">
+					 {% block body %}{% endblock %}
+				</div>
+			
+				<div class="row">
+					 {% block footer %}
+					     	<div class="container">
+            				<div class="col-sm-12">
+                				<div style='float:left'>Projet NarratioWeb dans le cadre du DUT Informatique.</div><div style='float:right;'>&copy; IUT Bayonne Pays Basque</div> 
+
+                				<div align="center">
+                    				<a href= "https://www.iutbayonne.univ-pau.fr/"> IUT de Bayonne et du Pays Basque </a>
+                				</div>
+            				</div>
+    						</div>
+					 {% endblock %}
+				</div>
+			</div>
+		</div>
+       
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
