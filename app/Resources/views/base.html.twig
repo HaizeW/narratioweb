@@ -2,12 +2,33 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}!{% endblock %}</title>
+		<link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+		<script src="bootstrap-3.3.5-dist/js/jquery.js"></script>
+		<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container">
+			<div class="col-sm-3">
+				
+			</div>
+			
+			<div class="col-sm-9">
+				<div class="row">
+					 {% block header %}{% endblock %}
+				</div>
+			
+				<div class="row">
+					 {% block body %}{% endblock %}
+				</div>
+			
+				<div class="row">
+					 {% block footer %}{% endblock %}
+				</div>
+			</div>
+		</div>
+       
         {% block javascripts %}{% endblock %}
     </body>
 </html>
