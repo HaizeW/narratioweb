@@ -1491,3 +1491,68 @@ Stack trace:
 [04-Feb-2016 15:05:47 UTC] PHP   5. Symfony\Component\ClassLoader\ClassCollectionLoader::load() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2558
 [04-Feb-2016 15:05:47 UTC] PHP   6. require_once() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:91
 [04-Feb-2016 15:05:47 UTC] PHP   7. trigger_error() /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php:2596
+[04-Feb-2016 15:41:32 UTC] PHP Deprecated:  The Symfony\Component\Security\Core\SecurityContext class is deprecated since version 2.6 and will be removed in 3.0. Use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage or Symfony\Component\Security\Core\Authorization\AuthorizationChecker instead. in /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContext.php on line 14
+[04-Feb-2016 15:41:32 UTC] PHP Stack trace:
+[04-Feb-2016 15:41:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:0
+[04-Feb-2016 15:41:32 UTC] PHP   2. Symfony\Component\HttpKernel\Kernel->handle() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:29
+[04-Feb-2016 15:41:32 UTC] PHP   3. Symfony\Component\HttpKernel\Kernel->boot() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2427
+[04-Feb-2016 15:41:32 UTC] PHP   4. Symfony\Component\HttpKernel\Kernel->doLoadClassCache() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2393
+[04-Feb-2016 15:41:32 UTC] PHP   5. Symfony\Component\ClassLoader\ClassCollectionLoader::load() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2558
+[04-Feb-2016 15:41:32 UTC] PHP   6. Symfony\Component\ClassLoader\ClassCollectionLoader::getOrderedClasses() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:98
+[04-Feb-2016 15:41:32 UTC] PHP   7. ReflectionClass->__construct() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:257
+[04-Feb-2016 15:41:32 UTC] PHP   8. spl_autoload_call() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:257
+[04-Feb-2016 15:41:32 UTC] PHP   9. Symfony\Component\Debug\DebugClassLoader->loadClass() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:257
+[04-Feb-2016 15:41:32 UTC] PHP  10. require() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Debug/DebugClassLoader.php:153
+[04-Feb-2016 15:41:32 UTC] PHP  11. trigger_error() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContext.php:14
+[04-Feb-2016 15:41:32 UTC] PHP Deprecated:  The Symfony\Component\Security\Core\SecurityContextInterface interface is deprecated since version 2.6 and will be removed in 3.0. in /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContextInterface.php on line 14
+[04-Feb-2016 15:41:32 UTC] PHP Stack trace:
+[04-Feb-2016 15:41:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:0
+[04-Feb-2016 15:41:32 UTC] PHP   2. Symfony\Component\HttpKernel\Kernel->handle() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:29
+[04-Feb-2016 15:41:32 UTC] PHP   3. Symfony\Component\HttpKernel\Kernel->boot() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2427
+[04-Feb-2016 15:41:32 UTC] PHP   4. Symfony\Component\HttpKernel\Kernel->doLoadClassCache() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2393
+[04-Feb-2016 15:41:32 UTC] PHP   5. Symfony\Component\ClassLoader\ClassCollectionLoader::load() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2558
+[04-Feb-2016 15:41:32 UTC] PHP   6. Symfony\Component\ClassLoader\ClassCollectionLoader::getOrderedClasses() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:98
+[04-Feb-2016 15:41:32 UTC] PHP   7. ReflectionClass->__construct() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:257
+[04-Feb-2016 15:41:32 UTC] PHP   8. spl_autoload_call() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:257
+[04-Feb-2016 15:41:32 UTC] PHP   9. Symfony\Component\Debug\DebugClassLoader->loadClass() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:257
+[04-Feb-2016 15:41:32 UTC] PHP  10. require() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Debug/DebugClassLoader.php:153
+[04-Feb-2016 15:41:32 UTC] PHP  11. spl_autoload_call() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Debug/DebugClassLoader.php:34
+[04-Feb-2016 15:41:32 UTC] PHP  12. Symfony\Component\Debug\DebugClassLoader->loadClass() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Debug/DebugClassLoader.php:34
+[04-Feb-2016 15:41:32 UTC] PHP  13. require() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Debug/DebugClassLoader.php:153
+[04-Feb-2016 15:41:32 UTC] PHP  14. trigger_error() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/Security/Core/SecurityContextInterface.php:14
+[04-Feb-2016 21:23:27 UTC] PHP Deprecated:  The Symfony\Component\Security\Core\SecurityContextInterface interface is deprecated since version 2.6 and will be removed in 3.0. in /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php on line 2584
+[04-Feb-2016 21:23:27 UTC] PHP Stack trace:
+[04-Feb-2016 21:23:27 UTC] PHP   1. {main}() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:0
+[04-Feb-2016 21:23:27 UTC] PHP   2. Symfony\Component\HttpKernel\Kernel->handle() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:29
+[04-Feb-2016 21:23:27 UTC] PHP   3. Symfony\Component\HttpKernel\Kernel->boot() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2427
+[04-Feb-2016 21:23:27 UTC] PHP   4. Symfony\Component\HttpKernel\Kernel->doLoadClassCache() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2393
+[04-Feb-2016 21:23:27 UTC] PHP   5. Symfony\Component\ClassLoader\ClassCollectionLoader::load() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2558
+[04-Feb-2016 21:23:27 UTC] PHP   6. require_once() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:91
+[04-Feb-2016 21:23:27 UTC] PHP   7. trigger_error() /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php:2584
+[04-Feb-2016 21:23:27 UTC] PHP Deprecated:  The Symfony\Component\Security\Core\SecurityContext class is deprecated since version 2.6 and will be removed in 3.0. Use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage or Symfony\Component\Security\Core\Authorization\AuthorizationChecker instead. in /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php on line 2596
+[04-Feb-2016 21:23:27 UTC] PHP Stack trace:
+[04-Feb-2016 21:23:27 UTC] PHP   1. {main}() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:0
+[04-Feb-2016 21:23:27 UTC] PHP   2. Symfony\Component\HttpKernel\Kernel->handle() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:29
+[04-Feb-2016 21:23:27 UTC] PHP   3. Symfony\Component\HttpKernel\Kernel->boot() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2427
+[04-Feb-2016 21:23:27 UTC] PHP   4. Symfony\Component\HttpKernel\Kernel->doLoadClassCache() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2393
+[04-Feb-2016 21:23:27 UTC] PHP   5. Symfony\Component\ClassLoader\ClassCollectionLoader::load() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2558
+[04-Feb-2016 21:23:27 UTC] PHP   6. require_once() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:91
+[04-Feb-2016 21:23:27 UTC] PHP   7. trigger_error() /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php:2596
+[04-Feb-2016 21:24:01 UTC] PHP Deprecated:  The Symfony\Component\Security\Core\SecurityContextInterface interface is deprecated since version 2.6 and will be removed in 3.0. in /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php on line 2584
+[04-Feb-2016 21:24:01 UTC] PHP Stack trace:
+[04-Feb-2016 21:24:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:0
+[04-Feb-2016 21:24:01 UTC] PHP   2. Symfony\Component\HttpKernel\Kernel->handle() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:29
+[04-Feb-2016 21:24:01 UTC] PHP   3. Symfony\Component\HttpKernel\Kernel->boot() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2427
+[04-Feb-2016 21:24:01 UTC] PHP   4. Symfony\Component\HttpKernel\Kernel->doLoadClassCache() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2393
+[04-Feb-2016 21:24:01 UTC] PHP   5. Symfony\Component\ClassLoader\ClassCollectionLoader::load() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2558
+[04-Feb-2016 21:24:01 UTC] PHP   6. require_once() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:91
+[04-Feb-2016 21:24:01 UTC] PHP   7. trigger_error() /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php:2584
+[04-Feb-2016 21:24:01 UTC] PHP Deprecated:  The Symfony\Component\Security\Core\SecurityContext class is deprecated since version 2.6 and will be removed in 3.0. Use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage or Symfony\Component\Security\Core\Authorization\AuthorizationChecker instead. in /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php on line 2596
+[04-Feb-2016 21:24:01 UTC] PHP Stack trace:
+[04-Feb-2016 21:24:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:0
+[04-Feb-2016 21:24:01 UTC] PHP   2. Symfony\Component\HttpKernel\Kernel->handle() /home/ubuntu/workspace/NarratioWeb/web/app_dev.php:29
+[04-Feb-2016 21:24:01 UTC] PHP   3. Symfony\Component\HttpKernel\Kernel->boot() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2427
+[04-Feb-2016 21:24:01 UTC] PHP   4. Symfony\Component\HttpKernel\Kernel->doLoadClassCache() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2393
+[04-Feb-2016 21:24:01 UTC] PHP   5. Symfony\Component\ClassLoader\ClassCollectionLoader::load() /home/ubuntu/workspace/NarratioWeb/app/bootstrap.php.cache:2558
+[04-Feb-2016 21:24:01 UTC] PHP   6. require_once() /home/ubuntu/workspace/NarratioWeb/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php:91
+[04-Feb-2016 21:24:01 UTC] PHP   7. trigger_error() /home/ubuntu/workspace/NarratioWeb/app/cache/dev/classes.php:2596

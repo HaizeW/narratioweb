@@ -1,3 +1,9 @@
 narratio_web_oeuvres_homepage:
     path:     /accueil
     defaults: { _controller: NarratioWebOeuvresBundle:Default:index }
+    
+narration_web_oeuvres_voirFiche:
+    path:     /fiche/{id}
+    defaults: { _controller: NarratioWebOeuvresBundle:Default:voirFiche }
+    requirements : 
+        id: \d+

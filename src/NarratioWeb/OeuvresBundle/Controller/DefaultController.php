@@ -10,4 +10,12 @@ class DefaultController extends Controller
     {
         return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig');
     }
+
+    public function voirFicheAction($id)
+{
+    return $this->render('NarratioWebOeuvresBundle:Default:voirFiche.html.twig', array('id'=> $id));
+}
+
+
+
 }

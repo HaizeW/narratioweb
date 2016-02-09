@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html>
+	
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
-		<link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
-		<script src="bootstrap-3.3.5-dist/js/jquery.js"></script>
-		<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        		<link rel="stylesheet" href="style.css">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+    
     <body>
+    	
         <div class="container">
 			<div class="col-sm-9">
+				
 				<div class="row">
 					 {% block header %}
-					 	    
+    					<div class="container">
+							<div class="col-sm-9">
+                				<div style='float:right;'>Vous etes connecte en tant que : $Visiteur</div> 
+                				    <div align="center">
+								        <a href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/accueil"> <h1>NarratioWeb</h1> </a>
+                				    </div>
+    						</div>
+    					</div>
 					 {% endblock %}
 				</div>
 			
@@ -24,19 +35,20 @@
 				<div class="row">
 					 {% block footer %}
 					     	<div class="container">
-            				<div class="col-sm-12">
-                				<div style='float:left'>Projet NarratioWeb dans le cadre du DUT Informatique.</div><div style='float:right;'>&copy; IUT Bayonne Pays Basque</div> 
-
-                				<div align="center">
-                    				<a href= "https://www.iutbayonne.univ-pau.fr/"> IUT de Bayonne et du Pays Basque </a>
-                				</div>
-            				</div>
-    						</div>
+            				    <div class="col-sm-12">
+                				    <div style='float:left;'>Projet NarratioWeb dans le cadre du DUT Informatique.</div><div style='float:right;'>&copy; IUT Bayonne Pays Basque</div> 
+                    				    <div align="center">
+                    				        <a href= "https://www.iutbayonne.univ-pau.fr/"> IUT de Bayonne et du Pays Basque </a>
+                				        </div>
+            				        </div>
+    						    </div>
 					 {% endblock %}
 				</div>
+				
 			</div>
 		</div>
        
         {% block javascripts %}{% endblock %}
+        
     </body>
 </html>

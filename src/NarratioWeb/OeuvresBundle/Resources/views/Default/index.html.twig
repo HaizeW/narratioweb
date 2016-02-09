@@ -1,34 +1,11 @@
-{#{% extends 'base.html.twig' %}#}
+{% extends 'vueMere.html.twig' %}
 
+
+{% block body %}
+    
 <div class="col-sm-3">
     {% include "NarratioWebOeuvresBundle:Default:menuLateral.html.twig" %}
 </div>
 
-{% block header %}
-    <div class="container">
-		<div class="col-sm-12">
-			<div align="center"> 
-				<h1>NarratioWeb</h1>
-			</div>
-			<div align="right"> 
-				Vous etes connecte en tant que : $Visiteur
-    		</div>
-    	</div>
-    </div>
 {% endblock %}
 
-{% block body %}
-    Homepage.
-{% endblock %}
-
-{% block footer %}
-	<div class="container">
-	<div class="col-sm-12">
-		<div style='float:left'>Projet NarratioWeb dans le cadre du DUT Informatique.</div><div style='float:right;'>&copy; IUT Bayonne Pays Basque</div> 
-
-		<div align="center">
-    		<a href= "https://www.iutbayonne.univ-pau.fr/"> IUT de Bayonne et du Pays Basque </a>
-    	</div>
-	</div>
-	</div>
-{% endblock %}
