@@ -10,11 +10,34 @@
 <div class="col-sm-9">
     <div class="panel-heading"> <h3> selection des criteres</h3> </div>
         <form method = "post" {{ form_enctype(createurFormulaire)}}>
-            {{form_widget(createurFormulaire)}}
-            {{form_start(createurFormulaire,{'attr' : { 'class': 'form-horizontal'}})}}
-            <center><input type="submit" class="btn btn-primary"/></center>
+            
+            {#form_widget(createurFormulaire)#}
             <br>
+            <br>
+            <div class="col-sm-4">
+                <div style='float:left;'>Tranche d'Age : {{form_widget(createurFormulaire.TrancheAge)}}</div>
+            </div>
+            <div class="col-sm-4">
+                <div style='float:left;'><center>Epoque : </center>{{form_widget(createurFormulaire.Epoque)}}</div>
+            </div>
+            <div class="col-sm-4">
+                <div style='float:left;'><center>Genre : </center>{{form_widget(createurFormulaire.Genre)}}</div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="col-sm-4">
+            <div style='float:left;'><input type="submit" class="btn btn-primary" value="Plus de caracteristiques"/></div>
+            </div>
+            <div class="col-sm-4">
+            <div style='floatcenter;'><input type="submit" class="btn btn-primary" value="Random"/></div>
+            </div>
         </form>
 </div>
 
 {% endblock %}
+
+
+
+

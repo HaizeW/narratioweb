@@ -129,15 +129,19 @@ class Oeuvres implements FixtureInterface
                          -> setPrenom("Josh");
         $manager->persist($RéalisateurNEC);
         
+        $TypeLongMetrage = new Type();
+        $TypeLongMetrage -> setIntitule("Long Métrage");
+        $manager->persist($TypeLongMetrage);
+        
         $FilmNEC = new Film();
         $FilmNEC -> setTitre("Nos étoiles contraires")
                  -> setDuree(133)
-                 -> setType($TypeNEC)
+                 -> setType($TypeLongMetrage)
                  -> setRealisateur($RéalisateurNEC)
                  -> addActeur($ActeurNEC1)
                  -> addActeur($ActeurNEC2)
                  -> addActeur($ActeurNEC3)
-                 -> setOeuvreCine($OeuvreCinéNEC);
+                 -> setOeuvreCine($OeuvreCineNEC);
         $manager->persist($FilmNEC);
         
         $ProduitDerNEC = new ProduitDer();
@@ -148,7 +152,7 @@ class Oeuvres implements FixtureInterface
         $ImageNEC = new Image();
         $ImageNEC -> setUrl("http://www.photogeniques.fr/wp-content/uploads/2014/09/The-Fault-in-Our-Stars_tfios_Nos-etoiles-contraires_okay-okay.jpg")
                     -> setOeuvreLitt($oeuvreLittNEC)
-                    -> setOeuvreCine($OeuvreCinéNEC)
+                    -> setOeuvreCine($OeuvreCineNEC)
                     -> setProduit($ProduitDerNEC);
         $manager->persist($ImageNEC);
         
@@ -191,8 +195,8 @@ class Oeuvres implements FixtureInterface
                     -> setOeuvreLitt($oeuvreLittLOTR);
         $manager->persist($LivreLOTR1);
         
-        $OeuvreCinéLOTR = new OeuvreCine();
-        $manager->persist($OeuvreCiné);
+        $OeuvreCineLOTR = new OeuvreCine();
+        $manager->persist($OeuvreCineLOTR);
         
         $ActeurElijahWood = new Acteur();
         $ActeurElijahWood -> setNom("Wood")
@@ -232,7 +236,7 @@ class Oeuvres implements FixtureInterface
                   -> addActeur($ActeurViggoMortensen)
                   -> addActeur($ActeurIanMcKellen)
                   -> addActeur($ActeurOrlandoBloom)
-                  -> setOeuvreCine($OeuvreCinéLOTR);
+                  -> setOeuvreCine($OeuvreCineLOTR);
         $manager->persist($FilmLOTR1);
         
         $FilmLOTR2 = new Film();
@@ -244,7 +248,7 @@ class Oeuvres implements FixtureInterface
                   -> addActeur($ActeurViggoMortensen)
                   -> addActeur($ActeurIanMcKellen)
                   -> addActeur($ActeurOrlandoBloom)
-                  -> setOeuvreCine($OeuvreCinéLOTR);
+                  -> setOeuvreCine($OeuvreCineLOTR);
         $manager->persist($FilmLOTR2);
         
         $FilmLOTR3 = new Film();
@@ -256,7 +260,7 @@ class Oeuvres implements FixtureInterface
                   -> addActeur($ActeurViggoMortensen)
                   -> addActeur($ActeurIanMcKellen)
                   -> addActeur($ActeurOrlandoBloom)
-                  -> setOeuvreCine($OeuvreCinéLOTR);
+                  -> setOeuvreCine($OeuvreCineLOTR);
         $manager->persist($FilmLOTR3);
         
         $ProduitDerLOTR = new ProduitDer();
@@ -267,7 +271,7 @@ class Oeuvres implements FixtureInterface
         $ImageLOTR = new Image();
         $ImageLOTR -> setUrl("http://gardoum.com/wp-content/uploads/2015/10/92359592_o.jpg")
                     -> setOeuvreLitt($oeuvreLittLOTR)
-                    -> setOeuvreCine($OeuvreCinéLOTR)
+                    -> setOeuvreCine($OeuvreCineLOTR)
                     -> setProduit($ProduitDerLOTR);
         $manager->persist($ImageLOTR);
         
