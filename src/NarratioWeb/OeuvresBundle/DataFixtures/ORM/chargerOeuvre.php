@@ -90,10 +90,6 @@ class Oeuvres implements FixtureInterface
         $oeuvreLittNEC = new OeuvreLitt();
         $manager->persist($oeuvreLittNEC);
         
-        $LivreNEC = new Livre();
-        $LivreNEC -> setTitre("Nos étoiles contraires");
-        $manager->persist($LivreNEC);
-        
         $EditeurNEC = new Editeur();
         $EditeurNEC -> setNom("Nathan");
         $manager->persist($EditeurNEC);
@@ -103,13 +99,15 @@ class Oeuvres implements FixtureInterface
                     -> setPrenom("John");
         $manager->persist($AuteurNEC);
         
+        $LivreNEC = new Livre();
+        $LivreNEC   -> setTitre("Nos étoiles contraires")
+                    -> addAuteur($AuteurNEC)
+                    -> setEditeur($EditeurNEC)
+                    -> setOeuvreLitt($oeuvreLittNEC);
+        $manager->persist($LivreNEC);
+        
         $OeuvreCinéNEC = new OeuvreCine();
         $manager->persist($OeuvreCiné);
-        
-        $FilmNEC = new Film();
-        $FilmNEC -> setTitre("Nos étoiles contraires")
-                  -> setDuree(133);
-        $manager->persist($FilmNEC);
         
         $ActeurNEC1 = new Acteur();
         $ActeurNEC1 -> setNom("Woodley")
@@ -131,12 +129,38 @@ class Oeuvres implements FixtureInterface
                          -> setPrenom("Josh");
         $manager->persist($RéalisateurNEC);
         
-        $TypeNEC = new Type();
-        $TypeNEC -> setIntitule();
-        $manager->persist($TypeNEC);
+        $FilmNEC = new Film();
+        $FilmNEC -> setTitre("Nos étoiles contraires")
+                 -> setDuree(133)
+                 -> setType($TypeNEC)
+                 -> setRealisateur($RéalisateurNEC)
+                 -> addActeur($ActeurNEC1)
+                 -> addActeur($ActeurNEC2)
+                 -> addActeur($ActeurNEC3)
+                 -> setOeuvreCine($OeuvreCinéTEST);
+        $manager->persist($FilmNEC);
+        
+        $ProduitDerNEC = new ProduitDer();
+        $ProduitDerNEC -> setDescription("Accessoires et vêtements avec le titre du livre ou la phrase «ok? ok.» BSO Histoire de Esther Earl, jeune fille qui a inspiré John Green a écrire l'histoire: This Star Won't Go Out: The Life and Words of Esther Grace Earl")
+                        -> setOeuvre($oeuvreNEC);
+        $manager->persist($ProduitDerNEC);
         
         $ImageNEC = new Image();
-        $ImageNEC -> setUrl();
+        $ImageNEC -> setUrl("http://fr.web.img6.acsta.net/pictures/14/06/18/17/18/218720.jpg")
+                -> setOeuvre($oeuvreNEC)
+                -> setProduit($ProduitDerNEC);
+        $manager->persist($ImageNEC);
+                
+        $ImageNEC = new Image();
+        $ImageNEC -> setUrl("http://fr.web.img6.acsta.net/pictures/14/06/18/17/18/218720.jpg")
+                -> setOeuvre($oeuvreNEC)
+                -> setOeuvreLitt($oeuvreLittNEC);
+        $manager->persist($ImageNEC);
+        
+        $ImageNEC = new Image();
+        $ImageNEC -> setUrl("http://fr.web.img6.acsta.net/pictures/14/06/18/17/18/218720.jpg")
+                -> setOeuvre($oeuvreNEC)
+                -> setOeuvreLitt($oeuvreLittNEC);
         $manager->persist($ImageNEC);
         
         /* ******************************************************* */
@@ -145,56 +169,117 @@ class Oeuvres implements FixtureInterface
         
         $oeuvreLOTR = new Oeuvre();
         $oeuvreLOTR -> setNom("Le Seigneur des Anneaux")
-                    -> setResume("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...");
+                    -> setResume("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...")
+                    -> setEpoque($epoque5060)
+                    -> setGenre($genreFantastique)
+                    -> setThematique($themeQuete)
+                    -> setTrancheAge($trancheAdulte);
         $manager->persist($oeuvreLOTR);
         
         $oeuvreLittLOTR = new OeuvreLitt();
         $manager->persist($oeuvreLittLOTR);
         
+        $EditeurLOTR = new Editeur();
+        $EditeurLOTR -> setNom("Allen & Unwin");
+        $manager->persist($EditeurLOTR);
+                    
+        $AuteurLOTR = new Auteur();
+        $AuteurLOTR -> setNom("Tolkien")
+                    -> setPrenom("J.R.R.");
+        $manager->persist($AuteurLOTR);
+        
         $LivreLOTR1 = new Livre();
         $LivreLOTR1 -> setTitre("La Fraternité de l'Anneau")
+                    -> addAuteur($AuteurLOTR)
+                    -> setEditeur($EditeurLOTR)
                     -> setOeuvreLitt($oeuvreLittLOTR);
         $manager->persist($LivreLOTR1);
         
         $LivreLOTR2 = new Livre();
         $LivreLOTR2 -> setTitre("Les Deux Tours")
+                    -> addAuteur($AuteurLOTR)
+                    -> setEditeur($EditeurLOTR)
                     -> setOeuvreLitt($oeuvreLittLOTR);
         $manager->persist($LivreLOTR1);
-        
-        $EditeurLOTR = new Editeur();
-        $EditeurLOTR -> setNom();
-        $manager->persist($EditeurLOTR);
-                    
-        $AuteurLOTR = new Auteur();
-        $AuteurLOTR -> setNom()
-                    -> setPrenom();
-        $manager->persist($AuteurLOTR);
         
         $OeuvreCinéLOTR = new OeuvreCine();
         $manager->persist($OeuvreCiné);
         
-        $FilmLOTR = new Film();
-        $FilmLOTR -> setTitre()
-                  -> setDuree()
+        $ActeurElijahWood = new Acteur();
+        $ActeurElijahWood -> setNom("Wood")
+                        -> setPrenom("Elijah");
+        $manager->persist($ActeurElijahWood);
+        
+        $ActeurViggoMortensen = new Acteur();
+        $ActeurViggoMortensen -> setNom("Mortensen")
+                        -> setPrenom("Viggo");
+        $manager->persist($ActeurViggoMortensen);
+        
+        $ActeurIanMcKellen = new Acteur();
+        $ActeurIanMcKellen -> setNom("McKellen")
+                        -> setPrenom("Ian");
+        $manager->persist($ActeurIanMcKellen);
+        
+        $ActeurOrlandoBloom = new Acteur();
+        $ActeurOrlandoBloom -> setNom("Bloom")
+                        -> setPrenom("Orlando");
+        $manager->persist($ActeurOrlandoBloom);
+        
+        $RéalisateurPeterJackson = new Realisateur();
+        $RéalisateurPeterJackson -> setNom("Jackson")
+                                -> setPrenom("Peter");
+        $manager->persist($RéalisateurPeterJackson);
+        
+        $TypeLongMetrage = new Type();
+        $TypeLongMetrage -> setIntitule("Lont Métrage");
+        $manager->persist($TypeLongMetrage);
+        
+        $FilmLOTR1 = new Film();
+        $FilmLOTR1 -> setTitre("La Communauté de l'Anneau")
+                  -> setDuree("165")
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurPeterJackson)
+                  -> addActeur($ActeurElijahWood)
+                  -> addActeur($ActeurViggoMortensen)
+                  -> addActeur($ActeurIanMcKellen)
+                  -> addActeur($ActeurOrlandoBloom)
                   -> setOeuvreCine($OeuvreCinéLOTR);
-        $manager->persist($FilmLOTR);
+        $manager->persist($FilmLOTR1);
         
-        $ActeurLOTR = new Acteur();
-        $ActeurLOTR -> setNom()
-                    -> setPrenom();
-        $manager->persist($ActeurLOTR);
+        $FilmLOTR2 = new Film();
+        $FilmLOTR2 -> setTitre("Les Deux Tours")
+                  -> setDuree("178")
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurPeterJackson)
+                  -> addActeur($ActeurElijahWood)
+                  -> addActeur($ActeurViggoMortensen)
+                  -> addActeur($ActeurIanMcKellen)
+                  -> addActeur($ActeurOrlandoBloom)
+                  -> setOeuvreCine($OeuvreCinéLOTR);
+        $manager->persist($FilmLOTR2);
         
-        $RéalisateurLOTR = new Realisateur();
-        $RéalisateurLOTR -> setNom()
-                         -> setPrenom();
-        $manager->persist($RéalisateurLOTR);
+        $FilmLOTR3 = new Film();
+        $FilmLOTR3 -> setTitre("Le Retour du Roi")
+                  -> setDuree("200")
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurPeterJackson)
+                  -> addActeur($ActeurElijahWood)
+                  -> addActeur($ActeurViggoMortensen)
+                  -> addActeur($ActeurIanMcKellen)
+                  -> addActeur($ActeurOrlandoBloom)
+                  -> setOeuvreCine($OeuvreCinéLOTR);
+        $manager->persist($FilmLOTR3);
         
-        $TypeLOTR = new Type();
-        $TypeLOTR -> setIntitule();
-        $manager->persist($TypeLOTR);
+        $ProduitDerLOTR = new ProduitDer();
+        $ProduitDerLOTR -> setDescription("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).")
+                        -> setOeuvre($oeuvreLOTR);
+        $manager->persist($ProduitDerLOTR);
         
         $ImageLOTR = new Image();
-        $ImageLOTR -> setUrl();
+        $ImageLOTR -> setUrl("http://gardoum.com/wp-content/uploads/2015/10/92359592_o.jpg")
+                    -> setOeuvreLitt($oeuvreLittLOTR)
+                    -> setOeuvreCine($OeuvreCinéLOTR)
+                    -> setProduit($ProduitDerLOTR);
         $manager->persist($ImageLOTR);
         
 

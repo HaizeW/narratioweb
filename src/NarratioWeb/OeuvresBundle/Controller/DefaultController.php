@@ -20,9 +20,7 @@ class DefaultController extends Controller
 {
     $tabChoix = array();
     
-    $createurFormulaire = $this->createFormBuilder($tabchoix);
-    
-    $createurFormulaire
+    $createurFormulaire = $this->createFormBuilder($tabChoix)
         ->add('TrancheAge','choice',
         array('label'=>'Tranche d Age',
                'choices'=>array('Adulte','Adolescent')))
@@ -31,13 +29,14 @@ class DefaultController extends Controller
                 'choices'=>array('Fantastique','Romance')))
         ->add('Genre','choice',
             array('label'=>'Epoque',
-            'choices'=>array('1950 - 1960','2010 - 2020')));
+            'choices'=>array('1950 - 1960','2010 - 2020')))
+        -> getForm();
     
-    $formChoix = $createurFormulaire -> getForm();
-    
-    $representationFormChoix = $formChoix -> createView();
-    
-    return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('FormChoix'=> $representationFormChoix));
+    return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('createurFormulaire'=> $createurFormulaire -> createView()));
 }
 
+
+
 }
+
+
