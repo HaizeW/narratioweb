@@ -62,6 +62,6 @@
         $ImageTEST = new Image();
         $ImageTEST -> setUrl()
                 -> setOeuvreLitt($oeuvreLittTEST)
-                -> setOeuvreCine($OeuvreCinéTEST)
+                -> setOeuvreCine($OeuvreCineTEST)
                 -> setProduit($ProduitDerTEST);
         $manager->persist($ImageTEST);

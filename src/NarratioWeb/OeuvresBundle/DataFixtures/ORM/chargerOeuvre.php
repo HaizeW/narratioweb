@@ -76,7 +76,7 @@ class Oeuvres implements FixtureInterface
         
 
         /* ******************************************************* */
-    /* Création du livre "Nos étoiles contraires" de John Green      */
+    /* Création de l'oeuvre "Nos étoiles contraires" de John Green      */
         /* ******************************************************* */
         
         $oeuvreNEC = new Oeuvre();
@@ -106,8 +106,8 @@ class Oeuvres implements FixtureInterface
                     -> setOeuvreLitt($oeuvreLittNEC);
         $manager->persist($LivreNEC);
         
-        $OeuvreCinéNEC = new OeuvreCine();
-        $manager->persist($OeuvreCiné);
+        $OeuvreCineNEC = new OeuvreCine();
+        $manager->persist($OeuvreCine);
         
         $ActeurNEC1 = new Acteur();
         $ActeurNEC1 -> setNom("Woodley")
@@ -137,7 +137,7 @@ class Oeuvres implements FixtureInterface
                  -> addActeur($ActeurNEC1)
                  -> addActeur($ActeurNEC2)
                  -> addActeur($ActeurNEC3)
-                 -> setOeuvreCine($OeuvreCinéTEST);
+                 -> setOeuvreCine($OeuvreCinéNEC);
         $manager->persist($FilmNEC);
         
         $ProduitDerNEC = new ProduitDer();
@@ -146,25 +146,14 @@ class Oeuvres implements FixtureInterface
         $manager->persist($ProduitDerNEC);
         
         $ImageNEC = new Image();
-        $ImageNEC -> setUrl("http://fr.web.img6.acsta.net/pictures/14/06/18/17/18/218720.jpg")
-                -> setOeuvre($oeuvreNEC)
-                -> setProduit($ProduitDerNEC);
-        $manager->persist($ImageNEC);
-                
-        $ImageNEC = new Image();
-        $ImageNEC -> setUrl("http://fr.web.img6.acsta.net/pictures/14/06/18/17/18/218720.jpg")
-                -> setOeuvre($oeuvreNEC)
-                -> setOeuvreLitt($oeuvreLittNEC);
-        $manager->persist($ImageNEC);
-        
-        $ImageNEC = new Image();
-        $ImageNEC -> setUrl("http://fr.web.img6.acsta.net/pictures/14/06/18/17/18/218720.jpg")
-                -> setOeuvre($oeuvreNEC)
-                -> setOeuvreLitt($oeuvreLittNEC);
+        $ImageNEC -> setUrl("http://www.photogeniques.fr/wp-content/uploads/2014/09/The-Fault-in-Our-Stars_tfios_Nos-etoiles-contraires_okay-okay.jpg")
+                    -> setOeuvreLitt($oeuvreLittNEC)
+                    -> setOeuvreCine($OeuvreCinéNEC)
+                    -> setProduit($ProduitDerNEC);
         $manager->persist($ImageNEC);
         
         /* ******************************************************* */
-    /* Création de l'oeuvre Le Seigneur des Anneaux de J.R.R. Tolkien     */
+    /* Création de l'oeuvre "Le Seigneur des Anneaux" de J.R.R. Tolkien     */
         /* ******************************************************* */
         
         $oeuvreLOTR = new Oeuvre();
@@ -287,7 +276,7 @@ class Oeuvres implements FixtureInterface
         /*                    Enregistrement en BD                 */
         /* ******************************************************* */
 
-        // On déclenche l'enregistrement de tous les livres et de leurs auteurs en BD
+        // On déclenche l'enregistrement de toutes les données en BD
         $manager->flush();
     }
 }

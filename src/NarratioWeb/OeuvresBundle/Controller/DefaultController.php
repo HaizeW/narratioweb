@@ -8,7 +8,24 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig');
+        
+        $tabChoix = array();
+    
+    $createurFormulaire = $this->createFormBuilder($tabChoix)
+        ->add('TrancheAge','choice',
+        array('label'=>'Tranche d Age',
+               'choices'=>array('Adulte','Adolescent')))
+        ->add('Genre','choice',
+            array('label'=>'Genre',
+                'choices'=>array('Fantastique','Romance')))
+        ->add('Epoque','choice',
+            array('label'=>'Epoque',
+            'choices'=>array('1950 - 1960','2010 - 2020')))
+        -> getForm();
+        
+        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('createurFormulaire'=>$createurFormulaire->createView()));
+        
+
     }
 
     public function voirFicheAction($id)
@@ -27,12 +44,12 @@ class DefaultController extends Controller
         ->add('Genre','choice',
             array('label'=>'Genre',
                 'choices'=>array('Fantastique','Romance')))
-        ->add('Genre','choice',
+        ->add('Epoque','choice',
             array('label'=>'Epoque',
             'choices'=>array('1950 - 1960','2010 - 2020')))
         -> getForm();
     
-    return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('createurFormulaire'=> $createurFormulaire -> createView()));
+    return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('createurFormulaire'=>$createurFormulaire->createView()));
 }
 
 

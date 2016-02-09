@@ -1,6 +1,7 @@
+{% extends 'vueMere.html.twig' %}
 
 
-<body>
+{% block body %}
     
 <div class="col-sm-3">
     {% include "NarratioWebOeuvresBundle:Default:menuLateral.html.twig" %}
@@ -8,11 +9,12 @@
 
 <div class="col-sm-9">
     <div class="panel-heading"> <h3> selection des criteres</h3> </div>
-        <form method = "post" {{ form_enctype(formChoix) }}>
-            {{form_widget(formChoix)}}
+        <form method = "post" {{ form_enctype(createurFormulaire)}}>
+            {{form_widget(createurFormulaire)}}
+            {{form_start(createurFormulaire,{'attr' : { 'class': 'form-horizontal'}})}}
             <center><input type="submit" class="btn btn-primary"/></center>
             <br>
         </form>
 </div>
 
-</body>
+{% endblock %}
