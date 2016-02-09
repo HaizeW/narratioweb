@@ -107,7 +107,7 @@ class Oeuvres implements FixtureInterface
         $manager->persist($LivreNEC);
         
         $OeuvreCineNEC = new OeuvreCine();
-        $manager->persist($OeuvreCine);
+        $manager->persist($OeuvreCineNEC);
         
         $ActeurNEC1 = new Acteur();
         $ActeurNEC1 -> setNom("Woodley")
