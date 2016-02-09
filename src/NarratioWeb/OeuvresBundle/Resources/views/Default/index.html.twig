@@ -6,6 +6,13 @@
 <div class="col-sm-3">
     {% include "NarratioWebOeuvresBundle:Default:menuLateral.html.twig" %}
 </div>
+<div class="col-sm-9">
+    <div class="panel-heading"> <h3> selection des criteres</h3></div>
+        <form method="post" {{ form_enctype(FormChoix)}}>
+            {{form_widget(FormChoix)}}
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+</div>
 
 {% endblock %}
 

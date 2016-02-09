@@ -174,4 +174,27 @@ class Film
     {
         return $this->acteurs;
     }
+
+    /**
+     * Set oeuvreCine
+     *
+     * @param \NarratioWeb\OeuvresBundle\Entity\OeuvreCine $oeuvreCine
+     * @return Film
+     */
+    public function setOeuvreCine(\NarratioWeb\OeuvresBundle\Entity\OeuvreCine $oeuvreCine = null)
+    {
+        $this->oeuvreCine = $oeuvreCine;
+
+        return $this;
+    }
+
+    /**
+     * Get oeuvreCine
+     *
+     * @return \NarratioWeb\OeuvresBundle\Entity\OeuvreCine 
+     */
+    public function getOeuvreCine()
+    {
+        return $this->oeuvreCine;
+    }
 }

@@ -25,7 +25,7 @@ class ProduitDer
     private $description;
     
     /**
-     * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
+     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
      */
     private $oeuvre;
     /**
@@ -64,26 +64,7 @@ class ProduitDer
     {
         $this->oeuvre = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    /**
-     * Add oeuvre
-     *
-     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre
-     * @return ProduitDer
-     */
-    public function addOeuvre(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre)
-    {
-        $this->oeuvre[] = $oeuvre;
-        return $this;
-    }
-    /**
-     * Remove oeuvre
-     *
-     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre
-     */
-    public function removeOeuvre(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre)
-    {
-        $this->oeuvre->removeElement($oeuvre);
-    }
+
     /**
      * Get oeuvre
      *
@@ -92,5 +73,18 @@ class ProduitDer
     public function getOeuvre()
     {
         return $this->oeuvre;
+    }
+
+    /**
+     * Set oeuvre
+     *
+     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre
+     * @return ProduitDer
+     */
+    public function setOeuvre(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre = null)
+    {
+        $this->oeuvre = $oeuvre;
+
+        return $this;
     }
 }
