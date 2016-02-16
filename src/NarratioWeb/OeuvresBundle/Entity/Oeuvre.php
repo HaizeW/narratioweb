@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="NarratioWeb\OeuvresBundle\Entity\OeuvreRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"oeuvre" = "Oeuvre", "oeuvrelitt" = "OeuvreLitt", "oeuvrecine" = "OeuvreCine"})
+ * @ORM\DiscriminatorMap({"oeuvre" = "Oeuvre", "oeuvrelitt" = "OeuvreLitt", "oeuvrecine" = "OeuvreCine", "produitder" = "ProduitDer"})
  * 
  */
 class Oeuvre

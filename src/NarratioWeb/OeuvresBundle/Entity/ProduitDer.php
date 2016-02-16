@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NarratioWeb\OeuvresBundle\Entity\ProduitDerRepository")
  */
-class ProduitDer
+class ProduitDer extends Oeuvre
 {
     /**
      * @var integer
@@ -23,11 +23,8 @@ class ProduitDer
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
-     */
-    private $oeuvre;
+
+
     /**
      * Get id
      *
@@ -56,35 +53,5 @@ class ProduitDer
     public function getDescription()
     {
         return $this->description;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->oeuvre = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get oeuvre
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getOeuvre()
-    {
-        return $this->oeuvre;
-    }
-
-    /**
-     * Set oeuvre
-     *
-     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre
-     * @return ProduitDer
-     */
-    public function setOeuvre(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre = null)
-    {
-        $this->oeuvre = $oeuvre;
-
-        return $this;
     }
 }
