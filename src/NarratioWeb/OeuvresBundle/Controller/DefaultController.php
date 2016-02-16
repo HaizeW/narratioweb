@@ -23,7 +23,13 @@ class DefaultController extends Controller
             'choices'=>array('1950 - 1960','2010 - 2020')))
         -> getForm();
         
-        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('createurFormulaire'=>$createurFormulaire->createView()));
+    $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
+    $tabLivres = $repositoryLivres->findAll();
+    
+    $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
+    $tabFilms = $repositoryFilms->findAll();
+        
+        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$createurFormulaire->createView(), 'tabFilms'=>$tabFilms, 'tabLivres'=>$tabLivres));
         
 
     }

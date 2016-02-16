@@ -1,21 +1,26 @@
 <div class="well">
-     <h3> Menu </h3><br/>
+    <h3> Menu </h3><br/>
 	<div class="inner-addon left-addon">
-    <i class="glyphicon glyphicon-zoom-in"></i>
+    	<i class="glyphicon glyphicon-zoom-in"></i>
     <input type="text" class="form-control" placeholder="Rechercher"/>
     </div>
 	<h4>Films<br/></h4>
 	liste nouveautes<br/>
-	$em = $this->getDoctrine()->getEntityManager();
-	$query = $em->createQuery(
-	'SELECT nom FROM Oeuvre:Courses c ORDER BY id DESC LIMIT 4'
-	);
-	$course = $query->setMaxResults(4)->getResult();
+		{% for filmCourant in tabFilms %}
+		<a href="/film/{{filmCourant.id}}" class="list-group-item"> {{filmCourant.titre}} </a>
+		{%else%}
+		aucune nouveauté
+		{%endfor%}
+
 	liste plus vus<br/>
 	
 	<h4>Livres<br/></h4>
 	liste nouveautes<br/>
-	
+	{% for livreCourant in tabLivres %}
+		<a href="/livre/{{livreCourant.id}}" class="list-group-item"> {{livreCourant.titre}} </a>
+		{%else%}
+		aucune nouveauté
+		{%endfor%}
 	liste plus lus<br/>
 	
 </div>

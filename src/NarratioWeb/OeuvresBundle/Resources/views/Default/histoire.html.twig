@@ -3,15 +3,16 @@
 
 {% block body %}
 
-
 <ul>
     {% for item in menu %}
-            {% if app.request.requesturi == path(item.route) %}
+    
+                {% if app.request.requesturi == path(item.route) %}
+            
                 <li class="bg-colored">
             {% else %}
                 <li>
             {% endif %}
-            
+      
                 <a href="{{ path(item.route) }}"><i class="icon-{{ item.icon }}"></i> {{ item.libelle }}</a>
                 </li>
 
