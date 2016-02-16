@@ -6,7 +6,11 @@
     </div>
 	<h4>Films<br/></h4>
 	liste nouveautes<br/>
-
+	$em = $this->getDoctrine()->getEntityManager();
+	$query = $em->createQuery(
+	'SELECT nom FROM Oeuvre:Courses c ORDER BY id DESC LIMIT 4'
+	);
+	$course = $query->setMaxResults(4)->getResult();
 	liste plus vus<br/>
 	
 	<h4>Livres<br/></h4>

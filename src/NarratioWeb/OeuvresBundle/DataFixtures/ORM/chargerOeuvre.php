@@ -194,7 +194,7 @@ class Oeuvres implements FixtureInterface
                      -> addAuteur($AuteurLOTR)
                      -> setEditeur($EditeurLOTR)
                      -> setOeuvreLitt($oeuvreLittLOTR);
-        $manager->persist($LivreLOTR1);
+        $manager->persist($LivreLOTR2);
 		 
 		$LivreLOTR3 = new Livre();
         $LivreLOTR3 -> setTitre("Les Retour du Roi")
