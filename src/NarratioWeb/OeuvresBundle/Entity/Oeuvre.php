@@ -2,10 +2,13 @@
 namespace NarratioWeb\OeuvresBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
- * Oeuvre
- *
+ * 
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NarratioWeb\OeuvresBundle\Entity\OeuvreRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"oeuvre" = "Oeuvre", "oeuvrelitt" = "OeuvreLitt", "oeuvrecine" = "OeuvreCine"})
+ * 
  */
 class Oeuvre
 {
