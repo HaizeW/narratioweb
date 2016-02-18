@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class EpoqueRepository extends EntityRepository
 {
+    
+    public function Intitule($limit)
+    {
+    return $this->_em->createQuery('
+        SELECT
+            intitule
+        FROM
+            NarratioWebOeuvresBundle:Epoque;
+    ')
+    ->setMaxResults($limit)
+    ->setParameter('enabled', true);
+    }
 }

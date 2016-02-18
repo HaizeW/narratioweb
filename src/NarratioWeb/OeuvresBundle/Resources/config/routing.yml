@@ -3,29 +3,29 @@ narratio_web_oeuvres_homepage:
     defaults: { _controller: NarratioWebOeuvresBundle:Default:index }
     
         
-narration_web_oeuvres_rechercheAvancee:
+narratio_web_oeuvres_rechercheAvancee:
     path:     /rechercheAvancee
     defaults: { _controller: NarratioWebOeuvresBundle:Default:rechercheAvancee }
     
-narration_web_oeuvres_histoire:
+narratio_web_oeuvres_histoire:
     path:     /histoire/{id}
     defaults: { _controller: NarratioWebOeuvresBundle:Default:histoire}
     requirements : 
         id: \d+
         
-narration_web_oeuvres_livres:
+narratio_web_oeuvres_livres:
     path:     /livres/{id}
     defaults: { _controller: NarratioWebOeuvresBundle:Default:livres}
     requirements : 
         id: \d+
         
-narration_web_oeuvres_films:
+narratio_web_oeuvres_films:
     path:     /films/{id}
     defaults: { _controller: NarratioWebOeuvresBundle:Default:films}
     requirements : 
         id: \d+
         
-narration_web_oeuvres_autres:
+narratio_web_oeuvres_autres:
     path:     /autres/{id}
     defaults: { _controller: NarratioWebOeuvresBundle:Default:autres}
     requirements : 
