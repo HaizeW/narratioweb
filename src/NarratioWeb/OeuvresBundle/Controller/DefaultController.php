@@ -38,18 +38,16 @@ class DefaultController extends Controller
     }
 
 
-
     public function rechercheAvanceeAction()
-{
+    {
     
         return $this->render('NarratioWebOeuvresBundle:Default:rechercheAvancee.html.twig');
     
-}
-
+    }
 
 
     public function histoireAction($id)
-{
+    {
     
     $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
     $tabOeuvres= $repositoryOeuvres->find($id);
@@ -64,12 +62,11 @@ class DefaultController extends Controller
     
     return $this->render('NarratioWebOeuvresBundle:Default:histoire.html.twig', array('id'=> $id, 'menu' => $menu, 'tabOeuvres' => $tabOeuvres));
     
-}
-
+    }
 
 
     public function livresAction($id)
-{
+    {
     
     $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
     $tabLivres = $repositoryLivres->find($id);
@@ -77,11 +74,11 @@ class DefaultController extends Controller
     
     return $this->render('NarratioWebOeuvresBundle:Default:livres.html.twig', array('tabLivres' => $tabLivres));
     
-}
+    }
 
 
     public function filmsAction($id)
-{
+    {
     
     $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
     $tabFilms = $repositoryFilms->find($id);
@@ -89,11 +86,11 @@ class DefaultController extends Controller
     
     return $this->render('NarratioWebOeuvresBundle:Default:films.html.twig', array('tabFilms' => $tabFilms));
     
-}
+    }
 
 
     public function autresAction($id)
-{
+    {
     
     $repositoryAutres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:ProduitDer');
     $tabAutres = $repositoryAutres->find($id);
@@ -101,8 +98,6 @@ class DefaultController extends Controller
     
     return $this->render('NarratioWebOeuvresBundle:Default:autres.html.twig', array('tabAutres' => $tabAutres));
     
-}
+    }
 
 }
-
-
