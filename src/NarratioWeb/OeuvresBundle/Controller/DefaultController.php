@@ -12,13 +12,13 @@ class DefaultController extends Controller
         $repositoryEpoque = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Epoque');
         $tabEpoque = $repositoryEpoque->intituleEpoque();
         
-        
         $repositoryTrancheAge = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:TrancheAge');
         $tabTrancheAge = $repositoryTrancheAge->intituleTrancheAge();
         
         $repositoryGenre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Genre');
         $tabGenre = $repositoryGenre->intituleGenre();
-        
+ 
+        // Tableau dans lequel les données du formulaire seront recueillies       
         $tabChoix = array();
         
         $createurFormulaire = $this->createFormBuilder($tabChoix)
@@ -37,66 +37,49 @@ class DefaultController extends Controller
 
     }
 
-
+    
     public function rechercheAvanceeAction()
     {
-    
-        return $this->render('NarratioWebOeuvresBundle:Default:rechercheAvancee.html.twig');
+        
+        $repositoryEpoque = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Epoque');
+        $tabEpoque = $repositoryEpoque->intituleEpoque();
+        
+        $repositoryTrancheAge = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:TrancheAge');
+        $tabTrancheAge = $repositoryTrancheAge->intituleTrancheAge();
+        
+        $repositoryGenre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Genre');
+        $tabGenre = $repositoryGenre->intituleGenre();
+        
+        // Tableau dans lequel les données du formulaire seront recueillies
+        $tabRechercheAvancee = array();
+        
+        // Créateur formulaire
+        $createurFormulaires = $this->createFormBuilder($tabRechercheAvancee)
+            ->add('TrancheAge','choice', array('label'=>'Tranche d Age', 'choices'=>$tabTrancheAge))
+            ->add('Genre','choice', array('label'=>'Genre', 'choices'=>$tabGenre))
+            ->add('Epoque','choice', array('label'=>'Epoque', 'choices'=>$tabEpoque))
+            
+            
+            
+            -> getForm();    
+        
+        
+        
+        // Constructeur de formulaires
+        $createurFormulaires = 
+        
+        return $this->render('NarratioWebOeuvresBundle:Default:rechercheAvancee.html.twig', array('form'=>$createurFormulaire->createView()));
     
     }
 
 
-    public function histoireAction($id)
+    public function oeuvreAction($id)
     {
     
     $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
     $tabOeuvres= $repositoryOeuvres->find($id);
     
-    $menu = array(
-    array('route' => 'narratio_web_oeuvres_histoire_', 'icon' => 'home', 'libelle' => 'Histoire'),
-    array('route' => 'narratio_web_oeuvres_livres', 'icon' => 'envelope', 'libelle' => 'Livres'),
-    array('route' => 'narratio_web_oeuvres_films', 'icon' => 'eye-open', 'libelle' => 'Films'),
-    array('route' => 'narratio_web_oeuvres_autres', 'icon' => 'eject', 'libelle' => 'Autres')
-    );
-    
-    
-    return $this->render('NarratioWebOeuvresBundle:Default:histoire.html.twig', array('id'=> $id, 'menu' => $menu, 'tabOeuvres' => $tabOeuvres));
-    
-    }
-
-
-    public function livresAction($id)
-    {
-    
-    $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-    $tabLivres = $repositoryLivres->find($id);
-    
-    
-    return $this->render('NarratioWebOeuvresBundle:Default:livres.html.twig', array('tabLivres' => $tabLivres));
-    
-    }
-
-
-    public function filmsAction($id)
-    {
-    
-    $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
-    $tabFilms = $repositoryFilms->find($id);
-    
-    
-    return $this->render('NarratioWebOeuvresBundle:Default:films.html.twig', array('tabFilms' => $tabFilms));
-    
-    }
-
-
-    public function autresAction($id)
-    {
-    
-    $repositoryAutres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:ProduitDer');
-    $tabAutres = $repositoryAutres->find($id);
-    
-    
-    return $this->render('NarratioWebOeuvresBundle:Default:autres.html.twig', array('tabAutres' => $tabAutres));
+    return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('id'=> $id, 'menu' => $menu, 'tabOeuvres' => $tabOeuvres));
     
     }
 

@@ -7,26 +7,8 @@ narratio_web_oeuvres_rechercheAvancee:
     path:     /rechercheAvancee
     defaults: { _controller: NarratioWebOeuvresBundle:Default:rechercheAvancee }
     
-narratio_web_oeuvres_histoire:
-    path:     /histoire/{id}
-    defaults: { _controller: NarratioWebOeuvresBundle:Default:histoire}
-    requirements : 
-        id: \d+
-        
-narratio_web_oeuvres_livres:
-    path:     /livres/{id}
-    defaults: { _controller: NarratioWebOeuvresBundle:Default:livres}
-    requirements : 
-        id: \d+
-        
-narratio_web_oeuvres_films:
-    path:     /films/{id}
-    defaults: { _controller: NarratioWebOeuvresBundle:Default:films}
-    requirements : 
-        id: \d+
-        
-narratio_web_oeuvres_autres:
-    path:     /autres/{id}
-    defaults: { _controller: NarratioWebOeuvresBundle:Default:autres}
+narratio_web_oeuvres_oeuvre:
+    path:     /oeuvre/{id}
+    defaults: { _controller: NarratioWebOeuvresBundle:Default:oeuvre}
     requirements : 
         id: \d+

@@ -1,25 +1,27 @@
 <div class="well">
-    <h3> Menu </h3><br/>
+    <h2 align="center"> Menu </h2><br/>
 	<div class="inner-addon left-addon">
-    	<i class="glyphicon glyphicon-zoom-in"></i>
+    	<i class="glyphicon glyphicon-zoom-in" align="center"></i>
     <input type="text" class="form-control" placeholder="Rechercher"/>
     </div>
+    
 	<h4 align="center">Films<br/></h4>
 	<h5>Liste des nouveautés</h5>
+	
 		{% for filmCourant in tabFilms %}
 		<a href="/film/{{filmCourant.id}}" class="list-group-item"> {{filmCourant.titre}} </a>
 		{%else%}
-		aucune nouveauté
+		Aucune nouveauté
 		{%endfor%}
-
 	liste plus vus<br/>
 	
 	<h4 align="center">Livres<br/></h4>
 	<h5>Liste des nouveautés</h5>
-	{% for livreCourant in tabLivres %}
+	
+		{% for livreCourant in tabLivres %}
 		<a href="/livre/{{livreCourant.id}}" class="list-group-item"> {{livreCourant.titre}} </a>
 		{%else%}
-		aucune nouveauté
+		Aucune nouveauté
 		{%endfor%}
 	liste plus lus<br/>
 	

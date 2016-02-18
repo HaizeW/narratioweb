@@ -8,14 +8,14 @@
 </div>
 
 <div class="col-sm-9">
-    <div class="panel-heading"> <h3> selection des criteres</h3> </div>
+    <div class="panel-heading" align="center"> <h2> Sélection des critères</h2></div>
         <form method = "post" {{ form_enctype(form)}}>
             
             {#form_widget(createurFormulaire)#}
             <br>
             <br>
             <div class="col-sm-4">
-                <div style='float:left;'>Tranche d'Age : {{form_widget(form.TrancheAge)}}</div>
+                <div style='float:left;'><center>Tranche d'Age : </center>{{form_widget(form.TrancheAge)}}</div>
             </div>
             <div class="col-sm-4">
                 <div style='float:left;'><center>Epoque : </center>{{form_widget(form.Epoque)}}</div>
@@ -23,18 +23,28 @@
             <div class="col-sm-4">
                 <div style='float:left;'><center>Genre : </center>{{form_widget(form.Genre)}}</div>
             </div>
+            
             <br>
             <br>
             <br>
             <br>
+            
+            <div class="col-sm-2"></div>
+            
             <div class="col-sm-4">
-            <a href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee">
-                 
-                <div style='float:left;'><input type="button" class="btn btn-primary" value="Plus de caracteristiques" href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee"/></div>
-            </a>
+                
+                <a href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee">
+                     
+                    <div style='float:left;'><input type="button" class="btn btn-primary" value="Plus de caracteristiques" href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee"/>
+                    </div>
+                
+                </a>
             </div>
+            
             <div class="col-sm-4">
-            <div style='floatcenter;'><input type="submit" class="btn btn-primary" value="Random"/></div>
+                
+                <div style='floatcenter;'><input type="submit" class="btn btn-primary" value="Random"/>
+                </div>
             </div>
         </form>
 </div>

@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new NarratioWeb\OeuvresBundle\NarratioWebOeuvresBundle(),
             
-          //  new FOS\UserBundle\FOSUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new NarratioWeb\UserBundle\NarratioWebUserBundle(),
         );
 
