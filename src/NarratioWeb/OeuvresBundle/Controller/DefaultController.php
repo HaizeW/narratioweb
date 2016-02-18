@@ -10,30 +10,30 @@ class DefaultController extends Controller
     {
         
         $repositoryEpoque = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Epoque');
-        $tabEpoque = $repositoryEpoque->Intitule(5);
-
-        $tabChoix = array();
-    
-    $createurFormulaire = $this->createFormBuilder($tabChoix)
-        ->add('TrancheAge','choice',
-            array('label'=>'Tranche d Age',
-               'choices'=>array('Adulte','Adolescent')))
-        ->add('Genre','choice',
-            array('label'=>'Genre',
-                'choices'=>array('Fantastique','Romance')))
-        ->add('Epoque','choice',
-            array('label'=>'Epoque',
-            'choices'=>$tabEpoque))
-        -> getForm();
+        $tabEpoque = $repositoryEpoque->intituleEpoque();
         
-    $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-    $tabLivres = $repositoryLivres->findAll();
+        
+        $repositoryTrancheAge = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:TrancheAge');
+        $tabTrancheAge = $repositoryTrancheAge->intituleTrancheAge();
+        
+        $repositoryGenre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Genre');
+        $tabGenre = $repositoryGenre->intituleGenre();
+        
+        $tabChoix = array();
+        
+        $createurFormulaire = $this->createFormBuilder($tabChoix)
+            ->add('TrancheAge','choice', array('label'=>'Tranche d Age', 'choices'=>$tabTrancheAge))
+            ->add('Genre','choice', array('label'=>'Genre', 'choices'=>$tabGenre))
+            ->add('Epoque','choice', array('label'=>'Epoque', 'choices'=>$tabEpoque))
+            -> getForm();
+        
+        $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
+        $tabLivres = $repositoryLivres->findAll();
     
-    $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
-    $tabFilms = $repositoryFilms->findAll();
+        $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
+        $tabFilms = $repositoryFilms->findAll();
         
         return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$createurFormulaire->createView(), 'tabFilms'=>$tabFilms, 'tabLivres'=>$tabLivres));
-        
 
     }
 

@@ -4,8 +4,8 @@
     	<i class="glyphicon glyphicon-zoom-in"></i>
     <input type="text" class="form-control" placeholder="Rechercher"/>
     </div>
-	<h4>Films<br/></h4>
-	liste nouveautes<br/>
+	<h4 align="center">Films<br/></h4>
+	<h5>Liste des nouveautés</h5>
 		{% for filmCourant in tabFilms %}
 		<a href="/film/{{filmCourant.id}}" class="list-group-item"> {{filmCourant.titre}} </a>
 		{%else%}
@@ -14,8 +14,8 @@
 
 	liste plus vus<br/>
 	
-	<h4>Livres<br/></h4>
-	liste nouveautes<br/>
+	<h4 align="center">Livres<br/></h4>
+	<h5>Liste des nouveautés</h5>
 	{% for livreCourant in tabLivres %}
 		<a href="/livre/{{livreCourant.id}}" class="list-group-item"> {{livreCourant.titre}} </a>
 		{%else%}

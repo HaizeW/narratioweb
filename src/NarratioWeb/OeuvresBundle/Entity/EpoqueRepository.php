@@ -13,15 +13,19 @@ use Doctrine\ORM\EntityRepository;
 class EpoqueRepository extends EntityRepository
 {
     
-    public function Intitule($limit)
+    public function intituleEpoque()
     {
-    return $this->_em->createQuery('
-        SELECT
-            intitule
-        FROM
-            NarratioWebOeuvresBundle:Epoque;
-    ')
-    ->setMaxResults($limit)
-    ->setParameter('enabled', true);
+    
+        $gestionnaire = $this->_em;
+        
+        // Création requête
+        $requete = $gestionnaire->createQuery('SELECT e.intitule FROM NarratioWebOeuvresBundle:Epoque e');
+        
+        // Exécution requête
+        $tabEpoque = $requete->getResult();
+        
+        return $tabEpoque;
+        
+
     }
 }

@@ -12,4 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class TrancheAgeRepository extends EntityRepository
 {
+    
+        public function intituleTrancheAge()
+    {
+    
+        $gestionnaire = $this->_em;
+        
+        // Création requête
+        $requete = $gestionnaire->createQuery('SELECT DISTINCT t.intitule FROM NarratioWebOeuvresBundle:TrancheAge t');
+        
+        // Exécution requête
+        $tabTrancheAge = $requete->getResult();
+        
+        return $tabTrancheAge;
+        
+
+    }
+    
 }
