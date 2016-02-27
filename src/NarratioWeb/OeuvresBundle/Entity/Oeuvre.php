@@ -114,6 +114,26 @@ class Oeuvre
         return $this->resume;
     }
     /**
+     * Set compteurVues
+     *
+     * @param integer $compteurVues
+     * @return Oeuvre
+     */
+    public function setCompteurVues($compteurVues)
+    {
+        $this->duree = $compteurVues;
+        return $this;
+    }
+    /**
+     * Get compteurVues
+     *
+     * @return integer 
+     */
+    public function getCompteurVues()
+    {
+        return $this->compteurVues;
+    }
+    /**
      * Set epoque
      *
      * @param \NarratioWeb\OeuvresBundle\Entity\Epoque $epoque

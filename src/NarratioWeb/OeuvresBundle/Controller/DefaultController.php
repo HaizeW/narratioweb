@@ -138,6 +138,9 @@ class DefaultController extends Controller
         $oeuvreChoisie = $tabOeuvreChoix[0];
         //var_dump($tabOeuvreChoix);
         
+        //J'incrémente mon compteur de vues
+        $oeuvreChoisie->setCompteurVues($oeuvreChoisie->getCompeurVues()+1);
+        
         // je retourne la vue avec les oeuvres a mettre en forme
         return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('tabOeuvreChoix'=>$tabOeuvreChoix, 'oeuvreChoisie'=>$oeuvreChoisie));
         
