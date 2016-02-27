@@ -3,14 +3,19 @@
 
 {% block body %}
 
-<ul>
-    {% for item in menu %}
-                
-
-                    <a href="{{ path(item.route) }}"><i class="icon-{{ item.icon }}"></i> {{ item.libelle }}</a>
-                </li>
-
-    {% endfor %}
-</ul>
+        <br>
+        <br>
+        {{oeuvreChoisie.id}}
+        <br>
+        <br>
+        {{oeuvreChoisie.nom}}
+        <br>
+        <br>
+        {{oeuvreChoisie.resume}}
+        <br>
+        <br>
+        {{oeuvreChoisie.id}}
+        <br>
+        <br>
 
 {% endblock %}

@@ -12,4 +12,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class OeuvreCineRepository extends EntityRepository
 {
+    
+        public function getOeuvreCine($choixEpoque, $choixGenre, $choixTrancheAge)
+    {
+        
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o 
+                                                                        WHERE o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.trancheAge = :choixTrancheAge');
+        
+        // je definis mes parametres
+        $requetePerso->setParameter('choixEpoque', $choixEpoque);
+        $requetePerso->setParameter('choixGenre', $choixGenre);
+        $requetePerso->setParameter('choixTrancheAge', $choixTrancheAge);
+                        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+        
+    }
+    
 }

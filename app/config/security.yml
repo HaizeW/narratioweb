@@ -5,11 +5,11 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            pattern: ^/(profiler|wdt|error|css|images|js)/
             security: false
-
         default:
             anonymous: ~
+
 
 
 security:
@@ -28,8 +28,15 @@ security:
             pattern: .*
             form_login:
                 provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                check_path:     /login_check
+                failure_path:   /login
+                default_target_path: /accueil
+                always_use_default_target_path: true
+                provider: fos_userbundle
             logout:       true
             anonymous:    true
+
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

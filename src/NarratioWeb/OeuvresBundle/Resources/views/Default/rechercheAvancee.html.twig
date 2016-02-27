@@ -1,19 +1,78 @@
 {% extends "vueMere.html.twig" %}
 
-{# src/HurricaneScript/AnnonceBundle/Resources/views/Annonce/form.html.twig #}
 
-<div class="well research_form">
 
-<h3>Formulaire de recherche d'annonce</h3>
+{% block body %}
 
-<form method="post" {{ form_enctype(form) }}>
-
-{{ form_widget(form) }}
-
-<input type="submit" class="btn btn-primary" />
-
-</form>
-
+<!-- Ligne 1 -->
+<div class="row">
+    <div class="col-sm-12" align="center">
+        <div class="panel-heading" align="center"> <h2> Sélection des critères de recherche avancée</h2></div>
+    </div>
+</div>
+    
+        <form align="center" method = "post" {{ form_enctype(form)}}>
+            
+<!-- Ligne 2 -->    
+<div class="row">          
+            {#form_widget(createurFormulaire)#}
+            <br><br>
+            <div class="col-sm-4" align="center">
+                <div style='float:left;' align="center"></div><center><b>Tranche d'Age : </b>{{form_widget(form.TrancheAge)}}</center>
+            </div>
+            <div class="col-sm-4" align="center">
+                <div style='float:left;' align="center"></div><center><b>Epoque : </b>{{form_widget(form.Epoque)}}</center>
+            </div>
+            <div class="col-sm-4" align="center">
+                <div style='float:left;' align="center"></div><center><b>Genre : </b>{{form_widget(form.Genre)}}</center>
+            </div>
 </div>
 
+<!-- Ligne 3 --> 
+<div class="row">
+            <br><br><br>
+            <div class="col-sm-6" align="center">
+                <center>
+                    <div style='float:left;'></div><b>Thématique : </b>{{form_widget(form.Thematique)}}
+                </center>
+            </div>
+            
+            <div class="col-sm-6" align="center">
+                <center>
+                    <div style='float:left'></div><b>Type : </b>{{form_widget(form.Type)}}
+                </center>
+            </div>
+</div>
+            
 
+<!-- Ligne 4 --> 
+<div class="row">
+            <br><br><br>
+                <div class="col-sm-6">
+                    <center>
+                        <div style='float:left;'></div><b>Acteurs : </b>{{form_widget(form.Acteur)}}
+                    </center>
+                </div>
+            
+            
+            <div class="col-sm-6">
+                <center>
+                    <div style='float:left;'></div><b>Réalisateurs : </b>{{form_widget(form.Realisateur)}}
+                </center>
+            </div>
+</div>
+
+<br><br><br>
+<!-- Ligne 5 --> 
+<div class="row">
+    
+               <center> <input type="submit" class="btn btn-primary" value="Lancer la recherche"/> </center> 
+               <br>
+               <br>
+</div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

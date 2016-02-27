@@ -8,7 +8,9 @@ narratio_web_oeuvres_rechercheAvancee:
     defaults: { _controller: NarratioWebOeuvresBundle:Default:rechercheAvancee }
     
 narratio_web_oeuvres_oeuvre:
-    path:     /oeuvre/{id}
-    defaults: { _controller: NarratioWebOeuvresBundle:Default:oeuvre}
-    requirements : 
-        id: \d+
+    path:     /oeuvre/{choixGenre}/{choixEpoque}/{choixTrancheAge}
+    defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvre}
+    
+narratio_web_oeuvres_essai:
+    path:   /test
+    defaults:    { _controller: NarratioWebOeuvresBundle:Default:essai}

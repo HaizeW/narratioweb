@@ -9,3 +9,4 @@ narratio_web_oeuvres:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+

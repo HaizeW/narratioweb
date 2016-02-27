@@ -12,20 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class EpoqueRepository extends EntityRepository
 {
-    
-    public function intituleEpoque()
-    {
-    
-        $gestionnaire = $this->_em;
-        
-        // Création requête
-        $requete = $gestionnaire->createQuery('SELECT e.intitule FROM NarratioWebOeuvresBundle:Epoque e');
-        
-        // Exécution requête
-        $tabEpoque = $requete->getResult();
-        
-        return $tabEpoque;
-        
 
-    }
 }

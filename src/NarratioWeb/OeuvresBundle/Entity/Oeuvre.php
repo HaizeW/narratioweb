@@ -37,6 +37,13 @@ class Oeuvre
     private $resume;
     
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="compteurVues", type="integer")
+     */
+    private $compteurVues;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Epoque")
      */
     private $epoque;

@@ -13,20 +13,5 @@ use Doctrine\ORM\EntityRepository;
 class GenreRepository extends EntityRepository
 {
     
-    public function intituleGenre()
-    {
-    
-        $gestionnaire = $this->_em;
-        
-        // Création requête
-        $requete = $gestionnaire->createQuery('SELECT g.intitule FROM NarratioWebOeuvresBundle:Genre g');
-        
-        // Exécution requête
-        $tabGenre = $requete->getResult();
-        
-        return $tabGenre;
-        
 
-    }
-    
 }

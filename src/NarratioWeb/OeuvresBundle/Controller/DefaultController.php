@@ -4,36 +4,68 @@ namespace NarratioWeb\OeuvresBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use OC\PlatformBundle\Entity\Advert;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+use Oeuvre;
+
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $requeteUtilisateur)
     {
         
-        $repositoryEpoque = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Epoque');
-        $tabEpoque = $repositoryEpoque->intituleEpoque();
-        
-        $repositoryTrancheAge = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:TrancheAge');
-        $tabTrancheAge = $repositoryTrancheAge->intituleTrancheAge();
-        
-        $repositoryGenre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Genre');
-        $tabGenre = $repositoryGenre->intituleGenre();
- 
         // Tableau dans lequel les données du formulaire seront recueillies       
         $tabChoix = array();
         
-        $createurFormulaire = $this->createFormBuilder($tabChoix)
-            ->add('TrancheAge','choice', array('label'=>'Tranche d Age', 'choices'=>$tabTrancheAge))
-            ->add('Genre','choice', array('label'=>'Genre', 'choices'=>$tabGenre))
-            ->add('Epoque','choice', array('label'=>'Epoque', 'choices'=>$tabEpoque))
+        // creation du formulaire
+        $formulaireChoix = $this->createFormBuilder($tabChoix)
+            ->add('TrancheAge','entity', array('label'=>'Tranche d Age',
+                                                'class'=>'NarratioWebOeuvresBundle:TrancheAge',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))
+            ->add('Genre','entity', array('label'=>'Genre',
+                                                'class'=>'NarratioWebOeuvresBundle:Genre',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))
+            ->add('Epoque','entity', array('label'=>'Epoque',
+                                                'class'=>'NarratioWebOeuvresBundle:Epoque',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))
             -> getForm();
         
+        // enregistrement des données dans $tabChoix apres soumission
+        $formulaireChoix->handleRequest($requeteUtilisateur);
+        // si le form a été soumis
+        if ($formulaireChoix->isSubmitted())
+        {
+            // on recupere les données du form dans un tableau de 3 cases indicés par 'TrancheAge' 'Genre' et 'Epoque'
+            $tabChoixRes = $formulaireChoix -> getData();
+            
+            // je recup mes variables
+            $choixEpoque = $tabChoixRes['Epoque'] -> getIntitule();
+            $choixGenre = $tabChoixRes['Genre'] -> getIntitule();
+            $choixTrancheAge = $tabChoixRes['TrancheAge'] -> getIntitule();
+            // on traite les données du formulaire en generant l url relative
+            $url = $this->generateUrl('narratio_web_oeuvres_oeuvre',
+                                        array('choixGenre'=>$choixGenre,'choixEpoque'=>$choixEpoque,'choixTrancheAge'=>$choixTrancheAge), true);
+            return $this->redirect($url);
+            
+        }
+        
+        // recup des livres pour remplir le menu déroulant
         $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
         $tabLivres = $repositoryLivres->findAll();
-    
+            
+        // recup des films pour remplir le menu déroulant
         $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
         $tabFilms = $repositoryFilms->findAll();
         
-        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$createurFormulaire->createView(), 'tabFilms'=>$tabFilms, 'tabLivres'=>$tabLivres));
+        // ici, on affiche la page dont le formulaire permettant le choix d'une oeuvre via Random
+        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabFilms'=>$tabFilms, 'tabLivres'=>$tabLivres));
 
     }
 
@@ -41,46 +73,83 @@ class DefaultController extends Controller
     public function rechercheAvanceeAction()
     {
         
-        $repositoryEpoque = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Epoque');
-        $tabEpoque = $repositoryEpoque->intituleEpoque();
-        
-        $repositoryTrancheAge = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:TrancheAge');
-        $tabTrancheAge = $repositoryTrancheAge->intituleTrancheAge();
-        
-        $repositoryGenre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Genre');
-        $tabGenre = $repositoryGenre->intituleGenre();
-        
         // Tableau dans lequel les données du formulaire seront recueillies
-        $tabRechercheAvancee = array();
+        $tabRechercheAvanceeFilms = array();
         
         // Créateur formulaire
-        $createurFormulaires = $this->createFormBuilder($tabRechercheAvancee)
-            ->add('TrancheAge','choice', array('label'=>'Tranche d Age', 'choices'=>$tabTrancheAge))
-            ->add('Genre','choice', array('label'=>'Genre', 'choices'=>$tabGenre))
-            ->add('Epoque','choice', array('label'=>'Epoque', 'choices'=>$tabEpoque))
-            
-            
-            
-            -> getForm();    
+        $formulaireRechAvancee = $this->createFormBuilder($tabRechercheAvanceeFilms)
+            ->add('TrancheAge','entity', array('label'=>'Tranche d Age',
+                                                'class'=>'NarratioWebOeuvresBundle:TrancheAge',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))
+            ->add('Genre','entity', array('label'=>'Genre',
+                                                'class'=>'NarratioWebOeuvresBundle:Genre',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))
+            ->add('Epoque','entity', array('label'=>'Epoque',
+                                                'class'=>'NarratioWebOeuvresBundle:Epoque',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))
+            ->add('Acteur','entity', array('label'=>'Acteur',
+                                                'class'=>'NarratioWebOeuvresBundle:Acteur',
+                                                'property'=>'nom',
+                                                'property'=>'prenom',
+                                                'multiple' => false,
+                                                'expanded' => false))
+            ->add('Realisateur','entity', array('label'=>'Realisateur',
+                                                'class'=>'NarratioWebOeuvresBundle:Realisateur',
+                                                'property'=>'nom',
+                                                'property'=>'prenom',
+                                                'multiple' => false,
+                                                'expanded' => false))                                                                     
+            ->add('Thematique','entity', array('label'=>'Thematique',
+                                                'class'=>'NarratioWebOeuvresBundle:Thematique',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))                                                
+            ->add('Type','entity', array('label'=>'Type',
+                                                'class'=>'NarratioWebOeuvresBundle:Type',
+                                                'property'=>'intitule',
+                                                'multiple' => false,
+                                                'expanded' => false))                                                 
+            ->getForm();
         
         
-        
-        // Constructeur de formulaires
-        $createurFormulaires = 
-        
-        return $this->render('NarratioWebOeuvresBundle:Default:rechercheAvancee.html.twig', array('form'=>$createurFormulaire->createView()));
+        return $this->render('NarratioWebOeuvresBundle:Default:rechercheAvancee.html.twig', array('form'=>$formulaireRechAvancee->createView()));
     
     }
 
-
-    public function oeuvreAction($id)
+    
+    
+    
+    public function oeuvreAction($choixEpoque, $choixGenre, $choixTrancheAge)
     {
-    
-    $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-    $tabOeuvres= $repositoryOeuvres->find($id);
-    
-    return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('id'=> $id, 'menu' => $menu, 'tabOeuvres' => $tabOeuvres));
-    
+     ///* CECI EST FAIT APRES QUE LE FORM DE CHOIX A ETE SUBMIT
+        
+        // je charge mon repository de Oeuvre pour executer une requete sur la BD
+        $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
+        // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+        $tabOeuvreChoix = $repositoryOeuvre->getOeuvreChoix($choixEpoque, $choixGenre, $choixTrancheAge);
+        
+        // oeuvre répondant le mieux aux critères
+        $oeuvreChoisie = $tabOeuvreChoix[0];
+        //var_dump($tabOeuvreChoix);
+        
+        // je retourne la vue avec les oeuvres a mettre en forme
+        return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('tabOeuvreChoix'=>$tabOeuvreChoix, 'oeuvreChoisie'=>$oeuvreChoisie));
+        
+     //*/    
+     
+     
+     
+     
     }
 
+    public function essaiAction()
+    {
+        return $this->render('NarratioWebOeuvresBundle:Default:essai.html.twig');
+    }
 }
