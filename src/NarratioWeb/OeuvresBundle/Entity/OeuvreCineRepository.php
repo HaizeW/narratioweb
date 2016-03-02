@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class OeuvreCineRepository extends EntityRepository
 {
     
-        public function getOeuvreCine($choixEpoque, $choixGenre, $choixTrancheAge)
+        public function getOeuvreCine($choixEpoque, $choixGenre, $choixTrancheAge, $choixActeur, $choixRealisateur, $choixType, $choixThematique)
     {
         
         // appel du gestionnaire d'entité
@@ -23,13 +23,18 @@ class OeuvreCineRepository extends EntityRepository
         $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o 
                                                                         WHERE o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
-                                                                        AND o.trancheAge = :choixTrancheAge');
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        ');
         
         // je definis mes parametres
         $requetePerso->setParameter('choixEpoque', $choixEpoque);
         $requetePerso->setParameter('choixGenre', $choixGenre);
         $requetePerso->setParameter('choixTrancheAge', $choixTrancheAge);
-                        
+        $requetePerso->setParameter('choixActeur', $choixActeur);
+        $requetePerso->setParameter('choixRealisateur', $choixRealisateur);
+        $requetePerso->setParameter('choixType', $choixType);
+        $requetePerso->setParameter('choixThematique', $choixThematique);
+        
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
         
@@ -39,3 +44,19 @@ class OeuvreCineRepository extends EntityRepository
     }
     
 }
+
+/*
+
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o 
+                                                                        WHERE o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                                                                                                AND o.epoque = :choixEpoque
+                                                                        AND o.acteur = :choixActeur                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.realisateur = :choixRealisateur                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.type = :choixType                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        
+                                                                        ');
+                                                                        
+*/

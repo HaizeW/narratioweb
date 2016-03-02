@@ -121,7 +121,7 @@ class Oeuvre
      */
     public function setCompteurVues($compteurVues)
     {
-        $this->duree = $compteurVues;
+        $this->compteurVues = $compteurVues;
         return $this;
     }
     /**

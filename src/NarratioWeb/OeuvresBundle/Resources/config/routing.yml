@@ -9,8 +9,8 @@ narratio_web_oeuvres_rechercheAvancee:
     
 narratio_web_oeuvres_oeuvre:
     path:     /oeuvre/{choixGenre}/{choixEpoque}/{choixTrancheAge}
-    defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvre}
+    defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvre }
     
-narratio_web_oeuvres_essai:
-    path:   /test
-    defaults:    { _controller: NarratioWebOeuvresBundle:Default:essai}
+narratio_web_oeuvres_oeuvreAvanceeFilm:
+    path:     /oeuvre/{choixGenre}/{choixEpoque}/{choixTrancheAge}/{choixActeur}/{choixRealisateur}/{choixThematique}/{choixType}
+    defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvreAvanceeFilm }

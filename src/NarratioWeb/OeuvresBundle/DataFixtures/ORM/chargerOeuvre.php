@@ -84,7 +84,8 @@ class Oeuvres implements FixtureInterface
                     -> setEpoque($epoque1020)
                     -> setGenre($genreRomance)
                     -> setThematique($themeSens)
-                    -> setTrancheAge($trancheAdo);
+                    -> setTrancheAge($trancheAdo)
+                    -> setCompteurVues(0);
         $manager->persist($oeuvreLittNEC);
         
         $EditeurNEC = new Editeur();
@@ -109,7 +110,8 @@ class Oeuvres implements FixtureInterface
                     -> setEpoque($epoque1020)
                     -> setGenre($genreRomance)
                     -> setThematique($themeSens)
-                    -> setTrancheAge($trancheAdo);
+                    -> setTrancheAge($trancheAdo)
+                    -> setCompteurVues(0);
          $manager->persist($oeuvreCineNEC);
          
          $ActeurNEC1 = new Acteur();
@@ -154,7 +156,8 @@ class Oeuvres implements FixtureInterface
                     -> setGenre($genreRomance)
                     -> setThematique($themeSens)
                     -> setTrancheAge($trancheAdo)
-                    -> setDescription("Accessoires et vêtements avec le titre du livre ou la phrase «ok? ok.» BSO Histoire de Esther Earl, jeune fille qui a inspiré John Green a écrire l'histoire: This Star Won't Go Out: The Life and Words of Esther Grace Earl");
+                    -> setDescription("Accessoires et vêtements avec le titre du livre ou la phrase «ok? ok.» BSO Histoire de Esther Earl, jeune fille qui a inspiré John Green a écrire l'histoire: This Star Won't Go Out: The Life and Words of Esther Grace Earl")
+                    -> setCompteurVues(0);
          $manager->persist($ProduitDerNEC);
          
          $ImageNEC = new Image();
@@ -170,7 +173,8 @@ class Oeuvres implements FixtureInterface
                     -> setEpoque($epoque5060)
                     -> setGenre($genreFantastique)
                     -> setThematique($themeQuete)
-                    -> setTrancheAge($trancheAdulte);
+                    -> setTrancheAge($trancheAdulte)
+                    -> setCompteurVues(0);
         $manager->persist($oeuvreLittLOTR);
         
         $EditeurLOTR = new Editeur();
@@ -209,7 +213,8 @@ class Oeuvres implements FixtureInterface
                     -> setEpoque($epoque5060)
                     -> setGenre($genreFantastique)
                     -> setThematique($themeQuete)
-                    -> setTrancheAge($trancheAdulte);
+                    -> setTrancheAge($trancheAdulte)
+                    -> setCompteurVues(0);
         $manager->persist($oeuvreCineLOTR);
          
         $ActeurElijahWood = new Acteur();
@@ -274,13 +279,14 @@ class Oeuvres implements FixtureInterface
          $manager->persist($FilmLOTR3);
          
         $ProduitDerLOTR = new ProduitDer();
-        $ProduitDerLOTR -> setNom("Nos étoiles contraires")
-                    -> setResume("Deux adolescents")
+        $ProduitDerLOTR -> setNom("Le Seigneur des Anneaux")
+                    -> setResume("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...")
                     -> setEpoque($epoque1020)
                     -> setGenre($genreRomance)
                     -> setThematique($themeSens)
                     -> setTrancheAge($trancheAdo)
-                    -> setDescription("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).");
+                    -> setDescription("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).")
+                    -> setCompteurVues(0);
         $manager->persist($ProduitDerLOTR);
          
         $ImageLOTR = new Image();

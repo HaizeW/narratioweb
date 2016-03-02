@@ -25,7 +25,7 @@ class OeuvreRepository extends EntityRepository
                                                                         WHERE o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
                                                                         AND o.trancheAge = :choixTrancheAge');
-
+        
         // je definis mes parametres
         $requetePerso->setParameter('choixEpoque', $choixEpoque);
         $requetePerso->setParameter('choixGenre', $choixGenre);
@@ -51,11 +51,6 @@ class OeuvreRepository extends EntityRepository
 
 
 
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o
-                                                                        WHERE o.genre = :choixGenre
-                                                                        AND o.epoque = :choixEpoque
-                                                                        AND o.trancheAge = :choixTrancheAge');
 
 
 

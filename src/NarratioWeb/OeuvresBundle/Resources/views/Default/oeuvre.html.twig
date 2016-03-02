@@ -1,21 +1,90 @@
 {%extends 'vueMere.html.twig' %}
 
 
+
 {% block body %}
 
-        <br>
-        <br>
-        {{oeuvreChoisie.id}}
-        <br>
-        <br>
-        {{oeuvreChoisie.nom}}
-        <br>
-        <br>
-        {{oeuvreChoisie.resume}}
-        <br>
-        <br>
-        {{oeuvreChoisie.id}}
-        <br>
-        <br>
+<!-- mise en place des onglets -->
+<div class="container">
+  <div class="col-sm-8">
+  <h2>{{oeuvreChoisie.nom}}</h2>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#Oeuvre">Oeuvre</a></li>
+    <li><a data-toggle="tab" href="#Livre">Livres</a></li>
+    <li><a data-toggle="tab" href="#Film">Films</a></li>
+    <li><a data-toggle="tab" href="#Autre">Autres</a></li>
+  </ul>
+<!-- contenu du premier onglet -->
 
+  <div class="tab-content">
+    <div id="Oeuvre" class="tab-pane fade in active">
+      <h3>Oeuvre</h3>
+        <button>Éditer</button> 
+        <p>
+                
+                <br>
+                        Résumé rapide de l'histoire générale.
+                <br>
+                
+                <br>
+        
+        </p>
+</div>
+
+<!-- contenu du second onglet -->
+    <div id="Livre" class="tab-pane fade">
+      <h3>Livre</h3>
+      <button>Éditer</button> 
+        <p>
+          Auteur : {{oeuvreChoisie.nom}}
+          Nombre de livres parus :
+          Liste des livres : {{oeuvreChoisie.nom}}
+        </p>
+    </div>
+    
+<!-- contenu du troisieme onglet -->
+    <div id="Film" class="tab-pane fade">
+      <h3>Film</h3>
+      <button>Éditer</button> 
+      <p>
+        Réalisateur: {{oeuvreChoisie.nom}}
+        <br/>
+        Nombre de films parus: {{oeuvreChoisie.nom}}
+        <br/>
+        Acteurs : {{oeuvreChoisie.nom}}
+      </p>
+    </div>
+
+<!-- contenu du dernier onglet -->
+    <div id="Autre" class="tab-pane fade">
+      <h3>Autre</h3>
+      <button>Éditer</button> 
+      <p>
+        {{oeuvreChoisie.nom}}
+      </p>
+    </div>
+
+<!-- liens vers les histoires qui correspondent aussi aux critères sélectionnés, A RENDRE DYNAMIQUE!!-->
+  <img src="url pour les histoires voisines" href="his voisines"/>
+  <img src="url pour les histoires voisines" href="his voisines"/>
+  <img src="url pour les histoires voisines" href="his voisines"/>
+  <img src="url pour les histoires voisines" href="his voisines"/>
+  <img src="url pour les histoires voisines" href="his voisines"/>
+</div>
+</div>
+
+<!-- image générale de l'oeuvre -->
+<div class="col-sm-"8>
+        
+<img src="http://i1.kwejk.pl/k/obrazki/2012/02/c53a32e508e229bbae079cac090ffe42.png" width=150px height=150px/>
+  
+        <div class="well">
+          
+                Genres :
+    
+        </div>
+  
+</div>
+
+</div>
 {% endblock %}
