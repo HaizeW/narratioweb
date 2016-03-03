@@ -65,8 +65,12 @@ class DefaultController extends Controller
         $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
         $tabFilms = $repositoryFilms->findAll();
         
+        //test récup plus vues
+        $repositoryFilmsVus = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
+        $tabFilmsVus = $repositoryFilmsVus->getFilmsPlusVus();
+        
         // ici, on affiche la page dont le formulaire permettant le choix d'une oeuvre via Random
-        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabFilms'=>$tabFilms, 'tabLivres'=>$tabLivres));
+        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabFilms'=>$tabFilms, 'tabLivres'=>$tabLivres, 'tabFilmsVus'=>$tabFilmsVus));
 
     }
 

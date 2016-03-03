@@ -7,13 +7,19 @@
     
 	<h4 align="center">Films<br/></h4>
 	<h5>Liste des nouveautés</h5>
-	
 		{% for filmCourant in tabFilms %}
 		<a href="/film/{{filmCourant.id}}" class="list-group-item"> {{filmCourant.titre}} </a>
 		{%else%}
 		Aucune nouveauté
+		{%endfor%}<br/>
+		
+		<h5>liste plus vus</h5>
+		{% for oeuvreCourante in tabOeuvre %}
+		<a href="/film/{{oeuvreCourante.id}}" class="list-group-item"> {{oeuvreCourante.nom}} </a>
+		{%else%}
+		Aucune nouveauté
 		{%endfor%}
-	liste plus vus<br/>
+		
 	
 	<h4 align="center">Livres<br/></h4>
 	<h5>Liste des nouveautés</h5>

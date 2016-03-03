@@ -39,6 +39,25 @@ class OeuvreRepository extends EntityRepository
         
     }
     
+    /*public function getFilmsPlusVus()
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT o. FROM NarratioWebOeuvresBundle:Oeuvre o
+                                                                        ORDER BY o.compteurVues DESC');
+                                                                        
+        //je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(3);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }*/
+    
     
     
     

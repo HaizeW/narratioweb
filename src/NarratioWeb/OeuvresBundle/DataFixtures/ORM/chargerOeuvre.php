@@ -174,7 +174,7 @@ class Oeuvres implements FixtureInterface
                     -> setGenre($genreFantastique)
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheAdulte)
-                    -> setCompteurVues(0);
+                    -> setCompteurVues(2);
         $manager->persist($oeuvreLittLOTR);
         
         $EditeurLOTR = new Editeur();
@@ -214,7 +214,7 @@ class Oeuvres implements FixtureInterface
                     -> setGenre($genreFantastique)
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheAdulte)
-                    -> setCompteurVues(0);
+                    -> setCompteurVues(1);
         $manager->persist($oeuvreCineLOTR);
          
         $ActeurElijahWood = new Acteur();
@@ -286,7 +286,7 @@ class Oeuvres implements FixtureInterface
                     -> setThematique($themeSens)
                     -> setTrancheAge($trancheAdo)
                     -> setDescription("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).")
-                    -> setCompteurVues(0);
+                    -> setCompteurVues(3);
         $manager->persist($ProduitDerLOTR);
          
         $ImageLOTR = new Image();
