@@ -43,26 +43,7 @@ class OeuvreLittRepository extends EntityRepository
         
     }
     
-    public function getLivres()
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l WHERE l.oeuvreLitt = :id');
-        
-        // je definis mes parametres
-        $requetePerso->setParameter('id', $id);
-        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
+    
         
 }
 

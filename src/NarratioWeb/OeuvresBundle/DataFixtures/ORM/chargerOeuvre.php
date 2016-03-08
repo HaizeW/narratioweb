@@ -483,12 +483,106 @@ $ActeurCyrano8 = new Acteur();
                      -> setProduit($ProduitDerCyrano);
          $manager->persist($ImageCyrano);
 
+        $oeuvreLittGdM = new OeuvreLitt();
+        $oeuvreLittGdM -> setNom("La guerre des mondes")
+                    -> setResume("1894. Des astronomes sont témoins d'étranges activités à la surface de Mars, comme des flash ou des explosions de gaz incandescent. L'étonnant phénomène se répète pendant les dix nuits suivantes puis cesse. Des météores venant de la planète rouge se dirigent bientôt vers la Terre. Le premier s'écrase en Angleterre, dans le Surrey : il s'agit d'un objet ayant la forme d'un cylindre de vingt-cinq à trente mètres. Les curieux se rassemblent autour du cratère formé par la chute du projectile, mais ils sont bientôt tués par un Rayon Ardent projeté par une machine gigantesque à trois énormes pieds sortie du cylindre.
+Par la suite, les autres cylindres envoyés depuis Mars s'écrasent et libèrent d'autres engins mécaniques contrôlés par des créatures tentaculaires installées à l'intérieur. Ces tripodes, armés de leur Rayon Ardent et d'un gaz toxique appelé Fumée Noire (Black smoke), se dirigent versLondres en désintégrant tout sur leur passage. L'armée britannique réplique. Mais rapidement, la lutte tourne à l'avantage des envahisseurs. Les populations terrifiées fuient cet ennemi implacable qui pompe le sang des malheureux qu'il capture et sème partout une mystérieuse herbe rouge qui étouffe toute végétation. Commence alors pour le narrateur, une fuite dans un monde ravagé, où il ne croise plus que des êtres humains isolés à la limite de la folie. Puis, il se rend compte que les martiens ont soudain cessé toute activité : les microbes terriens, auxquels ils n'étaient pas immunisés, les ont exterminés ")
+                    -> setEpoque($epoque5060)
+                    -> setGenre($genreFantastique)
+                    -> setThematique($themeQuete)
+                    -> setTrancheAge($trancheAdulte)
+                    -> setCompteurVues(0);
+        $manager->persist($oeuvreLittLOTR);
+        
+        $EditeurGdM = new Editeur();
+        $EditeurGdM -> setNom("Heinemann");
+        $manager->persist($EditeurGdM);
+                    
+        $AuteurGdM = new Auteur();
+        $AuteurGdM -> setNom("Wells")
+                     -> setPrenom("H.G ");
+        $manager->persist($AuteurGdM);
+         
+        $LivreGdM = new Livre();
+        $LivreGdM -> setTitre("La guerre des mondes")
+                     -> addAuteur($AuteurGdM)
+                     -> setEditeur($EditeurGdM)
+                     -> setOeuvreLitt($oeuvreLittGdM);
+        $manager->persist($LivreGdM);
+         
+        $oeuvreCineGdM = new OeuvreCine();
+        $oeuvreCineGdM -> setNom("La guerre des mondes")
+                    -> setResume("1894. Des astronomes sont témoins d'étranges activités à la surface de Mars, comme des flash ou des explosions de gaz incandescent. L'étonnant phénomène se répète pendant les dix nuits suivantes puis cesse. Des météores venant de la planète rouge se dirigent bientôt vers la Terre. Le premier s'écrase en Angleterre, dans le Surrey : il s'agit d'un objet ayant la forme d'un cylindre de vingt-cinq à trente mètres. Les curieux se rassemblent autour du cratère formé par la chute du projectile, mais ils sont bientôt tués par un Rayon Ardent projeté par une machine gigantesque à trois énormes pieds sortie du cylindre.
+Par la suite, les autres cylindres envoyés depuis Mars s'écrasent et libèrent d'autres engins mécaniques contrôlés par des créatures tentaculaires installées à l'intérieur. Ces tripodes, armés de leur Rayon Ardent et d'un gaz toxique appelé Fumée Noire (Black smoke), se dirigent versLondres en désintégrant tout sur leur passage. L'armée britannique réplique. Mais rapidement, la lutte tourne à l'avantage des envahisseurs. Les populations terrifiées fuient cet ennemi implacable qui pompe le sang des malheureux qu'il capture et sème partout une mystérieuse herbe rouge qui étouffe toute végétation. Commence alors pour le narrateur, une fuite dans un monde ravagé, où il ne croise plus que des êtres humains isolés à la limite de la folie. Puis, il se rend compte que les martiens ont soudain cessé toute activité : les microbes terriens, auxquels ils n'étaient pas immunisés, les ont exterminés ")
+                    -> setEpoque($epoque5060)
+                    -> setGenre($genreFantastique)
+                    -> setThematique($themeQuete)
+                    -> setTrancheAge($trancheAdulte)
+                    -> setCompteurVues(0);
+        $manager->persist($oeuvreCineGdM);
+         
+        $ActeurTomCruise = new Acteur();
+        $ActeurTomCruise -> setNom("Cruise")
+                         -> setPrenom("Tom");
+        $manager->persist($ActeurTomCruise);
+         
+        $ActeurDakotaFanning= new Acteur();
+        $ActeurDakotaFanning -> setNom("Fanning")
+                         -> setPrenom("Dakota");
+        $manager->persist($ActeurDakotaFanning);
+         
+        $ActeurIanMirandaOtto = new Acteur();
+        $ActeurIanMirandaOtto -> setNom("Otto")
+                         -> setPrenom("Miranda");
+        $manager->persist($ActeurIanMirandaOtto);
+         
+        $ActeurJustinChatwin = new Acteur();
+        $ActeurJustinChatwin -> setNom("Chatwin")
+                         -> setPrenom("Justin");
+        $manager->persist($ActeurJustinChatwin);
+         
+        $RéalisateurStevenSpielberg = new Realisateur();
+        $RéalisateurStevenSpielberg -> setNom("Spielberg ")
+                                 -> setPrenom("Steven");
+        $manager->persist($RéalisateurStevenSpielberg);
+         
+        $FilmGdM = new Film();
+        $FilmGdM -> setTitre("La guerre des mondes")
+                  -> setDuree(118)
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurStevenSpielberg)
+                   -> addActeur($ActeurTomCruise)
+                   -> addActeur($ActeurDakotaFanning)
+                   -> addActeur($ActeurIanMirandaOtto)
+                   -> addActeur($ActeurJustinChatwin)
+                   -> setOeuvreCine($oeuvreCineGdM);
+         $manager->persist($FilmGdM);
+         
+        $ProduitDerGdM = new ProduitDer();
+        $ProduitDerGdM -> setNom("La guerre des mondes")
+                    -> setResume("1894. Des astronomes sont témoins d'étranges activités à la surface de Mars, comme des flash ou des explosions de gaz incandescent. L'étonnant phénomène se répète pendant les dix nuits suivantes puis cesse. Des météores venant de la planète rouge se dirigent bientôt vers la Terre. Le premier s'écrase en Angleterre, dans le Surrey : il s'agit d'un objet ayant la forme d'un cylindre de vingt-cinq à trente mètres. Les curieux se rassemblent autour du cratère formé par la chute du projectile, mais ils sont bientôt tués par un Rayon Ardent projeté par une machine gigantesque à trois énormes pieds sortie du cylindre.
+Par la suite, les autres cylindres envoyés depuis Mars s'écrasent et libèrent d'autres engins mécaniques contrôlés par des créatures tentaculaires installées à l'intérieur. Ces tripodes, armés de leur Rayon Ardent et d'un gaz toxique appelé Fumée Noire (Black smoke), se dirigent versLondres en désintégrant tout sur leur passage. L'armée britannique réplique. Mais rapidement, la lutte tourne à l'avantage des envahisseurs. Les populations terrifiées fuient cet ennemi implacable qui pompe le sang des malheureux qu'il capture et sème partout une mystérieuse herbe rouge qui étouffe toute végétation. Commence alors pour le narrateur, une fuite dans un monde ravagé, où il ne croise plus que des êtres humains isolés à la limite de la folie. Puis, il se rend compte que les martiens ont soudain cessé toute activité : les microbes terriens, auxquels ils n'étaient pas immunisés, les ont exterminés ")
+                    -> setEpoque($epoque5060)
+                    -> setGenre($genreFantastique)
+                    -> setThematique($themeQuete)
+                    -> setTrancheAge($trancheAdulte)
+                    -> setDescription("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, figurines des personnages ainsi que des robots ennemis. ")
+                    -> setCompteurVues(0);
+        $manager->persist($ProduitDerGdM);
+         
+        $ImageGdM = new Image();
+        $ImageGdM -> setUrl("http://fr.web.img6.acsta.net/medias/nmedia/18/35/50/73/18430317.jpg")
+					 -> setOeuvreLitt($oeuvreLittGdM)
+                     -> setOeuvreCine($oeuvreCineGdM)
+                     -> setProduit($ProduitDerGdM);
+        $manager->persist($ImageGdM);
+        
         /* ******************************************************* */
         /*                    Enregistrement en BD                 */
         /* ******************************************************* */
-
         // On déclenche l'enregistrement de toutes les données en BD
         $manager->flush();
+
     }
 }
 

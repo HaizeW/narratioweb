@@ -1,3 +1,32 @@
+<style type="text/css">   
+
+#user {
+    position:fixed;
+    top:0;
+    right:30;
+    z-index:100;
+	
+}
+
+#titre:link, #titre:link, #titre:hover, #titre:active{
+	center: true;
+	underline:false;
+	color: #993300;
+}
+
+#footer{
+	position: fixed;
+	bottom:0;
+	center:true;
+}
+
+.no-underline:hover {
+    text-decoration: none;
+}
+
+</style>
+
+
 <!DOCTYPE html>
 <html>
 	
@@ -20,9 +49,9 @@
 					 {% block header %}
     					<div class="container">
 							<div class="col-sm-9">
-                				<div style='float:right;'>Vous etes connecte en tant que : $Visiteur</div> 
+                				<div style='float:right;' id="user">Vous etes connecte en tant que : $Visiteur</div> 
                 				    <div align="center">
-								        <a href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/accueil"> <h1><b>NarratioWeb</b></h1> </a>
+								        <a href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/accueil" class="no-underline" id="titre"> <h1><b>NarratioWeb</b></h1> </a>
                 				    </div>
     						</div>
     					</div>
@@ -41,7 +70,7 @@
 				<div class="row">
 					 {% block footer %}
 					     	<div class="container" align="center">
-            				    <div class="col-sm-12">
+            				    <div class="col-sm-9" id="footer">
                 				    <div style='float:left;'>Projet NarratioWeb dans le cadre du DUT Informatique.</div><div style='float:right;'>&copy; IUT Bayonne Pays Basque</div> 
                     				    <div align="center">
                     				        <a href= "https://www.iutbayonne.univ-pau.fr/"> IUT de Bayonne et du Pays Basque </a>

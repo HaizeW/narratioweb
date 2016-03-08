@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class FilmRepository extends EntityRepository
 {
     
-    public function getFilmsPlusVus()
+    public function getFilmsNew()
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
@@ -31,7 +31,7 @@ class FilmRepository extends EntityRepository
         return $tabResultats;
     }
     
-    public function getFilmsNew()
+    public function getFilmsPlusVus()
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;

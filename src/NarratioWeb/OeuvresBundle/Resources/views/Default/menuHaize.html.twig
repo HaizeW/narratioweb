@@ -1,0 +1,40 @@
+<div class="well">
+    <h2 align="center"> Menu </h2><br/>
+	<div class="inner-addon left-addon">
+    	<i class="glyphicon glyphicon-zoom-in" align="center"></i>
+    <input type="text" class="form-control" placeholder="Rechercher"/>
+    </div>
+    
+	<h4 align="center">Films<br/></h4>
+	<h5>Liste des nouveautés</h5>
+		{% for filmCourant in tabFilms %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':filmCourant.id})}}" class="list-group-item"> {{filmCourant.titre}} </a>
+		{%else%}
+		Aucune nouveauté
+		{%endfor%}<br/>
+		
+		<h5>Les films les plus vus</h5>
+		{% for filmCourant in tabFilmsVus %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':filmCourant.id})}}" class="list-group-item"> {{filmCourant.titre}} </a>
+		{%else%}
+		Aucune donnée
+		{%endfor%}
+		
+	
+	<h4 align="center">Livres<br/></h4>
+	<h5>Liste des nouveautés</h5>
+	
+		{% for livreCourant in tabLivres %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':livreCourant.id})}}" class="list-group-item"> {{livreCourant.titre}} </a>
+		{%else%}
+		Aucune nouveauté
+		{%endfor%}<br/>
+		
+		<h5>Les livres les plus lus</h5>
+		{% for livreCourant in tabLivresLus %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':livreCourant.id})}}" class="list-group-item"> {{livreCourant.titre}} </a>
+		{%else%}
+		Aucune donnée
+		{%endfor%}
+	
+</div>

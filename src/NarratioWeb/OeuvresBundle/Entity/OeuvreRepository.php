@@ -20,10 +20,12 @@ class OeuvreRepository extends EntityRepository
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT o.id, o FROM NarratioWebOeuvresBundle:Oeuvre o
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT o.nom, o.id, o FROM NarratioWebOeuvresBundle:Oeuvre o
                                                                         WHERE o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
                                                                         AND o.trancheAge = :choixTrancheAge
+                                                                        ORDER BY o.nom, o.id
+                                                                        
                                                         ');
                                             
                                             
@@ -48,8 +50,8 @@ class OeuvreRepository extends EntityRepository
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT DISTINCT o.id, o FROM NarratioWebOeuvresBundle:Oeuvre o ORDER BY o.id DESC');
         
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
+        /*//je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(4);*/
                                             
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -66,6 +68,48 @@ class OeuvreRepository extends EntityRepository
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT DISTINCT o.id, o FROM NarratioWebOeuvresBundle:Oeuvre o ORDER BY o.compteurVues DESC');
                                             
+        /*//je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(4);*/
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
+    public function getLivres($id)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l JOIN l.oeuvreLitt o WHERE o.id = :idOeuvre');
+        
+        //Je définis les paramètres de ma requête
+        $requetePerso->setParameter('idOeuvre', $id);
+        
+        //je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(3);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
+    public function getFilms($id)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f JOIN l.oeuvreCine o WHERE o.id = :idOeuvre');
+        
+        //Je définis la valeur de mon paramètre
+        $requetePerso->setParameter('idOeuvre', $id);
+        
         //je fixe ma limite à 3 résultats
         $requetePerso->setMaxResults(3);
         

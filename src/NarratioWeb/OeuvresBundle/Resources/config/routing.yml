@@ -24,3 +24,7 @@ narratio_web_oeuvres_oeuvreAvanceeFilm:
 narratio_web_oeuvres_oeuvreMenu:
     path:     /oeuvre/{id}
     defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvre }
+    
+naratio_web_oeuvres_test:
+    path: /haize
+    defaults:   { _controller: NarratioWebOeuvresBundle:Default:test }

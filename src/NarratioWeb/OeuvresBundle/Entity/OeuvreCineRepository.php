@@ -12,33 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class OeuvreCineRepository extends EntityRepository
 {
-    public function getFilms($id)
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f WHERE f.oeuvreCine = :id');
-        
-        // je definis mes parametres
-        $requetePerso->setParameter('id', $id);
-        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
-}
+    
 
-/*
-
-
-
-    public function getFilmsByOeuvreCine()
+    
+        public function getFilmsByOeuvreCine($idCine)
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
@@ -55,6 +32,14 @@ class OeuvreCineRepository extends EntityRepository
         // retour du resultat
         return $tabResultats;
     }
+    
+    
+    
+}
+
+/*
+
+
     
 
                                                                         
