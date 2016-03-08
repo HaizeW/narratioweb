@@ -56,7 +56,7 @@ class DefaultController extends Controller
             return $this->redirect($url);
         }
         
-       // -- MENU DEROULANT
+       /*// -- MENU DEROULANT
        // recup des livres pour remplir le menu déroulant
         $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
         $tabNewLivres = $repositoryLivres->getLivresNew();
@@ -71,7 +71,21 @@ class DefaultController extends Controller
         
         // récup des livres les plus lus
         $repositoryLivresLus = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-        $tabLivresLus = $repositoryLivresLus->getLivresPlusLus();
+        $tabLivresLus = $repositoryLivresLus->getLivresPlusLus();*/
+        
+        //**********************************************************************************************************************************
+        
+        //Création du repository
+        $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
+        
+        //Récupération des oeuvres les plus récentes
+        $tabNewOeuvres = $repositoryOeuvre->getOeuvreRecentes();
+        
+        //Récupération des oeuvres les plus vues
+        $tabOeuvreVues = $repositoryOeuvre->getOeuvrePlusVues();
+        //Problème : les deux listes sont les mêmes : comment différencer les oeuvres littéraires des oeuvres cinématorgraphiques ??
+
+        //var_dump($tabOeuvresVues);
     
         // *********************
         // En gros : Il faut récupérer les oeuvres récentes/plus vues, puis récupérer leurs livres et films pour les afficher.
@@ -80,7 +94,7 @@ class DefaultController extends Controller
         
        /* //recup des nouveaux livres
         $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-        $tabOeuvresRec = $repositoryOeuvres->getOeuvreRecentes();
+        $tabFilmsRec = $repositoryOeuvres->getFilms();
         
         $repositoryOeuvresLitt = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:OeuvreLitt');
         $tabNewLivres = $repositoryOeuvresLitt->getLivres($id);
@@ -97,7 +111,7 @@ class DefaultController extends Controller
         $tabFilmsVus = $tabOeuvresVues->getFilms($id);*/
         
         // ici, on affiche la page dont le formulaire permettant le choix d'une oeuvre via Random
-        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabFilms'=>$tabNewFilms, 'tabLivres'=>$tabNewLivres, 'tabFilmsVus'=>$tabFilmsVus, 'tabLivresLus'=>$tabLivresLus));
+        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabOeuvreNew'=>$tabNewOeuvres, 'tabOeuvreVues'=>$tabOeuvreVues));
 
     }
         
@@ -264,109 +278,6 @@ class DefaultController extends Controller
      
     }
     
-    public function testAction(Request $requeteUtilisateur)
-    {
-        
-        // Tableau dans lequel les données du formulaire seront recueillies       
-        $tabChoix = array();
-        
-        // -- FORMULAIRE DE RECHERCHE
-        $formulaireChoix = $this->createFormBuilder($tabChoix)
-            ->add('TrancheAge','entity', array('label'=>'Tranche d Age',
-                                                'class'=>'NarratioWebOeuvresBundle:TrancheAge',
-                                                'property'=>'intitule',
-                                                'multiple' => false,
-                                                'expanded' => false))
-            ->add('Genre','entity', array('label'=>'Genre',
-                                                'class'=>'NarratioWebOeuvresBundle:Genre',
-                                                'property'=>'intitule',
-                                                'multiple' => false,
-                                                'expanded' => false))
-            ->add('Epoque','entity', array('label'=>'Epoque',
-                                                'class'=>'NarratioWebOeuvresBundle:Epoque',
-                                                'property'=>'intitule',
-                                                'multiple' => false,
-                                                'expanded' => false))
-            -> getForm();
-        
-        // enregistrement des données dans $tabChoix apres soumission
-        $formulaireChoix->handleRequest($requeteUtilisateur);
-        // si le form a été soumis
-        if ($formulaireChoix->isSubmitted())
-        {
-            // on recupere les données du form dans un tableau de 3 cases indicés par 'TrancheAge' 'Genre' et 'Epoque'
-            $tabChoixRes = $formulaireChoix -> getData();
-            
-            // je recup mes variables
-            $choixEpoque = $tabChoixRes['Epoque'] -> getId();
-            $choixGenre = $tabChoixRes['Genre'] -> getId();
-            $choixTrancheAge = $tabChoixRes['TrancheAge'] -> getId();
-            
-            // on traite les données du formulaire en generant l url relative
-            $url = $this->generateUrl('narratio_web_oeuvres_oeuvre',
-                                        array('choixGenre'=>$choixGenre,'choixEpoque'=>$choixEpoque,'choixTrancheAge'=>$choixTrancheAge), true);
-            return $this->redirect($url);
-        }
-        
-       /*// -- MENU DEROULANT
-       // recup des livres pour remplir le menu déroulant
-        $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-        $tabNewLivres = $repositoryLivres->getLivresNew();
-            
-        // recup des films pour remplir le menu déroulant
-        $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
-        $tabNewFilms = $repositoryFilms->getFilmsNew();
-        
-        // récup des films les plus vus
-        $repositoryFilmsVus = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
-        $tabFilmsVus = $repositoryFilmsVus->getFilmsPlusVus();
-        
-        // récup des livres les plus lus
-        $repositoryLivresLus = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-        $tabLivresLus = $repositoryLivresLus->getLivresPlusLus();*/
-        
-        //**********************************************************************************************************************************
-        
-        //Création du repository
-        $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-        
-        //Récupération des oeuvres les plus récentes
-        $tabNewOeuvres = $repositoryOeuvre->getOeuvreRecentes();
-        
-        //Récupération des oeuvres les plus vues
-        $tabOeuvreVues = $repositoryOeuvre->getOeuvrePlusVues();
-        
-        var_dump($tabNewOeuvres);
-        var_dump($tabOeuvresVues);
-    
-        // *********************
-        // En gros : Il faut récupérer les oeuvres récentes/plus vues, puis récupérer leurs livres et films pour les afficher.
-        // Soucis : Comment récupérer les films et livres ? Et comment faire le lien vers l'oeuvre depuis le menu déroulant, vu qu'il faut l'id ??
-        // *********************
-        
-       /* //recup des nouveaux livres
-        $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-        $tabFilmsRec = $repositoryOeuvres->getFilms();
-        
-        $repositoryOeuvresLitt = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:OeuvreLitt');
-        $tabNewLivres = $repositoryOeuvresLitt->getLivres($id);
-        
-        //recup des nouveaux films
-        $tabNewFilms = $tabOeuvresRec->getFilms($id);
-        
-        //recup des livres les plus lus
-        $tabOeuvresVues = $repositoryOeuvres->getOeuvrePlusVues();
-        $id = $tabOeuvresVues->getId();
-        $tabLivresLus = $tabOeuvresVues->getLivres($id);
-        
-        //recup des nouveaux films
-        $tabFilmsVus = $tabOeuvresVues->getFilms($id);*/
-        
-        // ici, on affiche la page dont le formulaire permettant le choix d'une oeuvre via Random
-        return $this->render('NarratioWebOeuvresBundle:Default:haize.html.twig', array('form'=>$formulaireChoix->createView(), 'tabOeuvreCineNew'=>$tabNewOeuvres, 'tabOeuvreCineVues'=>$tabOeuvreVues, 'tabOeuvreLittNew'=>$tabNewOeuvres, 'tabOeuvreLittVues'=>$tabOeuvreVues));
-
-    }
-    
     
             
     public function voirOeuvreAction($id)
@@ -382,54 +293,21 @@ class DefaultController extends Controller
             return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('oeuvreChoisie'=>$oeuvreChoisie));
             
         }
-        
-    public function randomAction($min, $max)
-    {
-        $total = 6;
-        
-        $rand = array();
-        
-        while (count($rand) < $total)
-        {
-            $r = mt_rand($min,$max);
-            if ( !in_array($r,$rand) ) 
-            {
-                $rand[] = $r;
-            }
-        }
-        
-        return $rand;
-        
-    }
     
 
     
     public function oeuvreAction($choixEpoque, $choixGenre, $choixTrancheAge)
     {
-     ///* CECI EST FAIT APRES QUE LE FORM DE CHOIX A ETE SUBMIT
+     // CECI EST FAIT APRES QUE LE FORM DE CHOIX A ETE SUBMIT
         
         // je charge mon repository de Oeuvre pour executer une requete sur la BD
         $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
         // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
         $tabOeuvreChoix = $repositoryOeuvre->getOeuvreChoix($choixEpoque, $choixGenre, $choixTrancheAge);
 
-        var_dump($tabOeuvreChoix);
+        //var_dump($tabOeuvreChoix);
         
-/*        
-        for ($j=0; $j<count($tabOeuvreChoix)+1; $j++)
-        {
-            
-            $oeuvreLitt = $tabOeuvreChoix[$j];
-            $j++;
-            $oeuvreCine = $tabOeuvreChoix[$j];
-            $j++;
-            $oeuvreProd = $tabOeuvreChoix[$j];
-            
-        }
-*/
-        
-                $nbOeuvres = (count($tabOeuvreChoix))/3;
-                $alea = array();
+            $nbOeuvres = (count($tabOeuvreChoix))/3;
             // choix aléatoire des oeuvres SI il y en a plus de 6
             if ($nbOeuvres < 6)
                 {
@@ -442,7 +320,7 @@ class DefaultController extends Controller
                     $idCine = $tabOeuvreChoix[1]["id"];
                     $idProd = $tabOeuvreChoix[2]["id"];
                     
-                    var_dump($oeuvreProd);
+                    //var_dump($oeuvreProd);
                                
                             // je charge mon repository de Livre pour executer une requete sur la BD
                             $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
@@ -459,7 +337,12 @@ class DefaultController extends Controller
                             // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
                             $tabProds = $repositoryProd->getProdsByOeuvreProd($idProd);
                             
-                            var_dump($tabFilms);
+                            // je charge mon repository de Image pour executer une requete sur la BD
+                            $repositoryImages = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
+                            // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                            $tabLivres = $repositoryImages->getLivresByOeuvreLitt($idLitt);
+                            
+                            //var_dump($tabFilms);
                     
                     //On augmente les compteusr de vues des 3 oeuvres
                     $compteurL = $oeuvreLitt->getCompteurVues();
@@ -487,10 +370,11 @@ class DefaultController extends Controller
                                                                                                     'oeuvreProd'=>$oeuvreProd
                                                                                                     ));
                 }
-                else 
+            else 
                 {
                     // je prepare mes parametres pour les prochaines requetes
                     $nbChoixMax = 6;
+                    $alea = array();
                     //FCT DE CHOIX DES CHIFFRES ALEATOIRES
                             while (count($alea) < $nbChoixMax)
                             {
@@ -502,31 +386,67 @@ class DefaultController extends Controller
                             }
                             //var_dump($alea);
                     //
+                        // *3 car le tab contient les Litt Cine et Prod. Comme ca on est sur d'avoir un multiple de 3 et donc le bon ordre
+                        $j = ($alea[0])*3;
+                        $oeuvreLitt = $tabOeuvreChoix[$j][0];
+                        $idLitt = $tabOeuvreChoix[$j]["id"];
+                        $j++;
+                        $oeuvreCine = $tabOeuvreChoix[$j][0];
+                        $idCine = $tabOeuvreChoix[$j]["id"];
+                        $j++;
+                        $oeuvreProd = $tabOeuvreChoix[$j][0];
+                        $idProd = $tabOeuvreChoix[$j]["id"];
                             
-                            $oeuvreLitt = $tabOeuvreChoix[$j][0];
-                            $idLitt = $tabOeuvreChoix[$j]["id"];
-                            $j++;
-                            $oeuvreCine = $tabOeuvreChoix[$j][0];
-                            $idCine = $tabOeuvreChoix[$j]["id"];
-                            $j++;
-                            $oeuvreProd = $tabOeuvreChoix[$j][0];
-                            $idProd = $tabOeuvreChoix[$j]["id"];
+                        //var_dump($oeuvreProd);
+                                               
+                            // je charge mon repository de Livre pour executer une requete sur la BD
+                            $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
+                            // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                            $tabLivres = $repositoryLivres->getLivresByOeuvreLitt($idLitt);
+                    
+                            // je charge mon repository de Film pour executer une requete sur la BD
+                            $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
+                            // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                            $tabFilms = $repositoryFilms->getFilmsByOeuvreCine($idCine);
+
+                            // je charge mon repository de ProduitDer pour executer une requete sur la BD
+                            $repositoryProd = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:ProduitDer');
+                            // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                            $tabProds = $repositoryProd->getProdsByOeuvreProd($idProd);
                             
-                        var_dump($oeuvreProd);
-                
+                            //var_dump($tabFilms);
+                    
+                    //On augmente les compteusr de vues des 3 oeuvres
+                    $compteurL = $oeuvreLitt->getCompteurVues();
+                    $oeuvreLitt->setCompteurVues($compteurL+1);
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($oeuvreLitt);
+                    $gestionnaireEntite->flush();
+                    //
+                    $compteurC = $oeuvreCine->getCompteurVues();
+                    $oeuvreCine->setCompteurVues($compteurC+1);
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($oeuvreCine);
+                    $gestionnaireEntite->flush();
+                    //
+                    $compteurP = $oeuvreProd->getCompteurVues();
+                    $oeuvreLitt->setCompteurVues($compteurP+1);
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($oeuvreProd);
+                    $gestionnaireEntite->flush();
+                    //
+                    
+                    // je retourne la vue avec les oeuvres a mettre en forme
+                    return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('oeuvreLitt'=>$oeuvreLitt,
+                                                                                                    'oeuvreCine'=>$oeuvreCine,
+                                                                                                    'oeuvreProd'=>$oeuvreProd
+                                                                                                    ));
                 
                 }
-        
-
-        
-        // je retourne la vue avec les oeuvres a mettre en forme
-        return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('tabOeuvreChoix'=>$tabOeuvreChoix,
-                                                                                        'oeuvreChoisie'=>$oeuvreChoisie
-                                                                                        ));
-        
-     //*/  
+                
      
     }
+    
 
 
 }

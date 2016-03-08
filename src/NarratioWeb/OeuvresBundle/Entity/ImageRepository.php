@@ -12,4 +12,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class ImageRepository extends EntityRepository
 {
+    
+    
+    public function getImageByOeuvreLitt($idLitt)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT i.url FROM NarratioWebOeuvresBundle:Image i
+                                                                    WHERE i.oeuvreCine = :idLitt
+                                                        ');
+                                         
+        // je definis mes parametres
+        $requetePerso->setParameter('idLitt', $idLitt);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
+    
 }
