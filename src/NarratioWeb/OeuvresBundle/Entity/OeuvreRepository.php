@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityRepository;
 class OeuvreRepository extends EntityRepository
 {
     
-    
     public function getOeuvreChoix($choixEpoque, $choixGenre, $choixTrancheAge)
     {
         
@@ -21,11 +20,13 @@ class OeuvreRepository extends EntityRepository
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT o.id, o FROM NarratioWebOeuvresBundle:Oeuvre o
                                                                         WHERE o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
-                                                                        AND o.trancheAge = :choixTrancheAge');
-        
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                        ');
+                                            
+                                            
         // je definis mes parametres
         $requetePerso->setParameter('choixEpoque', $choixEpoque);
         $requetePerso->setParameter('choixGenre', $choixGenre);
@@ -39,28 +40,20 @@ class OeuvreRepository extends EntityRepository
         
     }
     
-    /*public function getFilmsPlusVus()
+    public function getOeuvreRecentes()
     {
-        // appel du gestionnaire d'entité
+         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT o. FROM NarratioWebOeuvresBundle:Oeuvre o
-                                                                        ORDER BY o.compteurVues DESC');
-                                                                        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
-        
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT DISTINCT o.id, o FROM NarratioWebOeuvresBundle:Oeuvre o ORDER BY o.id DESC');
+                                            
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
         
         // retour du resultat
         return $tabResultats;
-    }*/
-    
-    
-    
-    
+    }
 }
 
 
@@ -70,6 +63,10 @@ class OeuvreRepository extends EntityRepository
 
 
 
+SELECT DISTINCT o.nom, o FROM NarratioWebOeuvresBundle:Oeuvre o
+                                                                        WHERE o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.trancheAge = :choixTrancheAge
 
 
 

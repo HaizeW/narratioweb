@@ -11,6 +11,16 @@ narratio_web_oeuvres_oeuvre:
     path:     /oeuvre/{choixGenre}/{choixEpoque}/{choixTrancheAge}
     defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvre }
     
+narratio_web_oeuvres_voirOeuvre:
+    path:     /oeuvre/{id}
+    defaults:    { _controller: NarratioWebOeuvresBundle:Default:voirOeuvre }
+    requirements:
+        id: \d+
+    
 narratio_web_oeuvres_oeuvreAvanceeFilm:
-    path:     /oeuvre/{choixGenre}/{choixEpoque}/{choixTrancheAge}/{choixActeur}/{choixRealisateur}/{choixThematique}/{choixType}
+    path:     /oeuvreCine/{choixGenreF}/{choixEpoqueF}/{choixTrancheAgeF}/{choixActeur}/{choixRealisateur}/{choixThematiqueF}/{choixType}
     defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvreAvanceeFilm }
+    
+narratio_web_oeuvres_oeuvreMenu:
+    path:     /oeuvre/{id}
+    defaults:    { _controller: NarratioWebOeuvresBundle:Default:oeuvre }

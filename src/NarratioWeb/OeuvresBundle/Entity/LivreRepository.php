@@ -12,4 +12,41 @@ use Doctrine\ORM\EntityRepository;
  */
 class LivreRepository extends EntityRepository
 {
+    
+    public function getLivresNew()
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l ORDER BY l.id DESC');
+                                                                        
+        //je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(3);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
+    public function getLivresPlusLus()
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l, o FROM NarratioWebOeuvresBundle:Livre l  JOIN l.oeuvreLitt o ORDER BY o.compteurVues DESC');
+                                                                        
+        //je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(3);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
 }

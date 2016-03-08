@@ -79,4 +79,15 @@ class Acteur
     {
         return $this->prenom;
     }
+    
+    /**
+     * Get label
+     *
+     * @return string 
+     */
+    public function getLabel()
+    {
+        return $this->prenom.' '.$this->nom;
+    }
+    
 }

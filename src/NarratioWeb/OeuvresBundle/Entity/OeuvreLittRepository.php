@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class OeuvreLittRepository extends EntityRepository
 {
     
-        public function getOeuvreLitt($choixEpoque, $choixGenre, $choixTrancheAge)
+    public function getOeuvreLitt($choixEpoque, $choixGenre, $choixTrancheAge)
     {
         
         // appel du gestionnaire d'entité
@@ -43,6 +43,24 @@ class OeuvreLittRepository extends EntityRepository
         
     }
     
+    public function getLivres($id)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l WHERE l.oeuvreLitt = :id');
+        
+        // je definis mes parametres
+        $requetePerso->setParameter('id', $id);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+        
 }
 
 /*
@@ -51,7 +69,10 @@ class OeuvreLittRepository extends EntityRepository
                                                                         WHERE o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
                                                                         AND o.trancheAge = :choixTrancheAge
-                                                                                                                                                AND o.epoque = :choixEpoque
+                                                                                                   
+                                                                                                   
+                                                                        AND o.discr = "oeuvrelitt"
+                                                                        AND o.epoque = :choixEpoque
                                                                         AND o.acteur = :choixActeur                                                                        AND o.epoque = :choixEpoque
                                                                         AND o.realisateur = :choixRealisateur                                                                        AND o.epoque = :choixEpoque
                                                                         AND o.type = :choixType                                                                        AND o.epoque = :choixEpoque

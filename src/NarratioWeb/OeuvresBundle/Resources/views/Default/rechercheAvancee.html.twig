@@ -11,68 +11,184 @@
     </div>
 </div>
     
-        <form align="center" method = "post" {{ form_enctype(form)}}>
-            
-<!-- Ligne 2 -->    
-<div class="row">          
-            {#form_widget(createurFormulaire)#}
-            <br><br>
-            <div class="col-sm-4" align="center">
-                <div style='float:left;' align="center"></div><center><b>Tranche d'Age : </b>{{form_widget(form.TrancheAge)}}</center>
-            </div>
-            <div class="col-sm-4" align="center">
-                <div style='float:left;' align="center"></div><center><b>Epoque : </b>{{form_widget(form.Epoque)}}</center>
-            </div>
-            <div class="col-sm-4" align="center">
-                <div style='float:left;' align="center"></div><center><b>Genre : </b>{{form_widget(form.Genre)}}</center>
-            </div>
-</div>
 
-<!-- Ligne 3 --> 
-<div class="row">
-            <br><br><br>
-            <div class="col-sm-6" align="center">
-                <center>
-                    <div style='float:left;'></div><b>Thématique : </b>{{form_widget(form.Thematique)}}
-                </center>
-            </div>
-            
-            <div class="col-sm-6" align="center">
-                <center>
-                    <div style='float:left'></div><b>Type : </b>{{form_widget(form.Type)}}
-                </center>
-            </div>
-</div>
-            
 
-<!-- Ligne 4 --> 
-<div class="row">
-            <br><br><br>
-                <div class="col-sm-6">
-                    <center>
-                        <div style='float:left;'></div><b>Acteurs : </b>{{form_widget(form.Acteur)}}
-                    </center>
-                </div>
-            
-            
-            <div class="col-sm-6">
-                <center>
-                    <div style='float:left;'></div><b>Réalisateurs : </b>{{form_widget(form.Realisateur)}}
-                </center>
-            </div>
-</div>
 
-<br><br><br>
-<!-- Ligne 5 --> 
-<div class="row">
-    
-               <center> <input type="submit" class="btn btn-primary" value="Lancer la recherche"/> </center> 
-               <br>
-               <br>
-</div>
+
+<!-- mise en place des onglets -->
+<div class="container">
+  <div class="col-sm-12">
+  <h2>Recherche avancée</h2>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#Film">Films</a></li>
+    <li><a data-toggle="tab" href="#Livre">Livres</a></li>
+  </ul>
+  
+  <div class="tab-content">
+      
+      <!-- contenu du premier onglet -->
+        <div id="Film" class="tab-pane fade in active">
+          <h3>Films</h3>
+
+            <p>
+
+      <!-- contenu du premier onglet -->
+                        <form align="center" method = "post" {{ form_enctype(formFilms)}}>
+            
+                        <!-- Ligne 2 -->    
+                        <div class="row">          
+                                    {#form_widget(createurFormulaire)#}
+                                    <br><br>
+                                    <div class="col-sm-4" align="center">
+                                        <div style='float:left;' align="center"></div><center><b>Tranche d'Age : </b>{{form_widget(formFilms.TrancheAgeF)}}</center>
+                                    </div>
+                                    <div class="col-sm-4" align="center">
+                                        <div style='float:left;' align="center"></div><center><b>Epoque : </b>{{form_widget(formFilms.EpoqueF)}}</center>
+                                    </div>
+                                    <div class="col-sm-4" align="center">
+                                        <div style='float:left;' align="center"></div><center><b>Genre : </b>{{form_widget(formFilms.GenreF)}}</center>
+                                    </div>
+                        </div>
+                        
+                        <!-- Ligne 3 --> 
+                        <div class="row">
+                                    <br><br><br>
+                                    <div class="col-sm-6" align="center">
+                                        <center>
+                                            <div style='float:left;'></div><b>Thématique : </b>{{form_widget(formFilms.ThematiqueF)}}
+                                        </center>
+                                    </div>
+                                    
+                                    <div class="col-sm-6" align="center">
+                                        <center>
+                                            <div style='float:left'></div><b>Type : </b>{{form_widget(formFilms.Type)}}
+                                        </center>
+                                    </div>
+                        </div>
+                                    
+                        
+                        <!-- Ligne 4 --> 
+                        <div class="row">
+                                    <br><br><br>
+                                        <div class="col-sm-6">
+                                            <center>
+                                                <div style='float:left;'></div><b>Acteurs : </b>{{form_widget(formFilms.Acteur)}}
+                                            </center>
+                                        </div>
+                                    
+                                    
+                                    <div class="col-sm-6">
+                                        <center>
+                                            <div style='float:left;'></div><b>Réalisateurs : </b>{{form_widget(formFilms.Realisateur)}}
+                                        </center>
+                                    </div>
+                        </div>
+                        
+                        <br><br><br>
+                        <!-- Ligne 5 --> 
+                        <div class="row">
+                            
+                                       <center> <input type="submit" class="btn btn-primary" value="Lancer la recherche"/> </center> 
+                                       <br>
+                                       <br>
+                        </div>
         </form>
 
+            
+            </p>
+        
+        
+        
+        </div>
+    
+    <!-------------------------------------------------------------------------------------------------------------------------------------->
+    
+      <!-- contenu du second onglet -->
+        <div id="Livre" class="tab-pane fade">
+          <h3>Livres</h3>
+    
+            <p>
+                <form align="center" method = "post" {{ form_enctype(formLivres)}}>
+                        <!-- Ligne 2 -->    
+                        <div class="row">          
+                                    {#form_widget(createurFormulaire)#}
+                                    <br><br>
+                                    <div class="col-sm-4" align="center">
+                                        <div style='float:left;' align="center"></div><center><b>Tranche d'Age : </b>{{form_widget(formLivres.TrancheAgeL)}}</center>
+                                    </div>
+                                    <div class="col-sm-4" align="center">
+                                        <div style='float:left;' align="center"></div><center><b>Epoque : </b>{{form_widget(formLivres.EpoqueL)}}</center>
+                                    </div>
+                                    <div class="col-sm-4" align="center">
+                                        <div style='float:left;' align="center"></div><center><b>Genre : </b>{{form_widget(formLivres.GenreL)}}</center>
+                                    </div>
+                        </div>
+                        
+                        <!-- Ligne 3 --> 
+                        <div class="row">
+                                    <br><br><br>
+                                    <div class="col-sm-4" align="center">
+                                        <center>
+                                            <div style='float:left;'></div><b>Thématique : </b>{{form_widget(formLivres.ThematiqueL)}}
+                                        </center>
+                                    </div>
+                                    
+                                    <div class="col-sm-4" align="center">
+                                        <center>
+                                            <div style='float:left'></div><b> Auteur : </b>{{form_widget(formLivres.Auteur)}}
+                                        </center>
+                                    </div>
+                                    
+                                    <div class="col-sm-4" align="center">
+                                        <center>
+                                            <div style='float:left'></div><b> Editeur : </b>{{form_widget(formLivres.Editeur)}}
+                                        </center>
+                                    </div>
+                        </div>
+                                    
+                        
+                        <br><br><br>
+                        <!-- Ligne 5 --> 
+                        <div class="row">
+                            
+                                       <center> <input type="submit" class="btn btn-primary" value="Lancer la recherche"/> </center> 
+                                       <br>
+                                       <br>
+                        </div>
+        </form>
+
+                    
+
+            
+            </p>
+        
+        
+        
+        </div>
+    
+    
+    
+    
+    
+    
+    
     </div>
+    </div>
+      
+    <!-- Footer des onglets -->  
+    
+    
+    
+    
+    
+    
+    
 </div>
+
+
+
+
+
+
 
 {% endblock %}

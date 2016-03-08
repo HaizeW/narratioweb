@@ -3,7 +3,6 @@
 
 
 {% block body %}
-
 <!-- mise en place des onglets -->
 <div class="container">
   <div class="col-sm-8">
@@ -19,25 +18,27 @@
   <div class="tab-content">
     <div id="Oeuvre" class="tab-pane fade in active">
       <h3>Oeuvre</h3>
-        <button>Éditer</button> 
+        <button>Editer</button> 
         <p>
                 
-                <br>
-                        Résumé rapide de l'histoire générale.
-                <br>
-                
-                <br>
+            <br>
+              Resume : {{oeuvreChoisie.resume}}<br/>
+              Vues : {{oeuvreChoisie.compteurVues}}
+            <br>
+            <br>
         
         </p>
-</div>
+    </div>
 
 <!-- contenu du second onglet -->
     <div id="Livre" class="tab-pane fade">
       <h3>Livre</h3>
-      <button>Éditer</button> 
+      <button>Editer</button> 
         <p>
-          Auteur : {{oeuvreChoisie.nom}}
+         
+          <br/>
           Nombre de livres parus :
+          <br/>
           Liste des livres : {{oeuvreChoisie.nom}}
         </p>
     </div>
@@ -45,11 +46,11 @@
 <!-- contenu du troisieme onglet -->
     <div id="Film" class="tab-pane fade">
       <h3>Film</h3>
-      <button>Éditer</button> 
+      <button>Editer</button> 
       <p>
-        Réalisateur: {{oeuvreChoisie.nom}}
+        Ralisateur : {{oeuvreChoisie.nom}}
         <br/>
-        Nombre de films parus: {{oeuvreChoisie.nom}}
+        Nombre de films parus : {{oeuvreChoisie.nom}}
         <br/>
         Acteurs : {{oeuvreChoisie.nom}}
       </p>
@@ -58,7 +59,7 @@
 <!-- contenu du dernier onglet -->
     <div id="Autre" class="tab-pane fade">
       <h3>Autre</h3>
-      <button>Éditer</button> 
+      <button>Editer</button> 
       <p>
         {{oeuvreChoisie.nom}}
       </p>
@@ -80,7 +81,8 @@
   
         <div class="well">
           
-                Genres :
+                Genre : {{oeuvreChoisie.genre.intitule}}
+               
     
         </div>
   

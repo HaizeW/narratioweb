@@ -174,7 +174,7 @@ class Oeuvres implements FixtureInterface
                     -> setGenre($genreFantastique)
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheAdulte)
-                    -> setCompteurVues(2);
+                    -> setCompteurVues(0);
         $manager->persist($oeuvreLittLOTR);
         
         $EditeurLOTR = new Editeur();
@@ -214,7 +214,7 @@ class Oeuvres implements FixtureInterface
                     -> setGenre($genreFantastique)
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheAdulte)
-                    -> setCompteurVues(1);
+                    -> setCompteurVues(0);
         $manager->persist($oeuvreCineLOTR);
          
         $ActeurElijahWood = new Acteur();
@@ -281,12 +281,12 @@ class Oeuvres implements FixtureInterface
         $ProduitDerLOTR = new ProduitDer();
         $ProduitDerLOTR -> setNom("Le Seigneur des Anneaux")
                     -> setResume("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...")
-                    -> setEpoque($epoque1020)
-                    -> setGenre($genreRomance)
-                    -> setThematique($themeSens)
-                    -> setTrancheAge($trancheAdo)
+                    -> setEpoque($epoque5060)
+                    -> setGenre($genreFantastique)
+                    -> setThematique($themeQuete)
+                    -> setTrancheAge($trancheAdulte)
                     -> setDescription("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).")
-                    -> setCompteurVues(3);
+                    -> setCompteurVues(0);
         $manager->persist($ProduitDerLOTR);
          
         $ImageLOTR = new Image();
@@ -296,7 +296,192 @@ class Oeuvres implements FixtureInterface
                      -> setProduit($ProduitDerLOTR);
         $manager->persist($ImageLOTR);
          
-        
+                $epoque8090 = new Epoque();
+        $epoque8090->setIntitule("1880 - 1890");
+        $manager->persist($epoque8090);
+
+        $genreDramatique = new Genre();
+        $genreDramatique->setIntitule("Dramatique");
+        $manager->persist($genreDramatique);
+
+        $themeRomantisme = new Thematique();
+        $themeRomantisme->setIntitule("Romantisme");
+        $manager->persist($themeRomantisme);
+
+        $trancheGrandPub = new TrancheAge();
+        $trancheGrandPub->setIntitule("Grand Public");
+        $manager->persist($trancheGrandPub);
+
+        $oeuvreLittCyrano = new OeuvreLitt();
+        $oeuvreLittCyrano -> setNom("Cyrano De Bergerac")
+                    -> setResume("Cyrano deBergerac est un turbulent mousquetaire de la compagniedesCadets de Gascogne. Il est amoureux de sa cousine, la belle Roxane,mais n’ose pas le lui avouer car il est complexé par son nez difforme,même s’il défend cette difformité brillamment quand un vicomtetrop audacieux se risque à lui faire une remarque. Lorsque Roxanesollicite une entrevue avec lui à la rôtisserie de Ragueneau, Cyrano estplein d’espoir, mais Roxane luirévèle qu’elle aime Christian, beau jeunehomme quis’apprête à entrer chez les Cadets de Gascogne, et elledemande à Cyrano de le protéger. Cyrano accepte et va même plusloin, puisqu’ilconclut un pacte avec Christian, qui est beau mais peuspirituel : il va lui dicter les mots d’amour que Christian dira à Roxane.Grâce auxbons mots de Cyrano, Christian gagne le cœur de Roxane ;ils se marient très rapidement. Cependant De Guiche, rival jaloux,fait envoyer les Cadets de Gascogne à la guerre, au siège d’Arras.Cyrano y protège toujours Christian et envoie tous les jours deslettres à Roxane aunom de celui-ci. Néanmoins Christian s’aperçoit queRoxane l’aime surtout pour ce qu’elle croit être son bel esprit etqu’elle aime donc enréalité, sans le savoir, Cyrano. Il refuse de prolongerl’imposture et exige de Cyrano qu’ildise la vérité à Roxane. Mais aumoment où Cyrano s’apprêteà tout avouer, Christian est tué au front.Cyrano décidedonc de se taire à jamais. La pièce se ﬁnit quinze ansplus tard. Roxaneest retirée dans un couvent, et Cyrano vient luirendre visite toutes les semaines. Ce jour-là, victime d’un accident quiressemble à unattentat, mourant, il lui demande de lire la dernièrelettre deChristian. Alors qu’il la récite par cœur, Roxane comprendtout. Cyrano meurt enayant reçu d’elle un baiser sur le front. ")
+                    -> setEpoque($epoque8090)
+                    -> setGenre($genreDramatique)
+                    -> setThematique($themeRomantisme)
+                    -> setTrancheAge($trancheGrandPub)
+                    -> setCompteurVues(0);
+        $manager->persist($oeuvreLittCyrano);
+
+$EditeurCyrano = new Editeur();
+         $EditeurCyrano -> setNom("Librio");
+         $manager->persist($EditeurCyrano);
+                    
+         $AuteurCyrano = new Auteur();
+         $AuteurCyrano  -> setNom("Rostand")
+                     -> setPrenom("Edmond");
+         $manager->persist($AuteurCyrano);
+         
+         $LivreCyrano = new Livre();
+         $LivreCyrano   -> setTitre("Cyrano De Bergerac")
+                     -> addAuteur($AuteurCyrano)
+                     -> setEditeur($EditeurCyrano)
+                     -> setOeuvreLitt($oeuvreLittCyrano);
+         $manager->persist($LivreCyrano);
+         
+
+
+
+
+
+         $oeuvreCineCyrano = new OeuvreCine();
+         $oeuvreCineCyrano -> setNom("Cyrano De Bergerac")
+                    -> setResume("Cyrano deBergerac est un turbulent mousquetaire de la compagniedesCadets de Gascogne. Il est amoureux de sa cousine, la belle Roxane,mais n’ose pas le lui avouer car il est complexé par son nez difforme,même s’il défend cette difformité brillamment quand un vicomtetrop audacieux se risque à lui faire une remarque. Lorsque Roxanesollicite une entrevue avec lui à la rôtisserie de Ragueneau, Cyrano estplein d’espoir, mais Roxane luirévèle qu’elle aime Christian, beau jeunehomme quis’apprête à entrer chez les Cadets de Gascogne, et elledemande à Cyrano de le protéger. Cyrano accepte et va même plusloin, puisqu’ilconclut un pacte avec Christian, qui est beau mais peuspirituel : il va lui dicter les mots d’amour que Christian dira à Roxane.Grâce auxbons mots de Cyrano, Christian gagne le cœur de Roxane ;ils se marient très rapidement. Cependant De Guiche, rival jaloux,fait envoyer les Cadets de Gascogne à la guerre, au siège d’Arras.Cyrano y protège toujours Christian et envoie tous les jours deslettres à Roxane aunom de celui-ci. Néanmoins Christian s’aperçoit queRoxane l’aime surtout pour ce qu’elle croit être son bel esprit etqu’elle aime donc enréalité, sans le savoir, Cyrano. Il refuse de prolongerl’imposture et exige de Cyrano qu’ildise la vérité à Roxane. Mais aumoment où Cyrano s’apprêteà tout avouer, Christian est tué au front.Cyrano décidedonc de se taire à jamais. La pièce se ﬁnit quinze ansplus tard. Roxaneest retirée dans un couvent, et Cyrano vient luirendre visite toutes les semaines. Ce jour-là, victime d’un accident quiressemble à unattentat, mourant, il lui demande de lire la dernièrelettre deChristian. Alors qu’il la récite par cœur, Roxane comprendtout. Cyrano meurt enayant reçu d’elle un baiser sur le front.")
+                    -> setEpoque($epoque8090)
+                    -> setGenre($genreDramatique)
+                    -> setThematique($themeRomantisme)
+                    -> setTrancheAge($trancheGrandPub)
+                    -> setCompteurVues(0);
+         $manager->persist($oeuvreCineCyrano);
+
+$ActeurCyrano1 = new Acteur();
+         $ActeurCyrano1 -> setNom("Ferrer")
+                     -> setPrenom("José");
+         $manager->persist($ActeurCyrano1);
+         
+         $ActeurCyrano2 = new Acteur();
+         $ActeurCyrano2 -> setNom("Powers")
+                     -> setPrenom("Mala");
+         $manager->persist($ActeurCyrano2);
+         
+         $ActeurCyrano3 = new Acteur();
+         $ActeurCyrano3 -> setNom("Prince")
+                     -> setPrenom("William");
+         $manager->persist($ActeurCyrano3);
+         
+         $RéalisateurCyrano = new Realisateur();
+         $RéalisateurCyrano -> setNom("Gordon")
+                          -> setPrenom("Michael");
+         $manager->persist($RéalisateurCyrano);
+
+         $FilmCyrano = new Film();
+         $FilmCyrano -> setTitre("Cyrano De Bergerac")
+                  -> setDuree(167)
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurCyrano)
+                  -> addActeur($ActeurCyrano1)
+                  -> addActeur($ActeurCyrano2)
+                  -> addActeur($ActeurCyrano3)
+                  -> setOeuvreCine($oeuvreCineCyrano);
+         $manager->persist($FilmCyrano);
+
+
+
+
+
+
+
+
+$ActeurCyrano4 = new Acteur();
+         $ActeurCyrano4 -> setNom("Sorano")
+                     -> setPrenom("Daniel");
+         $manager->persist($ActeurCyrano4);
+         
+         $ActeurCyrano5 = new Acteur();
+         $ActeurCyrano5 -> setNom("Christophe")
+                     -> setPrenom("Francoise");
+         $manager->persist($ActeurCyrano5);
+         
+         $ActeurCyrano6 = new Acteur();
+         $ActeurCyrano6 -> setNom("Le Royer")
+                     -> setPrenom("Michel");
+         $manager->persist($ActeurCyrano6);
+         
+         $RéalisateurCyrano2 = new Realisateur();
+         $RéalisateurCyrano2 -> setNom("Barma")
+                          -> setPrenom("Claude");
+         $manager->persist($RéalisateurCyrano2);
+
+         $FilmCyrano2 = new Film();
+         $FilmCyrano2 -> setTitre("Cyrano De Bergerac")
+                  -> setDuree(280)
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurCyrano)
+                  -> addActeur($ActeurCyrano5)
+                  -> addActeur($ActeurCyrano6)
+                  -> setOeuvreCine($oeuvreCineCyrano);
+         $manager->persist($FilmCyrano2);
+
+
+
+
+
+
+
+
+
+$ActeurCyrano8 = new Acteur();
+         $ActeurCyrano8 -> setNom("Depardieu")
+                     -> setPrenom("Gérard");
+         $manager->persist($ActeurCyrano8);
+         
+         $ActeurCyrano9 = new Acteur();
+         $ActeurCyrano9 -> setNom("Brochet")
+                     -> setPrenom("Anne");
+         $manager->persist($ActeurCyrano9);
+         
+         $ActeurCyrano10 = new Acteur();
+         $ActeurCyrano10 -> setNom("Perez")
+                     -> setPrenom("Vincent");
+         $manager->persist($ActeurCyrano10);
+         
+         $RéalisateurCyrano3 = new Realisateur();
+         $RéalisateurCyrano3 -> setNom("Rappeneau")
+                          -> setPrenom("Jean-Paul");
+         $manager->persist($RéalisateurCyrano3);
+
+         $FilmCyrano3 = new Film();
+         $FilmCyrano3 -> setTitre("Cyrano De Bergerac 3")
+                  -> setDuree(257)
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurCyrano3)
+                  -> addActeur($ActeurCyrano8)
+                  -> addActeur($ActeurCyrano9)
+                  -> addActeur($ActeurCyrano10)
+                  -> setOeuvreCine($oeuvreCineCyrano);
+         $manager->persist($FilmCyrano3);
+
+
+
+
+
+         
+         $ProduitDerCyrano = new ProduitDer();
+         $ProduitDerCyrano-> setNom("Cyrano De Bergerac")
+                    -> setResume("Cyrano deBergerac est un turbulent mousquetaire de la compagniedesCadets de Gascogne. Il est amoureux de sa cousine, la belle Roxane,mais n’ose pas le lui avouer car il est complexé par son nez difforme,même s’il défend cette difformité brillamment quand un vicomtetrop audacieux se risque à lui faire une remarque. Lorsque Roxanesollicite une entrevue avec lui à la rôtisserie de Ragueneau, Cyrano estplein d’espoir, mais Roxane luirévèle qu’elle aime Christian, beau jeunehomme quis’apprête à entrer chez les Cadets de Gascogne, et elledemande à Cyrano de le protéger. Cyrano accepte et va même plusloin, puisqu’ilconclut un pacte avec Christian, qui est beau mais peuspirituel : il va lui dicter les mots d’amour que Christian dira à Roxane.Grâce auxbons mots de Cyrano, Christian gagne le cœur de Roxane ;ils se marient très rapidement. Cependant De Guiche, rival jaloux,fait envoyer les Cadets de Gascogne à la guerre, au siège d’Arras.Cyrano y protège toujours Christian et envoie tous les jours deslettres à Roxane aunom de celui-ci. Néanmoins Christian s’aperçoit queRoxane l’aime surtout pour ce qu’elle croit être son bel esprit etqu’elle aime donc enréalité, sans le savoir, Cyrano. Il refuse de prolongerl’imposture et exige de Cyrano qu’ildise la vérité à Roxane. Mais aumoment où Cyrano s’apprêteà tout avouer, Christian est tué au front.Cyrano décidedonc de se taire à jamais. La pièce se ﬁnit quinze ansplus tard. Roxaneest retirée dans un couvent, et Cyrano vient luirendre visite toutes les semaines. Ce jour-là, victime d’un accident quiressemble à unattentat, mourant, il lui demande de lire la dernièrelettre deChristian. Alors qu’il la récite par cœur, Roxane comprendtout. Cyrano meurt enayant reçu d’elle un baiser sur le front.")
+                    -> setEpoque($epoque1020)
+                    -> setGenre($genreRomance)
+                    -> setThematique($themeSens)
+                    -> setTrancheAge($trancheAdo)
+                    -> setDescription("Accessoires et déguisements d'époque, le fameux modèle d'épée du héro, la 'rapière'  ainsi que de faux nez en plastique pour se mettre dans la peau du personange.")
+                    -> setCompteurVues(0);
+         $manager->persist($ProduitDerCyrano);
+         
+         $ImageCyrano = new Image();
+         $ImageCyrano -> setUrl("http://www.stuartfernie.org/cyr2.jpg")
+                     -> setOeuvreLitt($oeuvreLittCyrano)
+                     -> setOeuvreCine($oeuvreCineCyrano)
+                     -> setProduit($ProduitDerCyrano);
+         $manager->persist($ImageCyrano);
 
         /* ******************************************************* */
         /*                    Enregistrement en BD                 */
@@ -306,6 +491,8 @@ class Oeuvres implements FixtureInterface
         $manager->flush();
     }
 }
+
+
 
 
 ?>
