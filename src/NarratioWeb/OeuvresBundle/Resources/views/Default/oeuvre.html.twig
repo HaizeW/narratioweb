@@ -6,7 +6,7 @@
 <!-- mise en place des onglets -->
 <div class="container">
   <div class="col-sm-8">
-  <h2>{{oeuvreChoisie.nom}}</h2>
+  <h2>{{oeuvreLitt.nom}}</h2>
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#Oeuvre">Oeuvre</a></li>
     <li><a data-toggle="tab" href="#Livre">Livres</a></li>
@@ -22,8 +22,8 @@
         <p>
                 
             <br>
-              Resume : {{oeuvreChoisie.resume}}<br/>
-              Vues : {{oeuvreChoisie.compteurVues}}
+              Resume : {{oeuvreLitt.resume}}<br/>
+              Vues : {{oeuvreLitt.compteurVues}}
             <br>
             <br>
         
@@ -39,7 +39,7 @@
           <br/>
           Nombre de livres parus :
           <br/>
-          Liste des livres : {{oeuvreChoisie.nom}}
+          Liste des livres : {{oeuvreLitt.nom}}
         </p>
     </div>
     
@@ -48,11 +48,11 @@
       <h3>Film</h3>
       <button>Editer</button> 
       <p>
-        Ralisateur : {{oeuvreChoisie.nom}}
+        Ralisateur : {{oeuvreCine.realisateur.nom}}
         <br/>
-        Nombre de films parus : {{oeuvreChoisie.nom}}
+        Nombre de films parus : {{oeuvreCine.nom}}
         <br/>
-        Acteurs : {{oeuvreChoisie.nom}}
+        Acteurs : {{oeuvreCine.nom}}
       </p>
     </div>
 
@@ -61,7 +61,7 @@
       <h3>Autre</h3>
       <button>Editer</button> 
       <p>
-        {{oeuvreChoisie.nom}}
+        {{oeuvreProd.nom}}
       </p>
     </div>
 
@@ -81,7 +81,7 @@
   
         <div class="well">
           
-                Genre : {{oeuvreChoisie.genre.intitule}}
+                Genre : {{oeuvreLitt.genre.intitule}}
                
     
         </div>

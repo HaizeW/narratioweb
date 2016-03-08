@@ -7,15 +7,15 @@
     
 	<h4 align="center">Films<br/></h4>
 	<h5>Liste des nouveautés</h5>
-		{% for filmCourant in tabFilms %}
-		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':filmCourant.id})}}" class="list-group-item"> {{filmCourant.titre}} </a>
+		{% for oeuvreCCourante in tabOeuvreCineNew %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreCCourante.id})}}" class="list-group-item"> {{oeuvreCCourante.nom}} </a>
 		{%else%}
 		Aucune nouveauté
 		{%endfor%}<br/>
 		
 		<h5>Les films les plus vus</h5>
-		{% for filmCourant in tabFilmsVus %}
-		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':filmCourant.id})}}" class="list-group-item"> {{filmCourant.titre}} </a>
+		{% for oeuvreCCourante in tabOeuvreCineVues %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreCCourante.id})}}" class="list-group-item"> {{oeuvreCCourante.nom}} </a>
 		{%else%}
 		Aucune donnée
 		{%endfor%}
@@ -24,15 +24,15 @@
 	<h4 align="center">Livres<br/></h4>
 	<h5>Liste des nouveautés</h5>
 	
-		{% for livreCourant in tabLivres %}
-		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':livreCourant.id})}}" class="list-group-item"> {{livreCourant.titre}} </a>
+		{% for oeuvreLCourante in tabOeuvreLittNew %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreLCourante.id})}}" class="list-group-item"> {{oeuvreLCourante.nom}} </a>
 		{%else%}
 		Aucune nouveauté
 		{%endfor%}<br/>
 		
 		<h5>Les livres les plus lus</h5>
-		{% for livreCourant in tabLivresLus %}
-		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':livreCourant.id})}}" class="list-group-item"> {{livreCourant.titre}} </a>
+		{% for oeuvreLCourante in tabOeuvreLittVues %}
+		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreLCourante.id})}}" class="list-group-item"> {{oeuvreLCourante.nom}} </a>
 		{%else%}
 		Aucune donnée
 		{%endfor%}

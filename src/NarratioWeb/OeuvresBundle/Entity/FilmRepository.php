@@ -93,6 +93,25 @@ class FilmRepository extends EntityRepository
     }
     
     
+    public function getFilmsByOeuvreCine($idCine)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f
+                                                                    WHERE f.oeuvreCine = :idCine
+                                                        ');
+                                         
+        // je definis mes parametres
+        $requetePerso->setParameter('idCine', $idCine);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
     
     
 }

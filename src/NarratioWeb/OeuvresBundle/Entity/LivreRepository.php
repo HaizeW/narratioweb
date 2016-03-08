@@ -49,4 +49,27 @@ class LivreRepository extends EntityRepository
         return $tabResultats;
     }
     
+    
+    
+    public function getLivresByOeuvreLitt($idLitt)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l
+                                                                    WHERE l.oeuvreLitt = :idLitt
+                                                        ');
+                                         
+        // je definis mes parametres
+        $requetePerso->setParameter('idLitt', $idLitt);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
+    
 }

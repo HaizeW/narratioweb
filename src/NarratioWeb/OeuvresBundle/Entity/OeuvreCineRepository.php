@@ -15,24 +15,7 @@ class OeuvreCineRepository extends EntityRepository
     
 
     
-        public function getFilmsByOeuvreCine($idCine)
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, o FROM NarratioWebOeuvresBundle:Film f
-                                                                    FROM NarratioWebOeuvresBundle:OeuvreCine o
-                                                                        WHERE f.oeuvrecine = o.id
-                                                        ');
-                                         
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
-    
+
     
     
 }

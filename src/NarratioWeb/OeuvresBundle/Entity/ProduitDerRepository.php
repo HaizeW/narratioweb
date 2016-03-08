@@ -12,4 +12,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProduitDerRepository extends EntityRepository
 {
+    
+    
+        
+    public function getProdsByOeuvreProd($idProd)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT p FROM NarratioWebOeuvresBundle:ProduitDer p
+                                                                    WHERE p.id = :idProd
+                                                        ');
+                                         
+        // je definis mes parametres
+        $requetePerso->setParameter('idProd', $idProd);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
+    
 }
