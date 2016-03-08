@@ -320,7 +320,7 @@ class DefaultController extends Controller
                     $idCine = $tabOeuvreChoix[1]["id"];
                     $idProd = $tabOeuvreChoix[2]["id"];
                     
-                    //var_dump($oeuvreProd);
+                    //var_dump($idLitt);
                                
                             // je charge mon repository de Livre pour executer une requete sur la BD
                             $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
@@ -340,9 +340,30 @@ class DefaultController extends Controller
                             // je charge mon repository de Image pour executer une requete sur la BD
                             $repositoryImages = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                             // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                            $tabLivres = $repositoryImages->getLivresByOeuvreLitt($idLitt);
+                            $image = $repositoryImages->getImageByOeuvreLitt($idLitt);
                             
+                            // je definis l image principale
+                            $oeuvreImage = $image[0]["url"];
+                            
+                                // et les autres pour les suggestions
+                                $tabIdImage = array();
+                                $tabImagesBrute = array();
+                                for ($c=1; $c<$nbOeuvres; $c++)
+                                {
+                                    $tabIdImage[$c-1] = $tabOeuvreChoix[$c*3]["id"];
+                                    
+                                    // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                                    $tabImagesBrute[$c-1] = $repositoryImages->getImageByOeuvreLitt($tabIdImage[$c-1]);
+                                }
+
                             //var_dump($tabFilms);
+                            // je met en forme mon tableau pour l affichage dans la vue
+                            $tabImages = array();
+                            for ($w=0; $w<$nbOeuvres-1; $w++)
+                            {
+                                $tabImages[$w] = $tabImagesBrute[$w][0];
+                            }
+                            //var_dump($tabImages);
                     
                     //On augmente les compteusr de vues des 3 oeuvres
                     $compteurL = $oeuvreLitt->getCompteurVues();
@@ -367,7 +388,9 @@ class DefaultController extends Controller
                     // je retourne la vue avec les oeuvres a mettre en forme
                     return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array('oeuvreLitt'=>$oeuvreLitt,
                                                                                                     'oeuvreCine'=>$oeuvreCine,
-                                                                                                    'oeuvreProd'=>$oeuvreProd
+                                                                                                    'oeuvreProd'=>$oeuvreProd,
+                                                                                                    'tabImages'=>$tabImages,
+                                                                                                    'oeuvreImage'=>$oeuvreImage
                                                                                                     ));
                 }
             else 

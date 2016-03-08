@@ -35,11 +35,14 @@
       <h3>Livre</h3>
       <button>Editer</button> 
         <p>
-         
+          {% for LivreCourant in oeuvreLitt %}
           <br/>
-          Nombre de livres parus :
+          Nom : {{LivreCourant.nom}}
           <br/>
-          Liste des livres : {{oeuvreLitt.nom}}
+          Resume: 
+          {%else%}
+          rien à afficher.
+          {%endfor%}
         </p>
     </div>
     
@@ -48,11 +51,18 @@
       <h3>Film</h3>
       <button>Editer</button> 
       <p>
-        Ralisateur : {{oeuvreCine.nom}}
-        <br/>
-        Nombre de films parus : {{oeuvreCine.nom}}
-        <br/>
-        Acteurs : {{oeuvreCine.nom}}
+        {% for FilmCourant in oeuvreCine %}
+          nom:{{FilmCourant.titre}}
+          <br/>
+          Réalisateur : {{FilmCourant.realisateur}}
+          <br/>
+            {%for acteurCourant in FilmCourant.acteur%}
+            Acteurs:{{acteurCourant}}
+            {%endfor%}
+          <br/>
+          {%else%}
+          rien à afficher.
+        {%endfor%}
       </p>
     </div>
 
@@ -60,24 +70,27 @@
     <div id="Autre" class="tab-pane fade">
       <h3>Autre</h3>
       <button>Editer</button> 
+      {%for prodDer in oeuvreProd%}
       <p>
         {{oeuvreProd.nom}}
       </p>
+      {%else%}
+      rien à afficher.
+      {%endfor%}
     </div>
 
 <!-- liens vers les histoires qui correspondent aussi aux critères sélectionnés, A RENDRE DYNAMIQUE!!-->
-  <img src="url pour les histoires voisines" href="his voisines"/>
-  <img src="url pour les histoires voisines" href="his voisines"/>
-  <img src="url pour les histoires voisines" href="his voisines"/>
-  <img src="url pour les histoires voisines" href="his voisines"/>
-  <img src="url pour les histoires voisines" href="his voisines"/>
+{%for img in tabImages%}
+  <img src="{{img.url}}" width=150px height=150px href="his voisines"/>
+{%endfor%}
+
 </div>
 </div>
 
 <!-- image générale de l'oeuvre -->
 <div class="col-sm-4">
         
-<img src="" width=150px height=150px/>
+<img src="{{oeuvreImage}}" width=150px height=150px />
   
         <div class="well">
           

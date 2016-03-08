@@ -21,7 +21,7 @@ class ImageRepository extends EntityRepository
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT i.url FROM NarratioWebOeuvresBundle:Image i
-                                                                    WHERE i.oeuvreCine = :idLitt
+                                                                    WHERE i.oeuvreLitt = :idLitt
                                                         ');
                                          
         // je definis mes parametres

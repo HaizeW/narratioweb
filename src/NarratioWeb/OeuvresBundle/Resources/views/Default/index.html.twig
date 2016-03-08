@@ -1,29 +1,30 @@
 {% extends 'vueMere.html.twig' %}
 
 {% block body %}
-
-<div class="container">
-    <div class="row">
-<div class="col-sm-3">
-    {% include "NarratioWebOeuvresBundle:Default:menuLateral.html.twig" %}
-</div>
-
-<div class="col-sm-9">
-    <div class="panel-heading" align="center"> <h2> Sélection des critères</h2></div>
+        <!-- menu déroulant -->
+        <div class="col-sm-3">
+            {% include "NarratioWebOeuvresBundle:Default:menuLateral.html.twig" %}
+        </div>
+        
+        <!-- partie principale de la page d'accueil -->
+        <div class="col-sm-9">
+            <div class="panel-heading" align="center"> <h2> Sélection des critères</h2></div>
         <form method = "post" {{ form_enctype(form)}}>
             
             {#form_widget(createurFormulaire)#}
-            <br>
-            <br>
-            <!-- premiere liste déroulante-->
+            <br><br>
+            
+            <!-- premiere liste déroulante | Tranche Age-->
             <div class="col-sm-4">
                 <div style='float:left;'><center>Tranche d'Age : </center>{{form_widget(form.TrancheAge)}}</div>
             </div>
-            <!-- seconde liste déroulante-->
+            
+            <!-- seconde liste déroulante | Epoque-->
             <div class="col-sm-4">
                 <div style='float:left;'><center>Epoque : </center>{{form_widget(form.Epoque)}}</div>
             </div>
-            <!-- troisieme liste déroulante-->
+            
+            <!-- troisieme liste déroulante | Genre-->
             <div class="col-sm-4">
                 <div style='float:left;'><center>Genre : </center>{{form_widget(form.Genre)}}</div>
             </div>
@@ -32,13 +33,11 @@
             
             <div class="col-sm-2"></div>
             
+            <!-- bouton pour acceder à la recherche avancée-->
             <div class="col-sm-4">
-                <!-- lien pour acceder a la recherche avancée-->
                 <a href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee">
-                     
                     <div style='float:left;'><input type="button" class="btn btn-primary" value="Plus de caracteristiques" href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee"/>
                     </div>
-                
                 </a>
             </div>
             
@@ -48,8 +47,6 @@
                 </div>
             </div>
         </form>
-</div>
-</div>
 </div>
 
 {% endblock %}

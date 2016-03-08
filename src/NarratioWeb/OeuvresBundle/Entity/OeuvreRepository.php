@@ -50,8 +50,8 @@ class OeuvreRepository extends EntityRepository
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT o.id, o.nom, o FROM NarratioWebOeuvresBundle:Oeuvre o ORDER BY o.id DESC');
         
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
+        //je fixe ma limite à 4 résultats
+        $requetePerso->setMaxResults(4);
                                             
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -68,8 +68,8 @@ class OeuvreRepository extends EntityRepository
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT o.id, o.nom, o FROM NarratioWebOeuvresBundle:Oeuvre o ORDER BY o.compteurVues DESC');
                                             
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
+        //je fixe ma limite à 4 résultats
+        $requetePerso->setMaxResults(4);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -89,9 +89,6 @@ class OeuvreRepository extends EntityRepository
         //Je définis les paramètres de ma requête
         $requetePerso->setParameter('idOeuvre', $id);
         
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
-        
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
         
@@ -109,9 +106,6 @@ class OeuvreRepository extends EntityRepository
         
         //Je définis la valeur de mon paramètre
         $requetePerso->setParameter('idOeuvre', $id);
-        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
