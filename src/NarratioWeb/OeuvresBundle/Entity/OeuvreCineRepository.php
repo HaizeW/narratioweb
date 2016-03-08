@@ -23,6 +23,9 @@ class OeuvreCineRepository extends EntityRepository
         // je definis mes parametres
         $requetePerso->setParameter('id', $id);
         
+        //je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(3);
+        
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
         

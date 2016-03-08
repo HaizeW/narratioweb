@@ -43,7 +43,7 @@ class OeuvreLittRepository extends EntityRepository
         
     }
     
-    public function getLivres($id)
+    public function getLivres()
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
@@ -53,6 +53,9 @@ class OeuvreLittRepository extends EntityRepository
         
         // je definis mes parametres
         $requetePerso->setParameter('id', $id);
+        
+        //je fixe ma limite à 3 résultats
+        $requetePerso->setMaxResults(3);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();

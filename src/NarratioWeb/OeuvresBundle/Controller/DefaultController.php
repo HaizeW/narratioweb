@@ -58,14 +58,14 @@ class DefaultController extends Controller
         
         }
         
-                // -- MENU DEROULANT
-        // recup des livres pour remplir le menu déroulant
+       // -- MENU DEROULANT
+       // recup des livres pour remplir le menu déroulant
         $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-        $tabLivres = $repositoryLivres->getLivresNew();
+        $tabNewLivres = $repositoryLivres->getLivresNew();
             
         // recup des films pour remplir le menu déroulant
         $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
-        $tabFilms = $repositoryFilms->getFilmsNew();
+        $tabNewFilms = $repositoryFilms->getFilmsNew();
         
         // récup des films les plus vus
         $repositoryFilmsVus = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
@@ -75,8 +75,27 @@ class DefaultController extends Controller
         $repositoryLivresLus = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
         $tabLivresLus = $repositoryLivresLus->getLivresPlusLus();
         
+        // En gros : Il faut récupérer les oeuvres récentes/plus vues, puis récupérer leurs livres et films pour les afficher.
+        //Soucis : Comment récupérer les films et livres ? Et comment faire le lien vers l'oeuvre depuis le menu déroulant ??
+        
+        /*//recup des nouveaux livres
+        $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
+        $tabOeuvresRec = $repositoryOeuvres->getOeuvreRecentes();
+        $tabNewLivres = $tabOeuvresRec->getLivres();
+        
+        //recup des nouveaux films
+        $tabNewFilms = $tabOeuvresRec->getFilms($id);
+        
+        //recup des livres les plus lus
+        $tabOeuvresVues = $repositoryOeuvres->getOeuvrePlusVues();
+        $id = $tabOeuvresVues->getId();
+        $tabLivresLus = $tabOeuvresVues->getLivres($id);
+        
+        //recup des nouveaux films
+        $tabFilmsVus = $tabOeuvresVues->getFilms($id);*/
+        
         // ici, on affiche la page dont le formulaire permettant le choix d'une oeuvre via Random
-        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabFilms'=>$tabFilms, 'tabLivres'=>$tabLivres, 'tabFilmsVus'=>$tabFilmsVus, 'tabLivresLus'=>$tabLivresLus));
+        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabFilms'=>$tabNewFilms, 'tabLivres'=>$tabNewLivres, 'tabFilmsVus'=>$tabFilmsVus, 'tabLivresLus'=>$tabLivresLus));
 
     }
         
