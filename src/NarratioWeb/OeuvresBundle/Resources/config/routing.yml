@@ -14,8 +14,6 @@ narratio_web_oeuvres_oeuvre:
 narratio_web_oeuvres_voirOeuvre:
     path:     /oeuvre/{id}
     defaults:    { _controller: NarratioWebOeuvresBundle:Default:voirOeuvre }
-    requirements:
-        id: \d+
     
 narratio_web_oeuvres_oeuvreAvanceeFilm:
     path:     /oeuvreCine/{choixGenreF}/{choixEpoqueF}/{choixTrancheAgeF}/{choixActeur}/{choixRealisateur}/{choixThematiqueF}/{choixType}

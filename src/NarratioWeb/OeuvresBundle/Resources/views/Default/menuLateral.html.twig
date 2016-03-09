@@ -1,52 +1,83 @@
 <style type="text/css">   
 
 	#corps {
-	background-color: #ffcc66;
+	color: #F7EFD2;
+	background-color: #7D3232;
     /* position:fixed; */
-    /* top:0; */
+    /*top:0;*/
     left:5%;
-    width:200px;
-    height:90%;
-    z-index:100;
+    width:250px;
+    height:80%;
+    /*z-index:100;*/
 	font: Arial;
 	/* overflow:scroll; */
 }
 
 .list-group-item:link, .list-group-itema:visited, .list-group-item:hover, .list-group-item:active{
-	text-decoration: none;
-	background-color: #ffcc66;
+	/*text-decoration: none;
+	color: #F7EFD2;
+	background-color: #332C2C;
 	width:100%;
 	border:0;
 	font-size:1.5vh;
-	height: 3.7vh;
+	height: 3.7vh; */
+}
+
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
 }
 
 
+/* --- Loupe dans la recherche --- */
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  color: #332C2C;
+  padding: 10px;
+  pointer-events: none;
+}
 
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
 
 </style>
 
 
 <div class="well" id="corps">
-    <h2 align="center"> Menu </h2><br/>
+    <h3 align="center"> Menu </h3><br/>
 	<div class="inner-addon left-addon">
     	<i class="glyphicon glyphicon-zoom-in" align="center"></i>
     <input type="text" class="form-control" placeholder="Rechercher"/>
-    </div>
-    
-	<h4 align="center">Liste des nouveautés<br/></h4>
-		{% for oeuvreCourante in tabOeuvreNew %}
-		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreCourante.id})}}" class="list-group-item"> {{oeuvreCourante.nom}} </a>
-		{%else%}
-		Aucune nouveauté
-		{%endfor%}<br/>
-		
-	
-	<h4 align="center">Oeuvres les plus vues<br/></h4>
-		{% for oeuvreCourante in tabOeuvreVues %}
-		<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreCourante.id})}}" class="list-group-item"> {{oeuvreCourante.nom}} </a>
-		{%else%}
-		Aucune donnée
-		{%endfor%}
-	
+    </div><br>
+
+
+<div class ="panel panel-warning">
+	<div class= "panel-heading">
+		Liste des nouveautés
+	</div>
+		<div class="list-group">
+			{% for oeuvreCourante in tabOeuvreNew %}
+				<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreCourante.id})}}" class="list-group-item"> {{oeuvreCourante.nom}} </a>
+			{%else%}
+				Aucune nouveauté
+			{% endfor %}
+		</div>
 </div>
+		
+		
+<div class ="panel panel-warning">
+	<div class= "panel-heading">
+		Oeuvres les plus vues
+	</div>
+		<div class="list-group">
+			{% for oeuvreCourante in tabOeuvreVues %}
+				<a href="{{path('narratio_web_oeuvres_oeuvreMenu', {'id':oeuvreCourante.id})}}" class="list-group-item"> {{oeuvreCourante.nom}} </a>
+			{%else%}
+				Aucune donnée
+			{%endfor%}
+		</div>
+</div> </div>

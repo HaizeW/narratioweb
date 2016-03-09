@@ -4,7 +4,7 @@
 
 {% block body %}
 <!-- mise en place des onglets -->
-<div class="container">
+<div class="container" style="background-color: #F7F5F0">
   <div class="col-sm-8">
   <h2>{{oeuvreLitt.nom}}</h2>
   <ul class="nav nav-tabs">
@@ -15,10 +15,10 @@
   </ul>
 <!-- contenu du premier onglet -->
 
-  <div class="tab-content">
+  <div class="tab-content" >
     <div id="Oeuvre" class="tab-pane fade in active">
       <h3>Oeuvre</h3>
-        <button>Editer</button> 
+        <!-- <button>Editer</button> -->
         <p>
                 
             <br>
@@ -33,13 +33,15 @@
 <!-- contenu du second onglet -->
     <div id="Livre" class="tab-pane fade">
       <h3>Livre</h3>
-      <button>Editer</button> 
+     <!-- <button>Editer</button> --> 
         <p>
-          {% for LivreCourant in oeuvreLitt %}
+          {% for LivreCourant in tabLivres %}
           <br/>
-          Nom : {{LivreCourant.nom}}
+          Nom : {{LivreCourant.titre}}
+          <br/> 
+          Resume: {{oeuvreLitt.resume}}
           <br/>
-          Resume: 
+          Auteur :
           {%else%}
           rien à afficher.
           {%endfor%}
@@ -49,15 +51,15 @@
 <!-- contenu du troisieme onglet -->
     <div id="Film" class="tab-pane fade">
       <h3>Film</h3>
-      <button>Editer</button> 
+      <!-- <button>Editer</button> --> 
       <p>
-        {% for FilmCourant in oeuvreCine %}
+        {% for FilmCourant in tabFilms %}
           nom:{{FilmCourant.titre}}
           <br/>
-          Réalisateur : {{FilmCourant.realisateur}}
+          Réalisateur : 
           <br/>
-            {%for acteurCourant in FilmCourant.acteur%}
-            Acteurs:{{acteurCourant}}
+            {%for acteurCourant in FilmCourant%}
+            Acteurs :
             {%endfor%}
           <br/>
           {%else%}
@@ -69,10 +71,10 @@
 <!-- contenu du dernier onglet -->
     <div id="Autre" class="tab-pane fade">
       <h3>Autre</h3>
-      <button>Editer</button> 
-      {%for prodDer in oeuvreProd%}
+     <!-- <button>Editer</button> -->
+      {%for prodDer in tabProds%}
       <p>
-        {{oeuvreProd.nom}}
+        {{prodDer.nom}}
       </p>
       {%else%}
       rien à afficher.
@@ -81,9 +83,9 @@
 
 <!-- liens vers les histoires qui correspondent aussi aux critères sélectionnés, A RENDRE DYNAMIQUE!!-->
 {%for img in tabImages%}
-  <img src="{{img.url}}" width=150px height=150px href="his voisines"/>
+  <img src="{{img.url}}" width=75 height=75 href="his voisines"/>
 {%endfor%}
-
+<br>
 </div>
 </div>
 
@@ -103,3 +105,8 @@
 
 </div>
 {% endblock %}
+
+
+{#  <img src="{{img.url}}" width=75 height=75 href="his voisines"/> #}
+{#  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id' : oeuvreLitt.id}) }}"><img src"{{img.url}}" width=75 height=75 alt="Image de suggestion"></a>  #}
+

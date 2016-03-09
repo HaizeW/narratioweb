@@ -113,6 +113,10 @@ class OeuvreRepository extends EntityRepository
         // retour du resultat
         return $tabResultats;
     }
+    
+    
+    
+    
 }
 
 
@@ -122,10 +126,6 @@ class OeuvreRepository extends EntityRepository
 
 
 
-SELECT DISTINCT o.nom, o FROM NarratioWebOeuvresBundle:Oeuvre o
-                                                                        WHERE o.genre = :choixGenre
-                                                                        AND o.epoque = :choixEpoque
-                                                                        AND o.trancheAge = :choixTrancheAge
 
 
 
