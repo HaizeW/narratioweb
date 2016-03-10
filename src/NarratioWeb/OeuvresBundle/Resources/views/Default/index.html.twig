@@ -6,12 +6,12 @@
     <div class="row">
         
         <!-- menu déroulant -->
-        <div class="col-lg-3">
+        <div class="col-xs-3">
             {% include "NarratioWebOeuvresBundle:Default:menuLateral.html.twig" %}
         </div>
         
         <!-- partie principale de la page d'accueil -->
-        <div class="col-lg-9">
+        <div class="col-xs-9">
             <!-- <div class="panel-heading" align="center"> <h2> Sélection des critères</h2></div> -->
         <form method = "post" {{ form_enctype(form)}}>
             
@@ -19,18 +19,24 @@
             <br><br>
             
             <!-- premiere liste déroulante | Tranche Age-->
-            <div class="col-lg-4">
-                <div style='float:left;'><center>Tranche d'Age : </center>{{form_widget(form.TrancheAge)}}</div>
+            <div class="col-xs-4">
+                <div style='float:left;'>
+                    <center><b>Tranche d'Age</b></center>{{form_widget(form.TrancheAge)}}
+                </div>
             </div>
             
             <!-- seconde liste déroulante | Epoque-->
-            <div class="col-lg-4">
-                <div style='float:left;'><center>Epoque : </center>{{form_widget(form.Epoque)}}</div>
+            <div class="col-xs-4">
+                <div style='float:left;'>
+                    <center><b>Epoque</b></center>{{form_widget(form.Epoque)}}
+                </div>
             </div>
             
             <!-- troisieme liste déroulante | Genre-->
-            <div class="col-lg-4">
-                <div style='float:left;'><center>Genre : </center>{{form_widget(form.Genre)}}</div>
+            <div class="col-xs-4">
+                <div style='float:left;'>
+                    <center><b>Genre</b></center>{{form_widget(form.Genre)}}
+                </div>
             </div>
             
             <br><br><br><br>

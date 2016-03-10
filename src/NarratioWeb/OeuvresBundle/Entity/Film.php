@@ -179,18 +179,18 @@ class Film
     /**
      * Set oeuvres
      *
-     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvres $oeuvres
+     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvres
      * @return Oeuvre
      */
-    public function setOeuvres(\NarratioWeb\OeuvresBundle\Entity\Oeuvres $oeuvres = null)
+    public function setOeuvres(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvres = null)
     {
-        $this->oeuvres = $oeuvres;
+        $this->oeuvre = $oeuvres;
         return $this;
     }
     /**
      * Get oeuvres
      *
-     * @return \NarratioWeb\OeuvresBundle\Entity\Oeuvres 
+     * @return \NarratioWeb\OeuvresBundle\Entity\Oeuvre 
      */
     public function getOeuvres()
     {
