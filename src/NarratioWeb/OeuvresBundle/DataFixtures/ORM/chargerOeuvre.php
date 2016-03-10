@@ -25,6 +25,10 @@ class Oeuvres implements FixtureInterface
     // Dans l'argument de la méthode load, l'objet $manager est l'EntityManager
     public function load(ObjectManager $manager)
     {
+        /* ******************************************************* */
+        /*                    Enregistrement en BD                 */
+        /* ******************************************************* */
+        // On déclenche l'enregistrement de toutes les données en BD */
         $manager->flush();
     }
 }

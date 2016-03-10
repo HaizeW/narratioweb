@@ -2,13 +2,10 @@
 namespace NarratioWeb\OeuvresBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
- * 
+ * Oeuvre
+ *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="NarratioWeb\OeuvresBundle\Entity\OeuvreRepository")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"oeuvre" = "Oeuvre", "oeuvrelitt" = "OeuvreLitt", "oeuvrecine" = "OeuvreCine", "produitder" = "ProduitDer"})
- * 
  */
 class Oeuvre
 {
@@ -42,6 +39,13 @@ class Oeuvre
      * @ORM\Column(name="compteurVues", type="integer")
      */
     private $compteurVues;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prodDer", type="string")
+     */
+    private $prodDer;
     
     /**
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Epoque")
@@ -132,6 +136,26 @@ class Oeuvre
     public function getCompteurVues()
     {
         return $this->compteurVues;
+    }
+    /**
+     * Set prodDer
+     *
+     * @param string $prodDer
+     * @return Oeuvre
+     */
+    public function setProdDer($prodDer)
+    {
+        $this->prodDer = $prodDer;
+        return $this;
+    }
+    /**
+     * Get prodDer
+     *
+     * @return string 
+     */
+    public function getProdDer()
+    {
+        return $this->prodDer;
     }
     /**
      * Set epoque

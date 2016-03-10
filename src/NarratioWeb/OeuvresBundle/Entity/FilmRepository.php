@@ -31,6 +31,7 @@ class FilmRepository extends EntityRepository
         return $tabResultats;
     }
     
+    
     public function getFilmsPlusVus()
     {
         // appel du gestionnaire d'entité
@@ -112,7 +113,6 @@ class FilmRepository extends EntityRepository
         // retour du resultat
         return $tabResultats;
     }
-    
     
 }
 

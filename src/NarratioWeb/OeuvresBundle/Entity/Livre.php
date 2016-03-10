@@ -32,12 +32,12 @@ class Livre
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Editeur")
      */
     private $editeur;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\OeuvreLitt",
-     *                  cascade={"persist", "remove"})
+     /**
+     *
+     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre", cascade={"persist"})
      */
-    private $oeuvreLitt;
+    private $oeuvres; // avec un "s" car une oeuvre peut avoir plusieurs livres proposés
+    
     /**
      * Get id
      *
@@ -135,23 +135,23 @@ class Livre
         return $this->editeur;
     }
     /**
-     * Set oeuvreLitt
+     * Set oeuvres
      *
-     * @param \NarratioWeb\OeuvresBundle\Entity\OeuvreLitt $oeuvreLitt
-     * @return Livre
+     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvres $oeuvres
+     * @return Oeuvre
      */
-    public function setOeuvreLitt(\NarratioWeb\OeuvresBundle\Entity\OeuvreLitt $oeuvreLitt = null)
+    public function setOeuvres(\NarratioWeb\OeuvresBundle\Entity\Oeuvres $oeuvres = null)
     {
-        $this->oeuvreLitt = $oeuvreLitt;
+        $this->oeuvres = $oeuvres;
         return $this;
     }
     /**
-     * Get oeuvreLitt
+     * Get oeuvres
      *
-     * @return \NarratioWeb\OeuvresBundle\Entity\OeuvreLitt 
+     * @return \NarratioWeb\OeuvresBundle\Entity\Oeuvres 
      */
-    public function getOeuvreLitt()
+    public function getOeuvres()
     {
-        return $this->oeuvreLitt;
+        return $this->oeuvres;
     }
 }

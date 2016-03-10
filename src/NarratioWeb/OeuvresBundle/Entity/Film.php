@@ -44,11 +44,12 @@ class Film
      * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Acteur")
      */
     private $acteurs;
-        /**
-     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\OeuvreCine",
-     *                  cascade={"persist", "remove"})
+     /**
+     *
+     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre", cascade={"persist"})
      */
-    private $oeuvreCine;
+    private $oeuvres; // avec un "s" car une oeuvre peut avoir plusieurs films proposés
+    
     /**
      * Get id
      *
@@ -174,27 +175,26 @@ class Film
     {
         return $this->acteurs;
     }
-
+   
     /**
-     * Set oeuvreCine
+     * Set oeuvres
      *
-     * @param \NarratioWeb\OeuvresBundle\Entity\OeuvreCine $oeuvreCine
-     * @return Film
+     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvres $oeuvres
+     * @return Oeuvre
      */
-    public function setOeuvreCine(\NarratioWeb\OeuvresBundle\Entity\OeuvreCine $oeuvreCine = null)
+    public function setOeuvres(\NarratioWeb\OeuvresBundle\Entity\Oeuvres $oeuvres = null)
     {
-        $this->oeuvreCine = $oeuvreCine;
-
+        $this->oeuvres = $oeuvres;
         return $this;
     }
-
     /**
-     * Get oeuvreCine
+     * Get oeuvres
      *
-     * @return \NarratioWeb\OeuvresBundle\Entity\OeuvreCine 
+     * @return \NarratioWeb\OeuvresBundle\Entity\Oeuvres 
      */
-    public function getOeuvreCine()
+    public function getOeuvres()
     {
-        return $this->oeuvreCine;
+        return $this->oeuvres;
     }
+   
 }
