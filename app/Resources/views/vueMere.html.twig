@@ -2,9 +2,11 @@
 
 #user {
     /*position:fixed;*/
-    top:0;
+    top:10px;
     right:30;
     /* z-index:100; */
+    background-color:#fff;
+    border-radius: 5px;
 	
 }
 
@@ -50,7 +52,10 @@
 				<div class="col-lg-12">
 				{% block header2 %}
 					<div id="user" style='float:right;'>
-						Vous etes connecte en tant que : $Visiteur
+						<ul class="nav nav-pills nav-stacked">
+							<li role="presentation" class="active"><a href="{{path('narratio_web_oeuvres_connexion')}}">Se connecter</a></li>
+  							<li role="presentation"><a href="{{path('narratio_web_oeuvres_inscription')}}">S'inscrire</a></li>
+						</ul>
 					</div>
 				{% endblock %}
 				</div>

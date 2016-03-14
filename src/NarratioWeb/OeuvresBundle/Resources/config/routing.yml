@@ -27,3 +27,12 @@ narratio_web_oeuvres_oeuvreMenu:
 naratio_web_oeuvres_test:
     path: /haize
     defaults:   { _controller: NarratioWebOeuvresBundle:Oeuvre:test }
+    
+narratio_web_oeuvres_connexion:
+    path:     /accueil/connexion
+    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:connexion }
+
+narratio_web_oeuvres_inscription:
+    path:     /accueil/inscription
+    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:inscription }
+    

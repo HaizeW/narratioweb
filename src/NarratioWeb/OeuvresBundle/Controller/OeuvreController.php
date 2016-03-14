@@ -594,8 +594,12 @@ class OeuvreController extends Controller
             
         }
     
-
+    public function connexionAction(){
+        return $this->render('NarratioWebOeuvresBundle:Default:seConnecter.html.twig');
+    }
  
-
+    public function inscriptionAction(){
+        return $this->render('NarratioWebOeuvresBundle:Default:sInscrire.html.twig');
+    }
 
 }
