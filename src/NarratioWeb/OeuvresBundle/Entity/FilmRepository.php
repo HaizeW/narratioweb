@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class FilmRepository extends EntityRepository
 {
     
-    public function getFilmsNew()
+    public function getFilmsNew() // LES ID CHANGENT TOUT LE TEMPS DONC ?
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
@@ -22,7 +22,7 @@ class FilmRepository extends EntityRepository
         $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f ORDER BY f.id DESC');
                                                                         
         //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
+        $requetePerso->setMaxResults(5);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -32,16 +32,16 @@ class FilmRepository extends EntityRepository
     }
     
     
-    public function getFilmsPlusVus()
+    public function getFilmsPlusVus() // OK je pense ...
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, o FROM NarratioWebOeuvresBundle:Film f  JOIN f.oeuvreCine o ORDER BY o.compteurVues DESC');
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, o FROM NarratioWebOeuvresBundle:Film f  JOIN f.oeuvre o ORDER BY o.compteurVues DESC');
                                                                         
         //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
+        $requetePerso->setMaxResults(5);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -51,61 +51,44 @@ class FilmRepository extends EntityRepository
     }
     
     
-    
-    
-    public function getOeuvreCine($choixEpoqueF, $choixGenreF, $choixTrancheAgeF, $choixActeur, $choixRealisateur, $choixType, $choixThematiqueF)
+    public function getFilmsAvancee($choixActeur, $choixRealisateur, $choixType) // OK
     {
-        
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, oc, o FROM NarratioWebOeuvresBundle:Film f 
-                                                                JOIN f.oeuvreCineId oc
-                                                                JOIN oc.id o
-                                                                        WHERE o.id = oc.id
-                                                                        
-                                                                        AND f.realisateur = :choixRealisateur                        
-                                                                        AND f.type = :choixType     
-                                                                        
-                                                                        
-                                                                        AND o.genre = :choixGenre
-                                                                        AND o.epoque = :choixEpoque
-                                                                        AND o.trancheAge = :choixTrancheAge                                 
-                                                                        AND o.thematique = :choixThematique
-                                                                        AND o.discr = "oeuvrecine"
-                                                                        ');
-        
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, a FROM NarratioWebOeuvresBundle:Film f
+                                                            LEFT JOIN f.acteurs a
+                                                                    WHERE f.type = :choixType
+                                                                    AND f.realisateur = :choixRealisateur
+                                                                    AND a.id = :choixActeur
+                                                        ');
+                                         
         // je definis mes parametres
-        $requetePerso->setParameter('choixEpoque', $choixEpoqueF);
-        $requetePerso->setParameter('choixGenre', $choixGenreF);
-        $requetePerso->setParameter('choixTrancheAge', $choixTrancheAgeF);
         $requetePerso->setParameter('choixActeur', $choixActeur);
         $requetePerso->setParameter('choixRealisateur', $choixRealisateur);
         $requetePerso->setParameter('choixType', $choixType);
-        $requetePerso->setParameter('choixThematique', $choixThematiqueF);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
         
         // retour du resultat
         return $tabResultats;
-        
     }
     
     
-    public function getFilmsByOeuvreCine($idCine)
+    public function getFilmsByOeuvre($idOeuvre) // OK
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f
-                                                                    WHERE f.oeuvreCine = :idCine
+                                                                    WHERE f.oeuvre = :idOeuvre
                                                         ');
                                          
         // je definis mes parametres
-        $requetePerso->setParameter('idCine', $idCine);
+        $requetePerso->setParameter('idOeuvre', $idOeuvre);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -117,6 +100,3 @@ class FilmRepository extends EntityRepository
 }
 
 
-
-                             
-//                                                              AND o.acteur = :choixActeur  

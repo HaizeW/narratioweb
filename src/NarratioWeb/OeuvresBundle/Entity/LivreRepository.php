@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class LivreRepository extends EntityRepository
 {
     
-    public function getLivresNew()
+    public function getLivresNew() // LES ID CHANGENT TOUT LE TEMPS DONC ?
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
@@ -22,7 +22,7 @@ class LivreRepository extends EntityRepository
         $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l ORDER BY l.id DESC');
                                                                         
         //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
+        $requetePerso->setMaxResults(5);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -31,16 +31,16 @@ class LivreRepository extends EntityRepository
         return $tabResultats;
     }
     
-    public function getLivresPlusLus()
+    public function getLivresPlusLus() // OK je pense ...
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT l, o FROM NarratioWebOeuvresBundle:Livre l  JOIN l.oeuvreLitt o ORDER BY o.compteurVues DESC');
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l, o FROM NarratioWebOeuvresBundle:Livre l  JOIN l.oeuvre o ORDER BY o.compteurVues DESC');
                                                                         
         //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(3);
+        $requetePerso->setMaxResults(5);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -51,18 +51,18 @@ class LivreRepository extends EntityRepository
     
     
     
-    public function getLivresByOeuvreLitt($idLitt)
+    public function getLivresByOeuvre($idOeuvre) // OK
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l
-                                                                    WHERE l.oeuvreLitt = :idLitt
+                                                                    WHERE l.oeuvre = :idOeuvre
                                                         ');
                                          
         // je definis mes parametres
-        $requetePerso->setParameter('idLitt', $idLitt);
+        $requetePerso->setParameter('idOeuvre', $idOeuvre);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -71,5 +71,28 @@ class LivreRepository extends EntityRepository
         return $tabResultats;
     }
     
+    
+    public function getLivresAvancee($choixAuteur, $choixEditeur)
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l, a FROM NarratioWebOeuvresBundle:Livre l
+                                                            LEFT JOIN l.auteur a
+                                                                    WHERE l.editeur = :choixEditeur
+                                                                    AND a.id = :choixAuteur
+                                                        ');
+                                         
+        // je definis mes parametres
+        $requetePerso->setParameter('choixAuteur', $choixAuteur);
+        $requetePerso->setParameter('choixEditeur', $choixEditeur);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
     
 }

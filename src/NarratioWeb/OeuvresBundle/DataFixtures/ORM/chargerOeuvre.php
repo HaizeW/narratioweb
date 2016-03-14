@@ -77,7 +77,7 @@ class Oeuvres implements FixtureInterface
 
         $oeuvreNEC = new Oeuvre();
         $oeuvreNEC -> setNom("Nos étoiles contraires")
-                    -> setResume("Deux adolescents atteints de cancer, Hazel Grace et Augustus Waters, se connaissent dans un groupe de soutien. Les deux adolescents se passionnent pour un roman de Peter Van Houten, qui se termine brutalement au milieu d'une phrase. Curieux du sort des personnages, Hazel et Augustus envisagent de se rendre à Amsterdam afin de rencontrer l'auteur. Ils effectuent le voyage grâce à une fondation d'aide aux enfants malades qui se charge d'exaucer leur vœu le plus cher…")
+                    -> setConcept("Deux adolescents atteints de cancer, Hazel Grace et Augustus Waters, se connaissent dans un groupe de soutien. Les deux adolescents se passionnent pour un roman de Peter Van Houten, qui se termine brutalement au milieu d'une phrase. Curieux du sort des personnages, Hazel et Augustus envisagent de se rendre à Amsterdam afin de rencontrer l'auteur. Ils effectuent le voyage grâce à une fondation d'aide aux enfants malades qui se charge d'exaucer leur vœu le plus cher…")
                     -> setProdDer("Accessoires et vêtements avec le titre du livre ou la phrase «ok? ok.» BSO Histoire de Esther Earl, jeune fille qui a inspiré John Green a écrire l'histoire: This Star Won't Go Out: The Life and Words of Esther Grace Earl")
                     -> setEpoque($epoque1020)
                     -> setGenre($genreRomance)
@@ -99,7 +99,8 @@ class Oeuvres implements FixtureInterface
          $LivreNEC   -> setTitre("Nos étoiles contraires")
                      -> addAuteur($AuteurNEC)
                      -> setEditeur($EditeurNEC)
-                     -> setOeuvres($oeuvreNEC);
+                     -> setOeuvre($oeuvreNEC)
+                     -> setResume("Resume Nos étoiles contraires");
          $manager->persist($LivreNEC);
 
 
@@ -135,7 +136,8 @@ class Oeuvres implements FixtureInterface
                   -> addActeur($ActeurNEC1)
                   -> addActeur($ActeurNEC2)
                   -> addActeur($ActeurNEC3)
-                  -> setOeuvres($oeuvreNEC);
+                  -> setOeuvre($oeuvreNEC)
+                  -> setSynopsis("Synopsis Nos étoiles contraires");
          $manager->persist($FilmNEC);
 
         $ImageNEC = new Image();
@@ -149,13 +151,13 @@ class Oeuvres implements FixtureInterface
 
         $oeuvreLOTR = new Oeuvre();
         $oeuvreLOTR -> setNom("Le Seigneur des Anneaux")
-                    -> setResume("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...")
+                    -> setConcept("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...")
                     -> setEpoque($epoque5060)
                     -> setGenre($genreFantastique)
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheAdulte)
                     ->setProdDer("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).")
-                    -> setCompteurVues(1);
+                    -> setCompteurVues(0);
         $manager->persist($oeuvreLOTR);
         
         $EditeurLOTR = new Editeur();
@@ -171,22 +173,26 @@ class Oeuvres implements FixtureInterface
         $LivreLOTR1 = new Livre();
         $LivreLOTR1 -> setTitre("La Fraternité de l'Anneau")
                      -> addAuteur($AuteurLOTR)
-                     -> setOeuvres($oeuvreLOTR)
-                     -> setEditeur($EditeurLOTR);
+                     -> setOeuvre($oeuvreLOTR)
+                     -> setEditeur($EditeurLOTR)
+                     -> setResume(" Resume de La Fraternité de l'Anneau ");
+                     
         $manager->persist($LivreLOTR1);
          
         $LivreLOTR2 = new Livre();
         $LivreLOTR2 -> setTitre("Les Deux Tours")
                      -> addAuteur($AuteurLOTR)
                      -> setEditeur($EditeurLOTR)
-                     -> setOeuvres($oeuvreLOTR);
+                     -> setOeuvre($oeuvreLOTR)
+                     -> setResume(" Resume de Les Deux Tours ");
         $manager->persist($LivreLOTR2);
 		 
 		$LivreLOTR3 = new Livre();
         $LivreLOTR3 -> setTitre("Les Retour du Roi")
                      -> addAuteur($AuteurLOTR)
                      -> setEditeur($EditeurLOTR)
-                     -> setOeuvres($oeuvreLOTR);
+                     -> setOeuvre($oeuvreLOTR)
+                     -> setResume(" Resume de Les Retour du Roi ");
         $manager->persist($LivreLOTR3);
          
         $ActeurElijahWood = new Acteur();
@@ -223,7 +229,8 @@ class Oeuvres implements FixtureInterface
                    -> addActeur($ActeurViggoMortensen)
                    -> addActeur($ActeurIanMcKellen)
                    -> addActeur($ActeurOrlandoBloom)
-                   -> setOeuvres($oeuvreLOTR);
+                   -> setOeuvre($oeuvreLOTR)
+                   -> setSynopsis("Synopsis La Communauté de l'Anneau");
          $manager->persist($FilmLOTR1);
 		 
 		$FilmLOTR2 = new Film();
@@ -235,7 +242,8 @@ class Oeuvres implements FixtureInterface
                    -> addActeur($ActeurViggoMortensen)
                    -> addActeur($ActeurIanMcKellen)
                    -> addActeur($ActeurOrlandoBloom)
-                   -> setOeuvres($oeuvreLOTR);
+                   -> setOeuvre($oeuvreLOTR)
+                   -> setSynopsis("Synopsis Les Deux Tours");
          $manager->persist($FilmLOTR2);
 		 
 		$FilmLOTR3 = new Film();
@@ -247,12 +255,13 @@ class Oeuvres implements FixtureInterface
                    -> addActeur($ActeurViggoMortensen)
                    -> addActeur($ActeurIanMcKellen)
                    -> addActeur($ActeurOrlandoBloom)
-                   -> setOeuvres($oeuvreLOTR);
+                   -> setOeuvre($oeuvreLOTR)
+                   -> setSynopsis("Synopsis Le Retour du Roi");
          $manager->persist($FilmLOTR3);
          
         $ImageLOTR = new Image();
-        $ImageLOTR -> setUrl("http://gardoum.com/wp-content/uploads/2015/10/92359592_o.jpg")
-                                ->setOeuvre($oeuvreLOTR);
+        $ImageLOTR  -> setUrl("http://gardoum.com/wp-content/uploads/2015/10/92359592_o.jpg")
+                    ->setOeuvre($oeuvreLOTR);
         $manager->persist($ImageLOTR);
 
         $epoque8090 = new Epoque();
@@ -273,7 +282,7 @@ class Oeuvres implements FixtureInterface
 
         $oeuvreCyrano = new Oeuvre();
         $oeuvreCyrano -> setNom("Cyrano De Bergerac")
-                    -> setResume("Cyrano deBergerac est un turbulent mousquetaire de la compagnie des Cadets de Gascogne. Il est amoureux de sa cousine, la belle Roxane,mais n’ose pas le lui avouer car il est complexé par son nez difforme, même s’il défend cette difformité brillamment quand un vicomte trop audacieux se risque à lui faire une remarque. Lorsque Roxane sollicite une entrevue avec lui à la rôtisserie de Ragueneau, Cyrano est plein d’espoir, mais Roxane luirévèle qu’elle aime Christian, beau jeune homme qui s’apprête à entrer chez les Cadets de Gascogne, et elle demande à Cyrano de le protéger. Cyrano accepte et va même plus loin, puisqu’il conclut un pacte avec Christian, qui est beau mais peu spirituel : il va lui dicter les mots d’amour que Christian dira à Roxane. Grâce auxbons mots de Cyrano, Christian gagne le cœur de Roxane ils se marient très rapidement. Cependant De Guiche, rival jaloux, fait envoyer les Cadets de Gascogne à la guerre, au siège d’Arras. Cyrano y protège toujours Christian et envoie tous les jours des lettres à Roxane au nom de celui-ci. Néanmoins Christian s’aperçoit que Roxane l’aime surtout pour ce qu’elle croit être son bel esprit et qu’elle aime donc en réalité, sans le savoir, Cyrano. Il refuse de prolonger l’imposture et exige de Cyrano qu’il dise la vérité à Roxane. Mais au moment où Cyrano s’apprête à tout avouer, Christian est tué au front. Cyrano décide donc de se taire à jamais. L'histoire se ﬁnit quinze ans plus tard. Roxane est retirée dans un couvent, et Cyrano vient lui rendre visite toutes les semaines. Ce jour-là, victime d’un accident qui ressemble à un attentat, mourant, il lui demande de lire la dernière lettre de Christian. Alors qu’il la récite par cœur, Roxane comprend tout. Cyrano meurt en ayant reçu d’elle un baiser sur le front.")
+                    -> setConcept("Cyrano deBergerac est un turbulent mousquetaire de la compagnie des Cadets de Gascogne. Il est amoureux de sa cousine, la belle Roxane,mais n’ose pas le lui avouer car il est complexé par son nez difforme, même s’il défend cette difformité brillamment quand un vicomte trop audacieux se risque à lui faire une remarque. Lorsque Roxane sollicite une entrevue avec lui à la rôtisserie de Ragueneau, Cyrano est plein d’espoir, mais Roxane luirévèle qu’elle aime Christian, beau jeune homme qui s’apprête à entrer chez les Cadets de Gascogne, et elle demande à Cyrano de le protéger. Cyrano accepte et va même plus loin, puisqu’il conclut un pacte avec Christian, qui est beau mais peu spirituel : il va lui dicter les mots d’amour que Christian dira à Roxane. Grâce auxbons mots de Cyrano, Christian gagne le cœur de Roxane ils se marient très rapidement. Cependant De Guiche, rival jaloux, fait envoyer les Cadets de Gascogne à la guerre, au siège d’Arras. Cyrano y protège toujours Christian et envoie tous les jours des lettres à Roxane au nom de celui-ci. Néanmoins Christian s’aperçoit que Roxane l’aime surtout pour ce qu’elle croit être son bel esprit et qu’elle aime donc en réalité, sans le savoir, Cyrano. Il refuse de prolonger l’imposture et exige de Cyrano qu’il dise la vérité à Roxane. Mais au moment où Cyrano s’apprête à tout avouer, Christian est tué au front. Cyrano décide donc de se taire à jamais. L'histoire se ﬁnit quinze ans plus tard. Roxane est retirée dans un couvent, et Cyrano vient lui rendre visite toutes les semaines. Ce jour-là, victime d’un accident qui ressemble à un attentat, mourant, il lui demande de lire la dernière lettre de Christian. Alors qu’il la récite par cœur, Roxane comprend tout. Cyrano meurt en ayant reçu d’elle un baiser sur le front.")
                     -> setEpoque($epoque8090)
                     -> setGenre($genreDramatique)
                     -> setThematique($themeRomantisme)
@@ -295,7 +304,8 @@ class Oeuvres implements FixtureInterface
          $LivreCyrano   -> setTitre("Cyrano De Bergerac")
                      -> addAuteur($AuteurCyrano)
                      -> setEditeur($EditeurCyrano)
-                     -> setOeuvres($oeuvreCyrano);
+                     -> setOeuvre($oeuvreCyrano)
+                     -> setResume("Resume Cyrano De Bergerac");
          $manager->persist($LivreCyrano);
 
          $ActeurCyrano1 = new Acteur();
@@ -326,7 +336,8 @@ class Oeuvres implements FixtureInterface
                   -> addActeur($ActeurCyrano1)
                   -> addActeur($ActeurCyrano2)
                   -> addActeur($ActeurCyrano3)
-                  -> setOeuvres($oeuvreCyrano);
+                  -> setOeuvre($oeuvreCyrano)
+                  -> setSynopsis("Synopsis Cyrano De Bergerac 1");
          $manager->persist($FilmCyrano);
 
          $ActeurCyrano4 = new Acteur();
@@ -356,7 +367,8 @@ class Oeuvres implements FixtureInterface
                   -> setRealisateur($RéalisateurCyrano)
                   -> addActeur($ActeurCyrano5)
                   -> addActeur($ActeurCyrano6)
-                  -> setOeuvres($oeuvreCyrano);
+                  -> setOeuvre($oeuvreCyrano)
+                  -> setSynopsis("Synopsis Cyrano De Bergerac 2");
          $manager->persist($FilmCyrano2);
 
          $ActeurCyrano8 = new Acteur();
@@ -387,12 +399,13 @@ class Oeuvres implements FixtureInterface
                   -> addActeur($ActeurCyrano8)
                   -> addActeur($ActeurCyrano9)
                   -> addActeur($ActeurCyrano10)
-                  -> setOeuvres($oeuvreCyrano);
+                  -> setOeuvre($oeuvreCyrano)
+                  -> setSynopsis("Synopsis Cyrano De Bergerac 2");
          $manager->persist($FilmCyrano3);
 
          
          $ImageCyrano = new Image();
-         $ImageCyrano -> setUrl("http://www.stuartfernie.org/cyr2.jpg")
+         $ImageCyrano -> setUrl("http://www.revistarambla.com/v1/images/ARTICULOS/2014%20ENERO/sirano_rambla_02.jpg")
                       -> setOeuvre($oeuvreCyrano);
          $manager->persist($ImageCyrano);
 

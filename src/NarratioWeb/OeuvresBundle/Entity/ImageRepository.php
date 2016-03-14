@@ -14,18 +14,18 @@ class ImageRepository extends EntityRepository
 {
     
     
-    public function getImageByOeuvreLitt($idLitt)
+    public function getImageByOeuvre($idOeuvre) // OK
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT i.url FROM NarratioWebOeuvresBundle:Image i
-                                                                    WHERE i.oeuvreLitt = :idLitt
+                                                                    WHERE i.oeuvre = :idOeuvre
                                                         ');
                                          
         // je definis mes parametres
-        $requetePerso->setParameter('idLitt', $idLitt);
+        $requetePerso->setParameter('idOeuvre', $idOeuvre);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -34,5 +34,22 @@ class ImageRepository extends EntityRepository
         return $tabResultats;
     }
     
+    
+        public function getImageSugg()
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT i.url FROM NarratioWebOeuvresBundle:Image i
+                                                        ');
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+
     
 }

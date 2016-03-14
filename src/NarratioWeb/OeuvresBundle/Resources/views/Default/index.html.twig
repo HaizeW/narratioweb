@@ -1,6 +1,7 @@
 {% extends 'vueMere.html.twig' %}
 
 {% block body %}
+<style type="text/css"></style>
 
 <div class="container" style="background-color: #F7F5F0">
     <div class="row">
@@ -11,7 +12,7 @@
         </div>
         
         <!-- partie principale de la page d'accueil -->
-        <div class="col-xs-9">
+        <div class="col-xs-9"><br><br>
             <!-- <div class="panel-heading" align="center"> <h2> Sélection des critères</h2></div> -->
         <form method = "post" {{ form_enctype(form)}}>
             
@@ -41,17 +42,17 @@
             
             <br><br><br><br>
             
-            <div class="col-lg-2"></div>
+            <div class="col-xs-2"></div>
             
             <!-- bouton pour acceder à la recherche avancée-->
-            <div class="col-lg-4">
+            <div class="col-xs-4">
                 <a href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee">
                     <div style='float:left;'><input type="button" class="btn btn-default" value="Plus de caracteristiques" href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/rechercheAvancee"/>
                     </div>
                 </a>
             </div>
             
-            <div class="col-lg-4">
+            <div class="col-xs-4">
                 <!-- bouton pour acceder à une oeuvre random -->
                 <div style='float:center;'><input type="submit" class="btn btn-warning" value="Random"/>
                 </div>

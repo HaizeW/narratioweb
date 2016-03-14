@@ -29,9 +29,9 @@ class Oeuvre
     /**
      * @var string
      *
-     * @ORM\Column(name="resume", type="string")
+     * @ORM\Column(name="concept", type="string")
      */
-    private $resume;
+    private $concept;
     
     /**
      * @var integer
@@ -67,7 +67,6 @@ class Oeuvre
      */
     private $trancheAge;
     
-    
     /**
      * Get id
      *
@@ -98,24 +97,24 @@ class Oeuvre
         return $this->nom;
     }
     /**
-     * Set resume
+     * Set concept
      *
-     * @param string $resume
+     * @param string $concept
      * @return Oeuvre
      */
-    public function setResume($resume)
+    public function setConcept($concept)
     {
-        $this->resume = $resume;
+        $this->concept = $concept;
         return $this;
     }
     /**
-     * Get resume
+     * Get concept
      *
      * @return string 
      */
-    public function getResume()
+    public function getConcept()
     {
-        return $this->resume;
+        return $this->concept;
     }
     /**
      * Set compteurVues

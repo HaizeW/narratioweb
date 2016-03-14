@@ -1,112 +1,125 @@
 {%extends 'vueMere.html.twig' %}
 
-
-
 {% block body %}
-<!-- mise en place des onglets -->
+<style type="text/css">
+   #titre1{
+      color:#F6EFD2;
+      text-align:center;
+      font-size:30px;
+      font-family: garamond;
+      background-color:#212524;
+      text-decoration:none;
+      border-radius: 25px 10px / 10px 25px;
+      border-radius: 25px 10px / 10px 25px;
+   }
+   
+   #Oeuvre{
+      text-align:justify;
+   }
+   
+   #image1{
+      border-radius: 35px;
+      border-radius: 35px;
+   }
+   
+</style>
+
+    <!-- mise en place des onglets -->
 <div class="container" style="background-color: #F7F5F0">
-  <div class="col-sm-8">
-  <h2>{{oeuvreLitt.nom}}</h2>
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#Oeuvre">Oeuvre</a></li>
-    <li><a data-toggle="tab" href="#Livre">Livres</a></li>
-    <li><a data-toggle="tab" href="#Film">Films</a></li>
-    <li><a data-toggle="tab" href="#Autre">Autres</a></li>
-  </ul>
-<!-- contenu du premier onglet -->
+    <div class="row">
+        <div class="col-lg-8"><br>
+            <div id=titre1>{{ oeuvre.nom }}</div><br>
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a data-toggle="tab" href="#Oeuvre">L'Oeuvre</a></li>
+                    <li><a data-toggle="tab" href="#Livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Livres</a></li>
+                    <li><a data-toggle="tab" href="#Film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> Films</a></li>
+                    <li><a data-toggle="tab" href="#Autre"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Autres</a></li>
+                </ul>
 
-  <div class="tab-content" >
-    <div id="Oeuvre" class="tab-pane fade in active">
-      <h3>Oeuvre</h3>
-        <!-- <button>Editer</button> -->
-        <p>
-                
-            <br>
-              Resume : {{oeuvreLitt.resume}}<br/>
-              Vues : {{oeuvreLitt.compteurVues}}
-            <br>
-            <br>
-        
-        </p>
-    </div>
+<!-- PREMIER ONGLET -->
+    <div class="tab-content" >
+        <div id="Oeuvre" class="tab-pane fade in active"><br>
+              <br>{{oeuvre.concept}}<br/><br>
+        </div>
 
-<!-- contenu du second onglet -->
-    <div id="Livre" class="tab-pane fade">
-      <h3>Livre</h3>
-     <!-- <button>Editer</button> --> 
-        <p>
-          {% for LivreCourant in tabLivres %}
-          <br/>
-          Nom : {{LivreCourant.titre}}
-          <br/> 
-          Resume: {{oeuvreLitt.resume}}
-          <br/>
-          Auteur :
-          {%else%}
-          rien à afficher.
-          {%endfor%}
-        </p>
+<!-- DEUXIEME ONGLET -->
+    <div id="Livre" class="tab-pane fade"><br/>
+        {% for LivreCourant in tabLivres %}
+            <b>{{LivreCourant.titre}}</b><br/>
+            Resume: {{LivreCourant.resume}}<br/>
+            Auteur(s): <br>
+        {%for auteurCourant in LivreCourant.auteur%}
+            - {{auteurCourant.label}} <br>
+        {%endfor%}<br/>
+        {%else%}
+            rien à afficher.
+        {%endfor%}
     </div>
     
-<!-- contenu du troisieme onglet -->
-    <div id="Film" class="tab-pane fade">
-      <h3>Film</h3>
-      <!-- <button>Editer</button> --> 
-      <p>
+<!-- TROISIEME ONGLET -->
+    <div id="Film" class="tab-pane fade"><br/>
         {% for FilmCourant in tabFilms %}
-          nom:{{FilmCourant.titre}}
-          <br/>
-          Réalisateur : 
-          <br/>
-            {%for acteurCourant in FilmCourant%}
-            Acteurs :
-            {%endfor%}
-          <br/>
-          {%else%}
-          rien à afficher.
-        {%endfor%}
-      </p>
+            <b>{{FilmCourant.titre}}</b><br/>
+            Synopsis: {{FilmCourant.synopsis}}<br/>
+            Réalisateur: {{FilmCourant.realisateur.label}}<br/>
+            Acteurs: <br>
+            {%for acteurCourant in FilmCourant.acteurs%}
+            - {{acteurCourant.label}}<br>
+            {%endfor%}<br/>
+            {%else%}
+            rien à afficher.
+            {%endfor%}<br>
     </div>
 
-<!-- contenu du dernier onglet -->
-    <div id="Autre" class="tab-pane fade">
-      <h3>Autre</h3>
-     <!-- <button>Editer</button> -->
-      {%for prodDer in tabProds%}
-      <p>
-        {{prodDer.nom}}
-      </p>
-      {%else%}
-      rien à afficher.
-      {%endfor%}
+<!-- QUATRIEME ONGLET -->
+    <div id="Autre" class="tab-pane fade"><br>
+        {{oeuvre.prodDer}}
+    </div>
+    </div>
     </div>
 
 <!-- liens vers les histoires qui correspondent aussi aux critères sélectionnés, A RENDRE DYNAMIQUE!!-->
-{%for img in tabImages%}
-  <img src="{{img.url}}" width=75 height=75 href="his voisines"/>
-{%endfor%}
-<br>
-</div>
-</div>
-
+<!--  <img src="{# {img.url} #}" width=75 height=75 href="his voisines"/>
 <!-- image générale de l'oeuvre -->
-<div class="col-sm-4">
-        
-<img src="{{oeuvreImage}}" width=150px height=150px />
-  
+
+<!-- LATERAL: Image + Informations -->
+    <div class="col-lg-4" style="background-color: #fff"><br><br>
+        <center><img src="{{image.url}}" id=image1 width=350px /></center><br><br>
         <div class="well">
-          
-                Genre : {{oeuvreLitt.genre.intitule}}
-               
-    
+            <b>Genre :</b> {{oeuvre.genre.intitule}}<br><br>
+            <b>Nombre de vues :</b> {{oeuvre.compteurVues}}
         </div>
-  
+    </div>
+    </div><br><i>Autres suggestions...</i><br>
+
+<!-- SUGGESTIONS -->
+    <div class="row">
+      <div class="col-xs-4 col-md-2">
+        <a href="#" class="thumbnail">
+          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 1"/>
+        </a>
+      </div> 
+      <div class="col-xs-4 col-md-2">
+        <a href="#" class="thumbnail">
+          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 2"/>
+        </a>
+      </div>
+      <div class="col-xs-4 col-md-2">
+        <a href="#" class="thumbnail">
+          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 3"/>
+        </a>
+      </div>
+      <div class="col-xs-4 col-md-2">
+        <a href="#" class="thumbnail">
+          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 4"/>
+        </a>
+      </div>
+    </div>
 </div>
 
-</div>
 {% endblock %}
 
 
 {#  <img src="{{img.url}}" width=75 height=75 href="his voisines"/> #}
-{#  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id' : oeuvreLitt.id}) }}"><img src"{{img.url}}" width=75 height=75 alt="Image de suggestion"></a>  #}
+{#  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id' : oeuvre.id}) }}"><img src"{{img.url}}" width=75 height=75 alt="Image de suggestion"></a>  #}
 

@@ -24,6 +24,12 @@ class Livre
      */
     private $titre;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="resume", type="string")
+     */
+    private $resume;
+    /**
      * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Auteur")
      */
     private $auteur;
@@ -32,12 +38,12 @@ class Livre
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Editeur")
      */
     private $editeur;
-     /**
-     *
-     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre", cascade={"persist"})
+
+    /**
+     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
      */
-    private $oeuvres; // avec un "s" car une oeuvre peut avoir plusieurs livres proposés
-    
+    private $oeuvre;
+
     /**
      * Get id
      *
@@ -67,12 +73,33 @@ class Livre
     {
         return $this->titre;
     }
+     /**
+     * Set resume
+     *
+     * @param string $resume
+     * @return Oeuvre
+     */
+    public function setResume($resume)
+    {
+        $this->resume = $resume;
+        return $this;
+    }
+    /**
+     * Get resume
+     *
+     * @return string 
+     */
+    public function getResume()
+    {
+        return $this->resume;
+    }
     /**
      * Set auteur
      *
      * @param \NarratioWeb\OeuvresBundle\Entity\Epoque $auteur
      * @return Livre
      */
+     
     public function setAuteur(\NarratioWeb\OeuvresBundle\Entity\Epoque $auteur = null)
     {
         $this->auteur = $auteur;
@@ -134,24 +161,25 @@ class Livre
     {
         return $this->editeur;
     }
+    
     /**
-     * Set oeuvres
+     * Set oeuvre
      *
-     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvres
-     * @return Oeuvre
+     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre
+     * @return Livre
      */
-    public function setOeuvres(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvres = null)
+    public function setOeuvre(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre = null)
     {
-        $this->oeuvre = $oeuvres;
+        $this->oeuvre = $oeuvre;
         return $this;
     }
     /**
-     * Get oeuvres
+     * Get oeuvre
      *
      * @return \NarratioWeb\OeuvresBundle\Entity\Oeuvre 
      */
-    public function getOeuvres()
+    public function getOeuvre()
     {
-        return $this->oeuvres;
+        return $this->oeuvre;
     }
 }

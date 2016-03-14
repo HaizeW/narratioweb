@@ -31,6 +31,13 @@ class Film
     private $titre;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="synopsis", type="string")
+     */
+    private $synopsis;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Type")
      */
     private $type;
@@ -44,12 +51,12 @@ class Film
      * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Acteur")
      */
     private $acteurs;
-     /**
-     *
-     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre", cascade={"persist"})
+
+    /**
+     * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
      */
-    private $oeuvres; // avec un "s" car une oeuvre peut avoir plusieurs films proposés
-    
+    private $oeuvre;
+
     /**
      * Get id
      *
@@ -98,6 +105,26 @@ class Film
     public function getTitre()
     {
         return $this->titre;
+    }
+     /**
+     * Set synopsis
+     *
+     * @param string $synopsis
+     * @return Oeuvre
+     */
+    public function setSynopsis($synopsis)
+    {
+        $this->synopsis = $synopsis;
+        return $this;
+    }
+    /**
+     * Get synopsis
+     *
+     * @return string 
+     */
+    public function getSynopsis()
+    {
+        return $this->synopsis;
     }
     /**
      * Set type
@@ -176,25 +203,24 @@ class Film
         return $this->acteurs;
     }
    
-    /**
-     * Set oeuvres
+     /**
+     * Set oeuvre
      *
-     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvres
-     * @return Oeuvre
+     * @param \NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre
+     * @return Film
      */
-    public function setOeuvres(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvres = null)
+    public function setOeuvre(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre = null)
     {
-        $this->oeuvre = $oeuvres;
+        $this->oeuvre = $oeuvre;
         return $this;
     }
     /**
-     * Get oeuvres
+     * Get oeuvre
      *
      * @return \NarratioWeb\OeuvresBundle\Entity\Oeuvre 
      */
-    public function getOeuvres()
+    public function getOeuvre()
     {
-        return $this->oeuvres;
+        return $this->oeuvre;
     }
-   
 }
