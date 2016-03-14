@@ -398,6 +398,8 @@ class OeuvreController extends Controller
                                         $oeuvre = $tabOeuvreChoix[0];
                                         $idOeuvre = $oeuvre->getId(); 
                                         
+                                        $tabActeurs = $oeuvre->getActeurs();
+                                        
                                                 // je charge mon repository de Livre pour executer une requete sur la BD
                                                 $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                                                 // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
@@ -407,6 +409,13 @@ class OeuvreController extends Controller
                                                 $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
                                                 // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
                                                 $tabFilms = $repositoryFilms->getFilmsAvancee($choixActeur, $choixRealisateur, $choixType);
+                                                
+                                                var_dump($tabFilms);
+                                                
+                                                // je charge mon repository de Acteur pour executer une requete sur la BD
+                                                $repositoryActeur = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Acteur');
+                                                // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
+                                                //$tabActeurs = $repositoryActeur->getLivresByOeuvre($idActeur);
                                                 
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');

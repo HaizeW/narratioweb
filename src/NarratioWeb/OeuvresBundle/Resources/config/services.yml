@@ -7,3 +7,15 @@ services:
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\Oeuvre, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: Oeuvre}
+
+    narratio_web_oeuvres.admin.livre:
+        class: NarratioWeb\OeuvresBundle\Admin\LivreAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Livre, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Livre}
+
+    narratio_web_oeuvres.admin.film:
+        class: NarratioWeb\OeuvresBundle\Admin\FilmAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Film, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Film}
