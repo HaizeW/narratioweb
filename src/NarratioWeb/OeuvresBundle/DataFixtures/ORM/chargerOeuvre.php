@@ -74,6 +74,10 @@ class Oeuvres implements FixtureInterface
 		$themeRomantisme = new Thematique();
 		$themeRomantisme->setIntitule("Romantisme");
 		$manager->persist($themeRomantisme);
+		
+		$themeEcole = new Thematique();
+		$themeEcole->setIntitule("École");
+		$manager->persist($themeEcole);
         
         /* ******************************************************* */
         /* Création des tranches d'âge     */
@@ -151,6 +155,41 @@ class Oeuvres implements FixtureInterface
                     ->setProdDer("Il y a tout types de produits qui sont dérivés de cette oeuvre : des jeux vidéos, des figurines, ou encore des costumes.")
                     -> setCompteurVues(0);
 		$manager->persist($oeuvreHobbit);
+		
+		$oeuvreDPS = new Oeuvre();
+		$oeuvreDPS -> setNom("Le Cercle des Poètes Disparus")
+                    -> setConcept("En 1959, aux États-Unis, Todd Anderson, un garçon timide, est envoyé dans la prestigieuse académie de Welton, dans le Vermont, réputée pour être l'une des plus fermées et austères du pays et où son frère a suivi de brillantes études. Il y fait la rencontre d'un professeur de lettres anglaises aux pratiques plutôt originales, M. Keating, qui encourage le refus du conformisme, l'épanouissement des personnalités et le goût de la liberté. Voulant au maximum suivre la voie nouvelle qui leur est présentée, certains élèves vont redonner vie au cercle des poètes disparus, un groupe d'esprits libres et oniriques, dont M. Keating fut, en son temps, l'un des membres influents. La découverte d'une autre vie va à jamais bouleverser l'avenir de ces étudiants. En effet, les situations des divers personnages ne se prêtent guère à l'exercice de ces libertés récemment découvertes.")
+                    -> setProdDer("A faire")
+                    -> setEpoque($epoque8090)
+                    -> setGenre($genreDramatique)
+                    -> setThematique($themeEcole)
+                    -> setTrancheAge($trancheGrandPub)
+                    -> setCompteurVues(0);
+		$manager->persist($oeuvreDPS);
+		
+		/* ******************************************************* */
+         /* Création des auteurs          */
+        /* ******************************************************* */  
+                    
+		$AuteurGreen = new Auteur();
+		$AuteurGreen  -> setNom("Green")
+                     -> setPrenom("John");
+		$manager->persist($AuteurGreen);
+		
+		$AuteurTolkien = new Auteur();
+		$AuteurTolkien  -> setNom("Tolkien")
+                     -> setPrenom("J.R.R.");
+		$manager->persist($AuteurTolkien);
+		
+		$AuteurRostand = new Auteur();
+		$AuteurRostand  -> setNom("Rostand")
+                     -> setPrenom("Edmond");
+		$manager->persist($AuteurRostand);
+		
+		$AuteurKleinbaum = new Auteur();
+		$AuteurKleinbaum  -> setNom("Kleinbaum")
+                     -> setPrenom("Nancy H.");
+		$manager->persist($AuteurKleinbaum);
 		 
 		 /* ******************************************************* */
          /* Création des éditeurs          */
@@ -171,25 +210,10 @@ class Oeuvres implements FixtureInterface
 		$EditeurLibrio = new Editeur();
 		$EditeurLibrio -> setNom("Librio");
 		$manager->persist($EditeurLibrio);
-		 
-		 /* ******************************************************* */
-         /* Création des auteurs          */
-        /* ******************************************************* */  
-                    
-		$AuteurGreen = new Auteur();
-		$AuteurGreen  -> setNom("Green")
-                     -> setPrenom("John");
-		$manager->persist($AuteurGreen);
 		
-		$AuteurTolkien = new Auteur();
-		$AuteurTolkien  -> setNom("Tolkien")
-                     -> setPrenom("J.R.R.");
-		$manager->persist($AuteurTolkien);
-		
-		$AuteurRostand = new Auteur();
-		$AuteurRostand  -> setNom("Rostand")
-                     -> setPrenom("Edmond");
-		$manager->persist($AuteurRostand);
+		$EditeurPoche = new Editeur();
+		$EditeurPoche -> setNom("Le Livre de Poche");
+	    $manager->persist($EditeurPoche);
 		 
 		 /* ******************************************************* */
          /* Création des livres           */
@@ -250,6 +274,14 @@ class Oeuvres implements FixtureInterface
                      -> setOeuvre($oeuvreHobbit)
                      -> setResume("Le hobbit Bilbo Bessac mène une existence paisible dans son trou de Cul-de-Sac jusqu’au jour où il croise le magicien Gandalf. Le lendemain, il a la surprise de voir venir prendre le thé chez lui non seulement Gandalf, mais également une compagnie de treize nains menée par Thorin Lécudechesne et composée de Balin, Dwalin, Fili, Kili, Dori, Nori, Ori, Oin, Gloin, Bifur, Bofur et Bombur. La compagnie est en route vers la Montagne Solitaire, où elle espère vaincre le dragon Smaug, qui a jadis dépossédé les nains de leur royaume et de leurs trésors. Cependant, pour mener à bien leurs projets, il leur faut un expert-cambrioleur, et Gandalf leur a recommandé Bilbo. Celui-ci est plus que réticent à l’idée de partir à l’aventure, mais il finit par accompagner la troupe.");
 		$manager->persist($LivreHobbit);
+		
+		$LivreDPS = new Livre();
+		$LivreDPS   -> setTitre("Le Cercle des Poètes Disparus")
+                     -> addAuteur($AuteurKleinbaum)
+                     -> setEditeur($EditeurPoche)
+                     -> setOeuvre($oeuvreDPS)
+                     -> setResume("Il fut leur inspiration. Il a transformé leur vie à jamais. A Welton, un austère collège du Vermont, dans les années 60, la vie studieuse des pensionnaires est bouleversée par l'arrivée d'un nouveau professeur de lettres, M. Keating. Ce pédagogue peu orthodoxe va leur communiquer sa passion de la poésie, de la liberté, de l'anticonformisme, secouant la poussière des autorités parentales, académiques et sociales. Même si le drame - le suicide d'un adolescent - déchire finalement cette expérience unique, même si Keating doit quitter le collège, il restera pour tous celui qui leur a fait découvrir le sens de la vie.");
+		$manager->persist($LivreDPS);
         		 
 		 /* ******************************************************* */
          /* Création des acteurs          */
@@ -354,6 +386,21 @@ class Oeuvres implements FixtureInterface
 		$ActeurArmitage -> setNom("Armitage")
                          -> setPrenom("Richard");
 		$manager->persist($ActeurArmitage);
+		
+		$ActeurWilliams = new Acteur();
+		$ActeurArmitage -> setNom("Williams")
+                         -> setPrenom("Robin");
+		$manager->persist($ActeurWilliams);
+		
+		$ActeurLeonard = new Acteur();
+		$ActeurLeonard -> setNom("Leonard")
+                         -> setPrenom("Robert Sean");
+		$manager->persist($ActeurLeonard);
+		
+		$ActeurHawke = new Acteur();
+		$ActeurArmitage -> setNom("Hawke")
+                         -> setPrenom("Ethan");
+		$manager->persist($ActeurHawke);
 		 
 		 /* ******************************************************* */
          /* Création des réalisateurs          */
@@ -388,6 +435,11 @@ class Oeuvres implements FixtureInterface
 		$RéalisateurRappeneau -> setNom("Rappeneau")
                              -> setPrenom("Jean-Paul");
 		$manager->persist($RéalisateurRappeneau);
+		
+		$RéalisateurWeir = new Realisateur();
+		$RéalisateurRappeneau -> setNom("Weir")
+                             -> setPrenom("Peter");
+		$manager->persist($RéalisateurWeir);
 		 
 		 /* ******************************************************* */
          /* Création des types          */
@@ -536,6 +588,18 @@ class Oeuvres implements FixtureInterface
                    -> setOeuvre($oeuvreHobbit)
                    -> setSynopsis("Atteignant enfin la Montagne Solitaire, Thorin et les Nains, aidés par Bilbo le Hobbit, ont réussi à récupérer leur royaume et leur trésor. Mais ils ont également réveillé le dragon Smaug qui déchaîne désormais sa colère sur les habitants de Lac-ville. A présent, les Nains, les Elfes, les Humains mais aussi les Wrags et les Orques menés par le Nécromancien, convoitent les richesses de la Montagne Solitaire. La bataille des cinq armées est imminente et Bilbon est le seul à pouvoir unir ses amis contre les puissances obscures de Sauron.");
 		$manager->persist($FilmHobbit3);
+		
+		$FilmDPS = new Film();
+		$FilmDPS -> setTitre("Le Cercle des Poètes Disparus")
+                  -> setDuree(128)
+                  -> setType($TypeLongMetrage)
+                  -> setRealisateur($RéalisateurWeir)
+                  -> addActeur($ActeurWilliams)
+                  -> addActeur($ActeurLeonard)
+                  -> addActeur($ActeurHawke)
+                  -> setOeuvre($oeuvreDPS)
+                  -> setSynopsis("Todd Anderson, un garçon plutôt timide, est envoyé dans la prestigieuse académie de Welton, réputée pour être l'une des plus fermées et austères des États-Unis, là où son frère avait connu de brillantes études.C'est dans cette université qu'il va faire la rencontre d'un professeur de lettres anglaises plutôt étrange, Mr Keating, qui les encourage à toujours refuser l'ordre établi. Les cours de Mr Keating vont bouleverser la vie de l'étudiant réservé et de ses amis...");
+		$manager->persist($FilmDPS);
 		 
 		 /* ******************************************************* */
          /* Création des images          */
@@ -565,6 +629,11 @@ class Oeuvres implements FixtureInterface
 		$ImageHobbit -> setUrl("http://www.lescinemasaixois.com/films/medias/photo18_8616.jpg")
                       -> setOeuvre($oeuvreHobbit);
 		$manager->persist($ImageHobbit);
+		
+		$ImageDPS = new Image();
+		$ImageDPS -> setUrl("http://www.linternaute.com/cinema/diaporama/07/repliques-les-plus-celebres/images/le-cercle-des-poetes-disparus.jpg")
+                      -> setOeuvre($oeuvreDPS);
+		$manager->persist($ImageDPS);
 		
 		/* ******************************************************* */
         /*                    Enregistrement en BD                 */

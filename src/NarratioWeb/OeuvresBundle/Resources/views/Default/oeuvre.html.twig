@@ -95,29 +95,13 @@
 
 <!-- SUGGESTIONS -->
     <div class="row">
-      <div class="col-xs-4 col-md-2">
-        <a href="#" class="thumbnail">
-          <img src="" width=150px alt="Suggestion 1"/>
-        </a>
-      </div> 
-      <div class="col-xs-4 col-md-2">
-        <a href="#" class="thumbnail">
-          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 2"/>
-        </a>
-      </div>
-      <div class="col-xs-4 col-md-2">
-        <a href="#" class="thumbnail">
-          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 3"/>
-        </a>
-      </div>
-      <div class="col-xs-4 col-md-2">
-        <a href="#" class="thumbnail">
-          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 4"/>
-        </a>
-      </div>
-      {%for imageCourante in tabImagesSuggestions %}
-         <img src="" width=75 height=75 href="#"/>
-      {%endfor%}
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail" >
+            {%for imageCourante in tabImagesSuggestions %}
+               <img src="{{imageCourante.url}}" width="100"/>
+            {%endfor%}
+          </a>
+        </div>
     </div>
 </div>
 

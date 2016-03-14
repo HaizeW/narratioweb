@@ -51,7 +51,7 @@ class OeuvreController extends Controller
         //$formulaireRechercheNominale->handleRequest($requeteUtilisateurNom);
 
         // si le form de recherche NOMINAL a été soumis
-        if($formulaireRechercheNominale->isSubmitted())
+        if($this->getRequest()->get('action-type') =='Rechercher')//($this->getRequest()->get('action-type') =='Films')
         {
             // je recup les donnees dans un tab
         	$tabNomRes = $formulaireRechercheNominale -> getData();
@@ -111,7 +111,7 @@ class OeuvreController extends Controller
     	}
         
         // si le form a été soumis
-        if ($formulaireChoix->isSubmitted())
+        if ($this->getRequest()->get('action-type') =='Random')//($formulaireChoix->isSubmitted())
         {
             // on recupere les données du form dans un tableau de 3 cases indicés par 'TrancheAge' 'Genre' et 'Epoque'
             $tabChoixRes = $formulaireChoix -> getData();
@@ -410,12 +410,12 @@ class OeuvreController extends Controller
         
         
         // enregistrement des données dans $tabChoixResFilms apres soumission
-        $formulaireRechAvanceeFilms->handleRequest($requeteUtilisateurF); /////////////////////////////////////////////////////////
+        $formulaireRechAvanceeFilms->handleRequest($requeteUtilisateurF);
         $formulaireRechAvanceeLivres->handleRequest($requeteUtilisateurL);
         
         
         // si le form FILMS a été soumis
-        if ($this->getRequest()->get('action-type') =='films') //($formulaireRechAvanceeFilms->isSubmitted())
+        if ($this->getRequest()->get('action-type') =='Films') //($formulaireRechAvanceeFilms->isSubmitted())
         {
                 // on recupere les données du form dans un tableau
                 $tabChoixResFilms = $formulaireRechAvanceeFilms -> getData();
@@ -491,7 +491,7 @@ class OeuvreController extends Controller
         }
         
         // si le form LIVRES a été soumis
-        if ($this->getRequest()->get('action-type') =='livres') //($formulaireRechAvanceeLivres->isSubmitted())
+        if ($this->getRequest()->get('action-type') =='Livres') //($formulaireRechAvanceeLivres->isSubmitted())
         {
         
             // on recupere les données du form dans un tableau de 3 cases indicés par 'TrancheAge' 'Genre' et 'Epoque'

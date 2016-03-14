@@ -49,11 +49,12 @@
 <div class="panel panel-default">
   <div id=menu class="panel-heading">Menu</div>
   <div class="panel-body">
-    <form method="post">
+    <form action="{{ path('narratio_web_oeuvres_homepage') }}" method="post">
         <center>
            	<b>Rechercher</b>
            		<div class="ui-widget">
   					{{form_widget(formulaireRechercheNominale.nom)}}
+  					<center> <input name="action-type" value="Rechercher" type="submit" class="btn btn-warning" /> </center> 
 				</div>
         </center>
     </form>
