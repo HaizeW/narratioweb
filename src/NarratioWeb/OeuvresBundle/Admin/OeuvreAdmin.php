@@ -25,7 +25,7 @@ class OeuvreAdmin extends Admin
     /**
      * @param ListMapper $listMapper
      */
-     // Champs affichés lorsqu'il faudra lister des entités Livres
+     // Champs affichés lorsqu'il faudra lister des entités Oeuvre
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -45,27 +45,28 @@ class OeuvreAdmin extends Admin
     /**
      * @param FormMapper $formMapper
      */
-     // Champs à intégrer dans les formulaires d'ajout et d'édition de Livres
+     // Champs à intégrer dans les formulaires d'ajout et d'édition d'Oeuvres
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('nom')
             ->add('concept')
-            ->add('prodDer')
+            ->add('prodDer', null, array('label' => 'Produits Derives'))
         ;
     }
 
     /**
      * @param ShowMapper $showMapper
      */
+     // Champs à intégrer dans les affichages des Oeuvres
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
             ->add('id')
             ->add('nom')
             ->add('concept')
-            ->add('compteurVues')
-            ->add('prodDer')
+            ->add('compteurVues', 'text', array('label' => 'Nombre de vues'))
+            ->add('prodDer', 'text', array('label' => 'Produits Derives'))
         ;
     }
 }

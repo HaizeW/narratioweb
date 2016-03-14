@@ -47,6 +47,9 @@ class LivreAdmin extends Admin
         $formMapper
             ->add('titre')
             ->add('resume')
+            ->add('oeuvre', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Oeuvre', 
+                                  'multiple' => false, 
+                                  'expanded' => 'true'))
         ;
     }
 

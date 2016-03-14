@@ -78,7 +78,7 @@ class LivreRepository extends EntityRepository
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT l, a FROM NarratioWebOeuvresBundle:Livre l
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l
                                                             LEFT JOIN l.auteur a
                                                                     WHERE l.editeur = :choixEditeur
                                                                     AND a.id = :choixAuteur

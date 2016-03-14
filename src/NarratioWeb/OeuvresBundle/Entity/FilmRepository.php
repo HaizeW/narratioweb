@@ -57,7 +57,7 @@ class FilmRepository extends EntityRepository
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, a FROM NarratioWebOeuvresBundle:Film f
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f
                                                             LEFT JOIN f.acteurs a
                                                                     WHERE f.type = :choixType
                                                                     AND f.realisateur = :choixRealisateur

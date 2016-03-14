@@ -236,4 +236,9 @@ class Oeuvre
     {
         return $this->trancheAge;
     }
+    
+        public function __toString()
+    {
+        return $this->nom;
+    }
 }

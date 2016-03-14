@@ -13,11 +13,12 @@ use Oeuvre;
 class OeuvreController extends Controller
 {
         
-    public function indexAction(Request $requeteUtilisateur)
+    public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUtilisateurNom)
     {
         
         // Tableau dans lequel les données du formulaire seront recueillies       
         $tabChoix = array();
+        $rechercheNominale = array();
         
         // -- FORMULAIRE DE RECHERCHE
         $formulaireChoix = $this->createFormBuilder($tabChoix)
@@ -38,8 +39,77 @@ class OeuvreController extends Controller
                                                 'expanded' => false))
             -> getForm();
         
+        // -- FORMULAIRE DE RECHERCHE NOMINALE
+        $formulaireRechercheNominale = $this->createFormBuilder($rechercheNominale)
+            ->add('nom','text',array('required'=>false))
+        	->getForm();
+        	
+        
+        
         // enregistrement des données dans $tabChoix apres soumission
-        $formulaireChoix->handleRequest($requeteUtilisateur);
+        $formulaireChoix->handleRequest($requeteUtilisateurChoix); /////////////////////////////////////////////////////////
+        //$formulaireRechercheNominale->handleRequest($requeteUtilisateurNom);
+
+        // si le form de recherche NOMINAL a été soumis
+        if($formulaireRechercheNominale->isSubmitted())
+        {
+            // je recup les donnees dans un tab
+        	$tabNomRes = $formulaireRechercheNominale -> getData();
+        	
+        	// je recup mes variables
+            $nomOeuvre = $tabNomRes['nom'];
+            
+            // je charge mon repository de Oeuvre pour executer une requete sur la BD
+            $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
+        	$oeuvre=$repositoryOeuvre->findOneByNom($nomOeuvre);
+        
+        	if($oeuvre == null)
+        	{
+        	    throw $this->createNotFoundException('The product does not exist');
+        	}
+        	else
+        	{
+        	    $idOeuvre = $oeuvre->getId();
+        	
+                    	// je charge mon repository de Livre pour executer une requete sur la BD
+                        $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
+                        // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
+                        $tabLivres = $repositoryLivres->getLivresByOeuvre($idOeuvre);
+                        
+                        // je charge mon repository de Film pour executer une requete sur la BD
+                        $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
+                        // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
+                        $tabFilms = $repositoryFilms->getFilmsByOeuvre($idOeuvre);
+                        
+                        // je charge mon repository de Image pour executer une requete sur la BD
+                        $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
+                        // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                        $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
+                        
+                        // je definis l'image de l'oeuvre
+                        $image = $tabImage[0];
+            
+                        // je recup des images de sugg
+                        $tabImagesSuggestions = $repositoryImage->getImageSugg();
+        	
+                    //On augmente le compteur de vues de l'oeuvre !
+                    $compteur = $oeuvre->getCompteurVues();
+                    $oeuvre->setCompteurVues($compteur+1);
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($oeuvre);
+                    $gestionnaireEntite->flush();
+        	
+        	// je retourne la vue avec les oeuvres a mettre en forme
+            return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  'tabLivres'=>$tabLivres,
+                                                                                'tabFilms'=>$tabFilms,
+                                                                                'image'=>$image,
+                                                                                'oeuvre'=>$oeuvre,
+                                                                                'tabImagesSuggestions'=>$tabImagesSuggestions,
+                                                                                'id'=>$idOeuvre
+                                                                                ));
+        	}
+    	}
+        
         // si le form a été soumis
         if ($formulaireChoix->isSubmitted())
         {
@@ -133,12 +203,13 @@ class OeuvreController extends Controller
                                                                 $tabImagesSuggestionsBrut[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
                                                                 $j++;
                                                         }
-                                                        // je met en forme le tableau pour qu'il soit utilisable facilement
+                                                      
+                                                // je met en forme le tableau pour qu'il soit utilisable facilement
                                                 $tabImagesSuggestions = array();
                                                 $l=0;
                                                         while ($l<count($tabImagesSuggestionsBrut))
                                                         {
-                                                                $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l][$l];
+                                                                $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l][0];
                                                                 $l++;
                                                         }
                                         
@@ -149,20 +220,6 @@ class OeuvreController extends Controller
                                         $gestionnaireEntite->persist($oeuvre);
                                         $gestionnaireEntite->flush();
 
-                                /*
-                                        // je genere une url relative pou rediriger vers oeuvre.html.twig
-                                        $url = $this->generateUrl('narratio_web_oeuvres_voirOeuvre',
-                                                                        array(  'tabLivres'=>$tabLivres,
-                                                                                'tabFilms'=>$tabFilms,
-                                                                                'image'=>$image,
-                                                                                'oeuvre'=>$oeuvre,
-                                                                                'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                                                                'id'=>$idOeuvre
-                                                                                ));
-                                        
-                                        // je retourne la vue avec les oeuvres a mettre en forme
-                                        return $this->redirect($url);
-                                */
                                         return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  'tabLivres'=>$tabLivres,
                                                                                 'tabFilms'=>$tabFilms,
                                                                                 'image'=>$image,
@@ -237,20 +294,7 @@ class OeuvreController extends Controller
                                         $gestionnaireEntite = $this->getDoctrine()->getManager();
                                         $gestionnaireEntite->persist($oeuvre);
                                         $gestionnaireEntite->flush();
-                                /*
-                                        // je genere une url relative pou rediriger vers oeuvre.html.twig
-                                        $url = $this->generateUrl('narratio_web_oeuvres_voirOeuvre',
-                                                                        array(  'tabLivres'=>$tabLivres,
-                                                                                'tabFilms'=>$tabFilms,
-                                                                                'image'=>$image,
-                                                                                'oeuvre'=>$oeuvre,
-                                                                                'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                                                                'id'=>$idOeuvre
-                                                                                ));
-                                        
-                                        // je retourne la vue avec les oeuvres a mettre en forme
-                                        return $this->redirect($url);
-                                */
+
                                         return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  'tabLivres'=>$tabLivres,
                                                                                 'tabFilms'=>$tabFilms,
                                                                                 'image'=>$image,
@@ -261,10 +305,12 @@ class OeuvreController extends Controller
                                     }
                                    
                             }
-                    
-        }
+   
+
+    }
         
-// -- MENU DEROULANT
+    // -- MENU DEROULANT
+    
         //Création du repository
         $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
                 //Récupération des oeuvres les plus récentes
@@ -273,10 +319,13 @@ class OeuvreController extends Controller
                 $tabOeuvreVues = $repositoryOeuvre->getOeuvrePlusVues();
 
         // ici, on affiche la page dont le formulaire permettant le choix d'une oeuvre via Random
-        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(), 'tabOeuvreNew'=>$tabNewOeuvres, 'tabOeuvreVues'=>$tabOeuvreVues));
+        return $this->render('NarratioWebOeuvresBundle:Default:index.html.twig', array('form'=>$formulaireChoix->createView(),
+                                                                                        'formulaireRechercheNominale'=>$formulaireRechercheNominale->createView(),
+                                                                                        'tabOeuvreNew'=>$tabNewOeuvres, 'tabOeuvreVues'=>$tabOeuvreVues));
 
     }
         
+    
     
     public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $requeteUtilisateurF) // C'est avec ca que je controle si ca a ete soumis mais quand je lance depuis Livres ca va chercher films ...
     {
@@ -360,13 +409,13 @@ class OeuvreController extends Controller
             ->getForm();
         
         
-        
         // enregistrement des données dans $tabChoixResFilms apres soumission
-        $formulaireRechAvanceeFilms->handleRequest($requeteUtilisateurF);
+        $formulaireRechAvanceeFilms->handleRequest($requeteUtilisateurF); /////////////////////////////////////////////////////////
         $formulaireRechAvanceeLivres->handleRequest($requeteUtilisateurL);
         
+        
         // si le form FILMS a été soumis
-        if ($formulaireRechAvanceeFilms->isSubmitted())
+        if ($this->getRequest()->get('action-type') =='films') //($formulaireRechAvanceeFilms->isSubmitted())
         {
                 // on recupere les données du form dans un tableau
                 $tabChoixResFilms = $formulaireRechAvanceeFilms -> getData();
@@ -398,8 +447,6 @@ class OeuvreController extends Controller
                                         $oeuvre = $tabOeuvreChoix[0];
                                         $idOeuvre = $oeuvre->getId(); 
                                         
-                                        $tabActeurs = $oeuvre->getActeurs();
-                                        
                                                 // je charge mon repository de Livre pour executer une requete sur la BD
                                                 $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                                                 // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
@@ -410,12 +457,7 @@ class OeuvreController extends Controller
                                                 // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
                                                 $tabFilms = $repositoryFilms->getFilmsAvancee($choixActeur, $choixRealisateur, $choixType);
                                                 
-                                                var_dump($tabFilms);
-                                                
-                                                // je charge mon repository de Acteur pour executer une requete sur la BD
-                                                $repositoryActeur = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Acteur');
-                                                // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
-                                                //$tabActeurs = $repositoryActeur->getLivresByOeuvre($idActeur);
+                                                //var_dump($tabFilms);
                                                 
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
@@ -429,7 +471,7 @@ class OeuvreController extends Controller
                                                 $tabImagesSuggestions = $repositoryImage->getImageSugg();
                                 }
                 
-                                var_dump($tabImagesSuggestions);
+                                //var_dump($tabImagesSuggestions);
                 
                                 //On augmente le compteur de vues de l'oeuvre !
                                 $compteur = $oeuvre->getCompteurVues();
@@ -449,7 +491,7 @@ class OeuvreController extends Controller
         }
         
         // si le form LIVRES a été soumis
-        if($formulaireRechAvanceeLivres->isSubmitted())
+        if ($this->getRequest()->get('action-type') =='livres') //($formulaireRechAvanceeLivres->isSubmitted())
         {
         
             // on recupere les données du form dans un tableau de 3 cases indicés par 'TrancheAge' 'Genre' et 'Epoque'
@@ -501,9 +543,9 @@ class OeuvreController extends Controller
                                                 
                                                 // je recup des images de sugg
                                                 $tabImagesSuggestions = $repositoryImage->getImageSugg();
+                                                
+                                                var_dump($tabImagesSuggestions);
                                 }
-                
-                
                                 //On augmente le compteur de vues de l'oeuvre !
                                 $compteur = $oeuvre->getCompteurVues();
                                 $oeuvre->setCompteurVues($compteur+1);
@@ -528,9 +570,6 @@ class OeuvreController extends Controller
     }
 
     
-
-    
-    
             
     public function voirOeuvreAction($id)
         {
@@ -546,45 +585,61 @@ class OeuvreController extends Controller
                 // je charge mon repository de Livre pour executer une requete sur la BD
                 $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                 // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
-                $tabLivres = $repositoryLivres->getLivresByOeuvre($id);
+                $tabLivres = $repositoryLivres->getLivresByOeuvre($idOeuvre);
         
                 // je charge mon repository de Film pour executer une requete sur la BD
                 $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
                 // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
-                $tabFilms = $repositoryFilms->getFilmsByOeuvre($id);
+                $tabFilms = $repositoryFilms->getFilmsByOeuvre($idOeuvre);
                 
                 // je charge mon repository de Image pour executer une requete sur la BD
                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                                                $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
+                $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
                                                 
-                                                // je definis l image principale
-                                                $image = $tabImage[0];
+                                        // je definis l image principale
+                                        $image = $tabImage[0];
                                                 
                                         if(count($tabOeuvreChoix) > 1)
                                         {        
                                                 // IMAGE DE SUGGESTION A FAIRE
                                                 $tabImagesId = array();
-                                                $i=0;
-                                                while ($i<count($tabOeuvreChoix))
-                                                {
-                                                        $tabImagesId[$i] = $tabOeuvreChoix[$i+1]->getId();
-                                                        $i++;
-                                                }
-                                                $tabImagesSuggestions = array();
+                                                $s=0;
+                                                        while ($s<count($tabOeuvreChoix))
+                                                        {
+                                                            if($idOeuvre != $tabOeuvreChoix[$s]->getId())
+                                                            {
+                                                                $tabImagesId[$s] = $tabOeuvreChoix[$s]->getId();
+                                                                $s++;
+                                                            }
+                                                        }
+                                                $tabImagesSuggestionsBrut = array();
                                                 $j=0;
-                                                while ($j<count($tabImagesId))
-                                                {
-                                                        $tabImagesSuggestions[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
-                                                        $j++;
-                                                }
+                                                        // je récupere les images grace a une requete et l'id des oeuvres
+                                                        while ($j<count($tabImagesId))
+                                                        {
+                                                                $tabImagesSuggestionsBrut[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
+                                                                $j++;
+                                                        }
+                                                      
+                                                      
+                                                        
+                                                // je met en forme le tableau pour qu'il soit utilisable facilement
+                                                $tabImagesSuggestions = array();
+                                                $l=0;
+                                                        while ($l<count($tabImagesSuggestionsBrut))
+                                                        {
+                                                                $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l][0];
+                                                                $l++;
+                                                        }
+                                                        
+                                                var_dump($tabOeuvreChoix);
                                         }
                                         else
                                         {
                                                 $tabImagesSuggestions = array();
                                         }
-            //var_dump($tabOeuvreChoix);
-            
+                                        
                                 //On augmente le compteur de vues de l'oeuvre !
                                 $compteur = $oeuvre->getCompteurVues();
                                 $oeuvre->setCompteurVues($compteur+1);
@@ -612,3 +667,15 @@ class OeuvreController extends Controller
     }
 
 }
+
+
+/*
+
+
+
+    
+
+
+
+
+*/

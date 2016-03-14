@@ -21,9 +21,21 @@ class OeuvreRepository extends EntityRepository
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o
-                                                                        WHERE o.genre = :choixGenre
+                                                                        WHERE (o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
-                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.trancheAge = :choixTrancheAge)
+                                                                        OR
+                                                                        (o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge))
+                                                                        OR
+                                                                        (o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND  o.trancheAge = :choixTrancheAge)
+                                                                        OR
+                                                                        ((NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND  o.trancheAge = :choixTrancheAge)
                                                         ');
                                             
                                             
@@ -84,10 +96,37 @@ class OeuvreRepository extends EntityRepository
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o
-                                                                        WHERE o.genre = :choixGenre
+                                                                        WHERE (o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
                                                                         AND o.trancheAge = :choixTrancheAge
-                                                                        AND o.thematique = :choixThematique
+                                                                        AND o.thematique = :choixThematique)
+                                                                        OR
+                                                                        ((NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.thematique = :choixThematique)
+                                                                        OR
+                                                                        (o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.thematique = :choixThematique)
+                                                                        OR
+                                                                        (o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.thematique = :choixThematique)
+                                                                        OR
+                                                                        (o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.thematique = :choixThematique)
+                                                                        OR
+                                                                        (o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.thematique = :choixThematique))
+                                                                                                                                                
+                                                                        
                                                         ');
                                             
                                             

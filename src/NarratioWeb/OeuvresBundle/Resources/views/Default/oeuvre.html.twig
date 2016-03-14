@@ -46,11 +46,12 @@
     <div id="Livre" class="tab-pane fade"><br/>
         {% for LivreCourant in tabLivres %}
             <b>{{LivreCourant.titre}}</b><br/>
-            Resume: {{LivreCourant.resume}}<br/>
+            <i> {{LivreCourant.resume}}</i><br/><br>
             Auteur(s): <br>
         {%for auteurCourant in LivreCourant.auteur%}
             - {{auteurCourant.label}} <br>
-        {%endfor%}<br/>
+        {%endfor%}
+         Editeur: {{LivreCourant.editeur.nom}}<br>
         {%else%}
             rien à afficher.
         {%endfor%}
@@ -60,7 +61,7 @@
     <div id="Film" class="tab-pane fade"><br/>
         {% for FilmCourant in tabFilms %}
             <b>{{FilmCourant.titre}}</b><br/>
-            Synopsis: {{FilmCourant.synopsis}}<br/>
+            <i> {{FilmCourant.synopsis}} </i><br/>
             Réalisateur: {{FilmCourant.realisateur.label}}<br/>
             Acteurs: <br>
             {%for acteurCourant in FilmCourant.acteurs%}
@@ -96,7 +97,7 @@
     <div class="row">
       <div class="col-xs-4 col-md-2">
         <a href="#" class="thumbnail">
-          <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 1"/>
+          <img src="" width=150px alt="Suggestion 1"/>
         </a>
       </div> 
       <div class="col-xs-4 col-md-2">
@@ -114,12 +115,12 @@
           <img src="http://www.porcelaingres.fr/img/prodotti/collezioni/just_grey_mid_grey.jpg" width=150px alt="Suggestion 4"/>
         </a>
       </div>
+      {%for imageCourante in tabImagesSuggestions %}
+         <img src="" width=75 height=75 href="#"/>
+      {%endfor%}
     </div>
 </div>
 
 {% endblock %}
 
-
-{#  <img src="{{img.url}}" width=75 height=75 href="his voisines"/> #}
-{#  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id' : oeuvre.id}) }}"><img src"{{img.url}}" width=75 height=75 alt="Image de suggestion"></a>  #}
 

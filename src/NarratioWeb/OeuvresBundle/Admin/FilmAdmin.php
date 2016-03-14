@@ -29,7 +29,7 @@ class FilmAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('duree')
+            ->add('duree', 'text', array('label' => 'Duree en minutes'))
             ->add('titre')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -47,9 +47,12 @@ class FilmAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('duree')
+            ->add('duree', 'text', array('label' => 'Duree en minutes'))
             ->add('titre')
             ->add('synopsis')
+            ->add('oeuvre', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Oeuvre', 
+                                  'multiple' => false, 
+                                  'expanded' => 'true'))
         ;
     }
 
@@ -60,7 +63,7 @@ class FilmAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('duree')
+            ->add('duree', 'text', array('label' => 'Duree en minutes'))
             ->add('titre')
             ->add('synopsis')
         ;

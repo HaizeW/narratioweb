@@ -49,11 +49,37 @@
 <div class="panel panel-default">
   <div id=menu class="panel-heading">Menu</div>
   <div class="panel-body">
-  	
-	<div class="inner-addon left-addon">
-    	<i class="glyphicon glyphicon-zoom-in" align="center"></i>
-    <input type="text" class="form-control" placeholder="Rechercher"/>
-    </div><br>
+    <form method="post">
+        <center>
+           	<b>Rechercher</b>
+           		<div class="ui-widget">
+  					{{form_widget(formulaireRechercheNominale.nom)}}
+				</div>
+        </center>
+    </form>
+  </div>
+  
+  <!-- Autocomplétion -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script>
+  $(function() {
+    var availableTags = [
+    "Cyrano de Bergerac",
+    "La face cachée de Margo",
+    "Le Seigneur des Anneaux",
+    "Nos Etoiles Contraires"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  });
+    </script>
+    
+    
+    <!-- Fin autocomplétion -->
 
 
 <div class ="panel panel-warning">
@@ -84,5 +110,4 @@
 </div>
     
   </div>
-</div>
 
