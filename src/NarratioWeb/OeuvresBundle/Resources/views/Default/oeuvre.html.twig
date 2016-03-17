@@ -1,6 +1,19 @@
 {%extends 'vueMere.html.twig' %}
 
+{% block header %}
+<script language="Javascript">
+
+   function choixTab(){
+      alert("yoyo");
+   }
+   
+</script>
+
+{% endblock %}
+
 {% block body %}
+
+
 <style type="text/css">
    #titre1{
       color:#F6EFD2;
@@ -17,64 +30,183 @@
       text-align:justify;
    }
    
+   #Livre{
+      text-align:justify;
+   }
+   
+   #Film{
+      text-align:justify;
+   }
+   
+   #Autre{
+      text-align:justify;
+   }
+   
    #image1{
       border-radius: 35px;
       border-radius: 35px;
    }
    
+   #images{
+      vertical-align:middle;
+      
+   }
+   
+   .thumbnail {
+      width: 175px;
+      height: 175px;
+      overflow: hidden;
+   }
+   
+   a {
+      
+      color : #7D3232;
+      
+   }
+   
+   a:hover {
+      
+      color : #7D3232;
+      
+   }
+
+   .nav-tabs>li.active>a{
+      color: black;
+   }
+   
+   
 </style>
 
     <!-- mise en place des onglets -->
-<div class="container" style="background-color: #F7F5F0">
+<div class="container" style="background-color: #F7F5F0" onLoad="choixTab()">
     <div class="row">
         <div class="col-lg-8"><br>
-            <div id=titre1>{{ oeuvre.nom }}</div><br>
+            <div id=titre1>
+               {{ oeuvre.nom }}
+            </div><br>
                 <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a data-toggle="tab" href="#Oeuvre">L'Oeuvre</a></li>
-                    <li><a data-toggle="tab" href="#Livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Livres</a></li>
-                    <li><a data-toggle="tab" href="#Film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> Films</a></li>
-                    <li><a data-toggle="tab" href="#Autre"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Autres</a></li>
+                    <li class="active"><a data-toggle="tab" href="#Oeuvre" name="oeuvre">L'Oeuvre</a></li>
+                    <li ><a data-toggle="tab" href="#Livre" name="livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Livres</a></li>
+                    <li ><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> Films</a></li>
+                    <li><a data-toggle="tab" href="#Autre" name="autre"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Autres</a></li>
                 </ul>
 
 <!-- PREMIER ONGLET -->
     <div class="tab-content" >
         <div id="Oeuvre" class="tab-pane fade in active"><br>
-              <br>{{oeuvre.concept}}<br/><br>
+        
+         <div class="panel panel-default">
+            <div class="panel-body">
+              {{oeuvre.concept}}<br/>
+            </div>
+         </div>
         </div>
 
 <!-- DEUXIEME ONGLET -->
     <div id="Livre" class="tab-pane fade"><br/>
         {% for LivreCourant in tabLivres %}
-            <b>{{LivreCourant.titre}}</b><br/>
-            <i> {{LivreCourant.resume}}</i><br/><br>
-            Auteur(s): <br>
-        {%for auteurCourant in LivreCourant.auteur%}
-            - {{auteurCourant.label}} <br>
-        {%endfor%}
-         Editeur: {{LivreCourant.editeur.nom}}<br>
+        
+        <div class="panel panel-default">
+           <div class="panel-heading">
+        
+              <h3 align="center" class="panel-title">
+                  <b>{{LivreCourant.titre}}</b><br/>
+              </h3>
+            </div>
+            
+            <div class="panel-body">
+               
+               <i>{{LivreCourant.resume}}</i><br/>
+            
+            </div>
+            
+            <div class="panel-footer">
+            
+               <div style="float:right" align="right">
+
+                  Editeur : {{LivreCourant.editeur.nom}}
+                  
+               </div>
+               
+               <div style="" align="left">
+                  
+                     
+                  Auteur(s) : <br>
+            
+                  {%for auteurCourant in LivreCourant.auteur%}
+                     - {{auteurCourant.label}}
+                  {%endfor%}
+                  
+               </div>
+               
+            </div>
+            
+         </div>
+            
         {%else%}
-            rien à afficher.
+            Erreur.
+         
         {%endfor%}
+        <br/>
+        
     </div>
     
 <!-- TROISIEME ONGLET -->
     <div id="Film" class="tab-pane fade"><br/>
-        {% for FilmCourant in tabFilms %}
-            <b>{{FilmCourant.titre}}</b><br/>
-            <i> {{FilmCourant.synopsis}} </i><br/>
-            Réalisateur: {{FilmCourant.realisateur.label}}<br/>
-            Acteurs: <br>
-            {%for acteurCourant in FilmCourant.acteurs%}
-            - {{acteurCourant.label}}<br>
-            {%endfor%}<br/>
-            {%else%}
-            rien à afficher.
-            {%endfor%}<br>
+    
+    {% for FilmCourant in tabFilms %}
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+           
+             <h3 align="center" class="panel-title">
+                <b>{{FilmCourant.titre}}</b>
+            </h3>
+            
+        </div>
+        
+        <div class="panel-body">
+           
+             {{FilmCourant.synopsis}}
+             
+        </div>
+        
+        <div class="panel-footer">
+           
+         <div style="float:right" align="right">
+            
+         Durée: {{FilmCourant.duree}} min<br>
+         Réalisateur: {{FilmCourant.realisateur.label}}<br/>
+         
+         </div>
+         
+         <div style="" align="left">
+         
+         Acteurs: <br>
+         {%for acteurCourant in FilmCourant.acteurs%}
+         - {{acteurCourant.label}}<br>
+         {%endfor%}
+         
+         </div>
+         
+        </div>
+        
+        
+   </div>
+   
+   {%else%}
+      Erreur.
+   {%endfor%}
+   
     </div>
 
 <!-- QUATRIEME ONGLET -->
     <div id="Autre" class="tab-pane fade"><br>
+    <div class="panel panel-default">
+            <div class="panel-body">
         {{oeuvre.prodDer}}
+    </div>
+    </div>
     </div>
     </div>
     </div>
@@ -84,24 +216,38 @@
 <!-- image générale de l'oeuvre -->
 
 <!-- LATERAL: Image + Informations -->
-    <div class="col-lg-4" style="background-color: #fff"><br><br>
-        <center><img src="{{image.url}}" id=image1 width=350px /></center><br><br>
+    <div class="col-lg-4"><br><br>
+        <center><img src="{{image.url}}" id=image1 width=300px /></center><br><br>
         <div class="well">
-            <b>Genre :</b> {{oeuvre.genre.intitule}}<br><br>
+            <b>Genre :</b> {{oeuvre.genre.intitule}}<br>
+            <b>Epoque :</b> {{oeuvre.epoque.intitule}}<br>
+            <b>Thématique :</b> {{oeuvre.thematique.intitule}}<br>
+            <b>Tranche d'age :</b> {{oeuvre.trancheAge.intitule}}<br><br>
             <b>Nombre de vues :</b> {{oeuvre.compteurVues}}
         </div>
     </div>
-    </div><br><i>Autres suggestions...</i><br>
-
-<!-- SUGGESTIONS -->
+    </div>
+    <br>
+    
+<!-- SUGGESTIONS   -->
     <div class="row">
-        <div class="col-xs-6 col-md-3">
-          <a href="#" class="thumbnail" >
-            {%for imageCourante in tabImagesSuggestions %}
-               <img src="{{imageCourante.url}}" width="100"/>
-            {%endfor%}
-          </a>
-        </div>
+      
+      {% if tabImagesSuggestions |length > 1 %}
+      
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         <i>Suggestions</i>
+         <br>
+         
+         {%for imageCourante in tabImagesSuggestions |slice(0, 4) if imageCourante.oeuvre.id != id %}
+            <div class="col-xs-4 col-md-2" align="center">
+                  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) }}" class="thumbnail">
+                     <img id="images" src="{{imageCourante.url}}" id=image2 alt="Suggestions"></a>
+                  </a>
+            </div>
+         {%endfor%}
+      
+      {% endif %}
+      
     </div>
 </div>
 

@@ -13,43 +13,6 @@ use Doctrine\ORM\EntityRepository;
 class FilmRepository extends EntityRepository
 {
     
-    public function getFilmsNew() // LES ID CHANGENT TOUT LE TEMPS DONC ?
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f ORDER BY f.id DESC');
-                                                                        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(5);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
-    
-    
-    public function getFilmsPlusVus() // OK je pense ...
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, o FROM NarratioWebOeuvresBundle:Film f  JOIN f.oeuvre o ORDER BY o.compteurVues DESC');
-                                                                        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(5);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
-    
     
     public function getFilmsAvancee($choixActeur, $choixRealisateur, $choixType) // OK
     {
@@ -59,9 +22,18 @@ class FilmRepository extends EntityRepository
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f
                                                             LEFT JOIN f.acteurs a
-                                                                    WHERE f.type = :choixType
-                                                                    AND f.realisateur = :choixRealisateur
-                                                                    AND a.id = :choixActeur
+                                                                    WHERE (f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur)
+                                                                        OR
+                                                                        (f.type = :choixType
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur)
+                                                                        OR
+                                                                        (f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur))
+                                                                    
                                                         ');
                                          
         // je definis mes parametres

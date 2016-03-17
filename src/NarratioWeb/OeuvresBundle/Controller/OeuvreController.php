@@ -8,7 +8,7 @@ use OC\PlatformBundle\Entity\Advert;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Oeuvre;
+//use Oeuvre;
 
 class OeuvreController extends Controller
 {
@@ -47,8 +47,8 @@ class OeuvreController extends Controller
         
         
         // enregistrement des données dans $tabChoix apres soumission
-        $formulaireChoix->handleRequest($requeteUtilisateurChoix); /////////////////////////////////////////////////////////
-        //$formulaireRechercheNominale->handleRequest($requeteUtilisateurNom);
+        $formulaireChoix->handleRequest($requeteUtilisateurChoix);
+        $formulaireRechercheNominale->handleRequest($requeteUtilisateurNom);
 
         // si le form de recherche NOMINAL a été soumis
         if($this->getRequest()->get('action-type') =='Rechercher')//($this->getRequest()->get('action-type') =='Films')
@@ -144,13 +144,15 @@ class OeuvreController extends Controller
                                         //FCT DE CHOIX DES CHIFFRES ALEATOIRES
                                         while (count($alea) < $nbChoixMax)
                                         {
-                                            $r = mt_rand(0,$nbOeuvres);
+                                            $r = mt_rand(0,$nbOeuvres-1);
                                             if ( !in_array($r,$alea) ) 
                                             {
                                                 $alea[] = $r;
                                             }
                                         }
                                         //var_dump($alea);
+                                        //var_dump($nbOeuvres);
+                                        //var_dump($tabOeuvreChoix);
                                         
                                         $tabOeuvreHasard = array();
                                         $i=0;
@@ -236,7 +238,7 @@ class OeuvreController extends Controller
                                         //FCT DE CHOIX DES CHIFFRES ALEATOIRES
                                         while (count($alea) < $nbChoixMax)
                                         {
-                                            $r = mt_rand(0,$nbOeuvres);
+                                            $r = mt_rand(0,$nbOeuvres-1);
                                             if ( !in_array($r,$alea) ) 
                                             {
                                                 $alea[] = $r;
@@ -327,7 +329,7 @@ class OeuvreController extends Controller
         
     
     
-    public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $requeteUtilisateurF) // C'est avec ca que je controle si ca a ete soumis mais quand je lance depuis Livres ca va chercher films ...
+public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $requeteUtilisateurF)
     {
         
         // Tableau dans lequel les données du formulaire seront recueillies
@@ -430,35 +432,28 @@ class OeuvreController extends Controller
                 $choixRealisateur = $tabChoixResFilms['Realisateur'][0] -> getId();
                 $choixThematiqueF = $tabChoixResFilms['ThematiqueF'] -> getId();
                 $choixType = $tabChoixResFilms['Type'] -> getId();
-           
+                        
+                        // je charge mon repository de Film pour executer une requete sur la BD
+                        $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
+                        // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
+                        $tabFilms = $repositoryFilms->getFilmsAvancee($choixActeur, $choixRealisateur, $choixType);
+                        
                         // je charge mon repository de Oeuvre pour executer une requete sur la BD
                         $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-                        // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                        $tabOeuvreChoix = $repositoryOeuvre->getOeuvreChoixAvancee($choixEpoqueF, $choixGenreF, $choixTrancheAgeF, $choixThematiqueF);
+                                $idOeuvre = $tabFilms[0]->getOeuvre()->getId();
+                        $oeuvre = $repositoryOeuvre->findOneById($idOeuvre);
                         
-                        //var_dump($tabOeuvreChoix);
-                        
-                                if(count($tabOeuvreChoix) == 0)
+                                if(count($tabFilms) == 0)
                                 {
                                         throw $this->createNotFoundException('The product does not exist');
                                 }
                                 else
                                 {
-                                        $oeuvre = $tabOeuvreChoix[0];
-                                        $idOeuvre = $oeuvre->getId(); 
-                                        
                                                 // je charge mon repository de Livre pour executer une requete sur la BD
                                                 $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                                                 // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
                                                 $tabLivres = $repositoryLivres->getLivresByOeuvre($idOeuvre);
                                         
-                                                // je charge mon repository de Film pour executer une requete sur la BD
-                                                $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
-                                                // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
-                                                $tabFilms = $repositoryFilms->getFilmsAvancee($choixActeur, $choixRealisateur, $choixType);
-                                                
-                                                //var_dump($tabFilms);
-                                                
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
@@ -497,7 +492,7 @@ class OeuvreController extends Controller
             // on recupere les données du form dans un tableau de 3 cases indicés par 'TrancheAge' 'Genre' et 'Epoque'
             $tabChoixResLivres = $formulaireRechAvanceeLivres -> getData();
             
-            var_dump($tabChoixResLivres);
+            //var_dump($tabChoixResLivres);
             
             // je recup mes variables
             $choixEpoqueL = $tabChoixResLivres['EpoqueL'] -> getId();
@@ -507,27 +502,23 @@ class OeuvreController extends Controller
             $choixAuteur = $tabChoixResLivres['Auteur'] -> getId();
             $choixEditeur = $tabChoixResLivres['Editeur'] -> getId();
 
+                        // je charge mon repository de Livre pour executer une requete sur la BD
+                        $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
+                        // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
+                        $tabLivres = $repositoryLivres->getLivresAvancee($choixAuteur, $choixEditeur);
+
+                
                         // je charge mon repository de Oeuvre pour executer une requete sur la BD
                         $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-                        // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                        $tabOeuvreChoix = $repositoryOeuvre->getOeuvreChoixAvancee($choixEpoqueL, $choixGenreL, $choixTrancheAgeL, $choixThematiqueL);
+                                $idOeuvre = $tabLivres[0]->getOeuvre()->getId();
+                        $oeuvre = $repositoryOeuvre->findOneById($idOeuvre);
                         
-                        //var_dump($tabOeuvreChoix);
-                        
-                                if(count($tabOeuvreChoix) == 0)
+                                if(count($tabLivres) == 0)
                                 {
                                         throw $this->createNotFoundException('The product does not exist');
                                 }
                                 else
                                 {
-                                        $oeuvre = $tabOeuvreChoix[0];
-                                        $idOeuvre = $oeuvre->getId(); 
-                                        
-                                                // je charge mon repository de Livre pour executer une requete sur la BD
-                                                $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-                                                // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
-                                                $tabLivres = $repositoryLivres->getLivresAvancee($choixAuteur, $choixEditeur);
-                                        
                                                 // je charge mon repository de Film pour executer une requete sur la BD
                                                 $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
                                                 // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
@@ -544,7 +535,7 @@ class OeuvreController extends Controller
                                                 // je recup des images de sugg
                                                 $tabImagesSuggestions = $repositoryImage->getImageSugg();
                                                 
-                                                var_dump($tabImagesSuggestions);
+                                                //var_dump($tabImagesSuggestions);
                                 }
                                 //On augmente le compteur de vues de l'oeuvre !
                                 $compteur = $oeuvre->getCompteurVues();
@@ -582,6 +573,8 @@ class OeuvreController extends Controller
         
         $tabOeuvreChoix = $repositoryOeuvre->getOeuvreChoix($oeuvre->getEpoque(), $oeuvre->getGenre(), $oeuvre->getTrancheAge());
             
+            //var_dump($oeuvre);
+            
                 // je charge mon repository de Livre pour executer une requete sur la BD
                 $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                 // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
@@ -596,27 +589,26 @@ class OeuvreController extends Controller
                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
                 $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
+                               
+                               //var_dump($tabOeuvreChoix);
                                                 
                                         // je definis l image principale
                                         $image = $tabImage[0];
                                                 
-                                        if(count($tabOeuvreChoix) > 1)
+                                        if(count($tabOeuvreChoix) > 3)
                                         {        
                                                 // IMAGE DE SUGGESTION A FAIRE
                                                 $tabImagesId = array();
                                                 $s=0;
                                                         while ($s<count($tabOeuvreChoix))
                                                         {
-                                                            if($idOeuvre != $tabOeuvreChoix[$s]->getId())
-                                                            {
                                                                 $tabImagesId[$s] = $tabOeuvreChoix[$s]->getId();
                                                                 $s++;
-                                                            }
                                                         }
                                                 $tabImagesSuggestionsBrut = array();
                                                 $j=0;
                                                         // je récupere les images grace a une requete et l'id des oeuvres
-                                                        while ($j<count($tabImagesId))
+                                                        while ($j<count($tabImagesId)-1)
                                                         {
                                                                 $tabImagesSuggestionsBrut[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
                                                                 $j++;
@@ -627,18 +619,21 @@ class OeuvreController extends Controller
                                                 // je met en forme le tableau pour qu'il soit utilisable facilement
                                                 $tabImagesSuggestions = array();
                                                 $l=0;
-                                                        while ($l<count($tabImagesSuggestionsBrut))
+                                                        while ($l<count($tabImagesSuggestionsBrut)-1)
                                                         {
                                                                 $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l][0];
                                                                 $l++;
                                                         }
                                                         
-                                                var_dump($tabOeuvreChoix);
+                                                //var_dump($tabOeuvreChoix);
                                         }
                                         else
                                         {
                                                 $tabImagesSuggestions = array();
+                                                $tabImagesSuggestions = $repositoryImage->getImageSugg();
                                         }
+                            
+                                    //var_dump($tabImagesSuggestions);
                                         
                                 //On augmente le compteur de vues de l'oeuvre !
                                 $compteur = $oeuvre->getCompteurVues();

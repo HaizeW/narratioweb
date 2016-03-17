@@ -12,45 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class LivreRepository extends EntityRepository
 {
-    
-    public function getLivresNew() // LES ID CHANGENT TOUT LE TEMPS DONC ?
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l ORDER BY l.id DESC');
-                                                                        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(5);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
-    
-    public function getLivresPlusLus() // OK je pense ...
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT l, o FROM NarratioWebOeuvresBundle:Livre l  JOIN l.oeuvre o ORDER BY o.compteurVues DESC');
-                                                                        
-        //je fixe ma limite à 3 résultats
-        $requetePerso->setMaxResults(5);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
-    
-    
-    
+
     public function getLivresByOeuvre($idOeuvre) // OK
     {
         // appel du gestionnaire d'entité
@@ -80,8 +42,14 @@ class LivreRepository extends EntityRepository
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l
                                                             LEFT JOIN l.auteur a
-                                                                    WHERE l.editeur = :choixEditeur
-                                                                    AND a.id = :choixAuteur
+                                                                    WHERE (l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur)
+                                                                        OR
+                                                                        (l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur))
+                                                                        OR
+                                                                        ((NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur)
                                                         ');
                                          
         // je definis mes parametres

@@ -49,16 +49,25 @@
 <div class="panel panel-default">
   <div id=menu class="panel-heading">Menu</div>
   <div class="panel-body">
-    <form action="{{ path('narratio_web_oeuvres_homepage') }}" method="post">
-        <center>
-           	<b>Rechercher</b>
-           		<div class="ui-widget">
-  					{{form_widget(formulaireRechercheNominale.nom)}}
-  					<center> <input name="action-type" value="Rechercher" type="submit" class="btn btn-warning" /> </center> 
+	
+	<div class=row>
+	<div class="col-lg-9">
+		<form action="{{ path('narratio_web_oeuvres_homepage') }}" method="post">
+			<center>
+				<div class="ui-widget">
+					{{form_widget(formulaireRechercheNominale.nom)}}
 				</div>
-        </center>
-    </form>
-  </div>
+	</div>
+	<div class="col-lg-3">
+		<button name="action-type" style="background-color: #7D3232;" value="Rechercher" type="submit" class="btn btn-warning">
+			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		</button>
+	</div>
+			</center>
+		</form>
+   </div>
+  
+  
   
   <!-- Autocomplétion -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -69,11 +78,16 @@
   $(function() {
     var availableTags = [
     "Cyrano de Bergerac",
+    "Divergente",
+    "Hunger Games",
     "La face cachée de Margo",
+    "La Guerre des Mondes",
+    "Le Cerlce des poètes disparus",
+    "Le Hobbit",
     "Le Seigneur des Anneaux",
     "Nos Etoiles Contraires"
     ];
-    $( "#tags" ).autocomplete({
+    $( "#form_nom" ).autocomplete({
       source: availableTags
     });
   });
@@ -83,8 +97,8 @@
     <!-- Fin autocomplétion -->
 
 
-<div class ="panel panel-warning">
-	<div class= "panel-heading">
+<div class ="panel panel-default" >
+	<div class= "panel-heading" style="background-color: #DED9B7;">
 		Oeuvres les plus récentes
 	</div>
 		<div class="list-group">
@@ -97,8 +111,8 @@
 </div>
 		
 		
-<div class ="panel panel-warning">
-	<div class= "panel-heading">
+<div class ="panel panel-default">
+	<div class= "panel-heading" style="background-color: #DED9B7;">
 		Oeuvres les plus vues
 	</div>
 		<div class="list-group">
@@ -109,6 +123,6 @@
 			{%endfor%}
 		</div>
 </div>
-    
+    </div>
   </div>
 

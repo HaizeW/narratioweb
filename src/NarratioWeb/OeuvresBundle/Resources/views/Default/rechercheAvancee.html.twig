@@ -25,10 +25,8 @@
   
   <div class="tab-content">
       
-      <!-- contenu du premier onglet -->
+      <!-- contenu du premier onglet : FILMS -->
         <div id="Film" class="tab-pane fade in active">
-          <h3>Films</h3>
-
             <p>
 
       <!-- contenu du premier onglet -->
@@ -87,7 +85,7 @@
                         <!-- Ligne 5 --> 
                         <div class="row">
                             
-                                       <center> <input name="action-type" value="Films" type="submit" class="btn btn-warning" /> </center> 
+                                       <center> <input name="action-type" value="Films" type="submit" class="btn btn-warning" id="film"/> </center> 
                                        <br>
                                        <br>
                         </div>
@@ -102,10 +100,8 @@
     
     <!-------------------------------------------------------------------------------------------------------------------------------------->
     
-      <!-- contenu du second onglet -->
+      <!-- contenu du second onglet: LIVRES -->
         <div id="Livre" class="tab-pane fade">
-          <h3>Livres</h3>
-    
             <p>
                 <form action="{{ path('narratio_web_oeuvres_rechercheAvancee') }}" align="center" method = "post" {{ form_enctype(formLivres)}}>
                         <!-- Ligne 2 -->    
@@ -150,7 +146,7 @@
                         <!-- Ligne 5 --> 
                         <div class="row">
                             
-                                       <center> <input name="action-type" value="Livres" type="submit" action="" class="btn btn-warning" /> </center> 
+                                       <center> <input name="action-type" value="Livres" type="submit" action="" class="btn btn-warning" id="livre"/> </center> 
                                        <br>
                                        <br>
                         </div>
