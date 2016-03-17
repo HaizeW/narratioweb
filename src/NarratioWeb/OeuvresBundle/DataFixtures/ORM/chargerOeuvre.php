@@ -264,7 +264,7 @@ class Oeuvres implements FixtureInterface
 		$AuteurWells = new Auteur();
 		$AuteurWells -> setNom("Wells")
 				-> setPrenom("H.G");
-		$manager->persist($AuteurWells );
+		$manager->persist($AuteurWells);
 		
 		$AuteurRoth = new Auteur();
 		$AuteurRoth -> setNom("Roth")
@@ -604,18 +604,18 @@ class Oeuvres implements FixtureInterface
 				-> setPrenom("Theo");
 		$manager->persist($ActeurJames);
 		
-		$ActeurFinney = new Auteur();
+		$ActeurFinney = new Acteur();
 	    $ActeurFinney -> setNom("Finney")
 	               -> setPrenom("Albert");
-	    $ActeurFinney->persist($ActeurFinney);
+	    $manager->persist($ActeurFinney);
 	    
 	    $ActeurBacall = new Acteur();
-	    $ActeurBacall -> setNom("Bacall");
+	    $ActeurBacall -> setNom("Bacall")
 	                -> setPrenom("Laurent");
 	    $manager->persist($ActeurBacall);
 	    
 	    $ActeurConnery = new Acteur();
-	    $ActeurConnery -> setNom("Connery");
+	    $ActeurConnery -> setNom("Connery")
 	                -> setPrenom("Sean");
 	    $manager->persist($ActeurConnery);
 		 
