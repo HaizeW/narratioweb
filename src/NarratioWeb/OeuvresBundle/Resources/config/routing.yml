@@ -6,12 +6,20 @@ narratio_web_oeuvres_rechercheAvancee:
     path:     /rechercheAvancee
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:rechercheAvancee }
     
+narratio_web_oeuvres_oeuvreAvanceeFilms:
+    path:     /oeuvreAvanceeFilms
+    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:oeuvreAvancee }
+    
+narratio_web_oeuvres_oeuvreAvanceeLivres:
+    path:     /oeuvreAvanceeLivres
+    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:oeuvreAvancee }
+    
 narratio_web_oeuvres_voirOeuvre:
     path:     /oeuvre/{id}
     defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:voirOeuvre }
     requirements:
         id: \d+
-    
+
 narratio_web_oeuvres_oeuvreMenu:
     path:     /oeuvre/{id}
     defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:oeuvre }

@@ -38,6 +38,13 @@ class Film
     private $synopsis;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="annee", type="string")
+     */
+    private $annee;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Type")
      */
     private $type;
@@ -222,5 +229,28 @@ class Film
     public function getOeuvre()
     {
         return $this->oeuvre;
+    }
+
+    /**
+     * Set annee
+     *
+     * @param string $annee
+     * @return Film
+     */
+    public function setAnnee($annee)
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return string 
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
     }
 }

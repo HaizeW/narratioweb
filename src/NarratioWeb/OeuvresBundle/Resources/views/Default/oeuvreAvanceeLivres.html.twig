@@ -1,0 +1,137 @@
+{%extends 'vueMere.html.twig' %}
+
+
+
+{% block body %}
+
+
+<style type="text/css">
+   #titre1{
+      color:#F6EFD2;
+      text-align:center;
+      font-size:30px;
+      font-family: garamond;
+      background-color:#212524;
+      text-decoration:none;
+      border-radius: 25px 10px / 10px 25px;
+      border-radius: 25px 10px / 10px 25px;
+   }
+   
+
+   #Livre{
+      text-align:justify;
+   }
+   
+      #image1{
+      border-radius: 35px;
+      border-radius: 35px;
+   }
+   
+   .thumbnail {
+      width: 250px;
+      height: 175px;
+      overflow: hidden;
+   }
+   
+</style>
+
+    <!-- mise en place des onglets -->
+<div class="container" style="background-color: #F7F5F0">
+    
+<div class="row">
+        
+<div class="col-lg-1"></div>
+
+    <div class="col-lg-10">
+        
+        
+        <br>
+            <div id=titre1>
+               <b>Livres</b>
+            </div>
+        <br>
+
+
+
+
+
+{% for LivreCourant in tabRes %}
+        
+        <div class="panel panel-default">
+           <div class="panel-heading">
+        
+              <h3 align="center" class="panel-title">
+                  <b>{{LivreCourant[0].titre}}</b><br/>
+              </h3>
+            </div>
+            
+            <div class="panel-body">
+               
+               {{LivreCourant[0].resume}}<br/>
+            
+            </div>
+            
+            <div class="panel-footer">
+            
+               <div style="float:right" align="right">
+
+                  <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
+                  <b>Editeur :</b>
+                  {{LivreCourant[0].editeur.nom}}
+                  
+               </div>
+               
+               <div style="" align="left">
+                  
+                     
+                  <b>Auteur(s) :</b>
+                  <br>
+            
+                  {%for auteurCourant in LivreCourant[0].auteur%}
+                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                     {{auteurCourant.label}}
+                  {%endfor%}
+                  
+               </div>
+               
+                
+                <div style="float:center" class="" align="center">
+                      <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':LivreCourant[0].oeuvre.id}) }}" class="thumbnail">
+                         <img id="images" src="{{LivreCourant[1].url}}" alt="Suggestions"></a>
+                      </a>
+                </div>
+            
+                
+               
+               
+            </div>
+            
+         </div>
+            
+        {%else%}
+            Erreur.
+         
+        {%endfor%}
+
+
+<nav>
+  <ul class="pager">
+    <li><a href="#">Precedent</a></li>
+    <li><a href="#">Suivant</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+
+
+</div>
+
+<div class="col-lg-1"></div>
+    
+</div>
+
+{% endblock %}
+
+

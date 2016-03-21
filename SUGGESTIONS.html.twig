@@ -1,0 +1,9 @@
+{%for imageCourante in tabImagesSuggestions |slice(0, 4) if imageCourante.oeuvre.id != id %}
+            <div class="col-xs-4 col-md-2" align="center">
+                  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) }}" class="thumbnail">
+                     <img id="images" src="{{imageCourante.url}}" alt="Suggestions"></a>
+                  </a>
+            </div>
+         {%endfor%} 
+      
+      {% endif %}

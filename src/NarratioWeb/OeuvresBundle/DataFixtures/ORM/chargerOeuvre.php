@@ -27,45 +27,53 @@ class Oeuvres implements FixtureInterface
         /* Création des epoques     */
         /* ******************************************************* */
         
-		$epoque3040 = new Epoque();
-		$epoque3040->setIntitule("1830 - 1840");
-		$manager->persist($epoque3040);
+        $epoqueContemporaine = new Epoque();
+		$epoqueContemporaine->setIntitule("Contemporaine");
+		$manager->persist($epoqueContemporaine);
 		
-		$epoque8090 = new Epoque();
-		$epoque8090->setIntitule("1880 - 1890");
-		$manager->persist($epoque8090);
-		
-		$epoque5060 = new Epoque();
-		$epoque5060->setIntitule("1950 - 1960");
-		$manager->persist($epoque5060);
+		$epoqueFuturiste = new Epoque();
+		$epoqueFuturiste->setIntitule("Futuriste");
+		$manager->persist($epoqueFuturiste);
         
-		$epoque1020 = new Epoque();
-		$epoque1020->setIntitule("2010 - 2020");
-		$manager->persist($epoque1020);
+		$epoqueModerne = new Epoque();
+		$epoqueModerne->setIntitule("Moderne");
+		$manager->persist($epoqueModerne);
+		
+		$epoqueMoyenAge = new Epoque();
+		$epoqueMoyenAge->setIntitule("Moyen Age");
+		$manager->persist($epoqueMoyenAge);
+		
+		$epoqueAntiquite = new Epoque();
+		$epoqueAntiquite->setIntitule("Antiquite");
+		$manager->persist($epoqueAntiquite);
+        
+		//$epoqueAvantJC = new Epoque();
+		//$epoqueAvantJC->setIntitule("Avant JC");
+		//$manager->persist($epoqueAvantJC);
         
         /* ******************************************************* */
         /* Création des genres     */
         /* ******************************************************* */
         
-		$genreFantastique = new Genre();
-		$genreFantastique->setIntitule("Fantastique");
-		$manager->persist($genreFantastique);
+		$genreScienceFiction = new Genre();
+		$genreScienceFiction->setIntitule("Science Fiction");
+		$manager->persist($genreScienceFiction);
         
-		$genreRomance = new Genre();
-		$genreRomance->setIntitule("Romance");
-		$manager->persist($genreRomance);
+		$genreDrame = new Genre();
+		$genreDrame->setIntitule("Drame");
+		$manager->persist($genreDrame);
 		
-		$genreDramatique = new Genre();
-		$genreDramatique->setIntitule("Dramatique");
-		$manager->persist($genreDramatique);
+		$genreComedie = new Genre();
+		$genreComedie->setIntitule("Comedie");
+		$manager->persist($genreComedie);
 		
-		$genreDystopie = new Genre();
-		$genreDystopie->setIntitule("Dystopie");
-		$manager->persist($genreDystopie);
+		$genreAction = new Genre();
+		$genreAction->setIntitule("Action");
+		$manager->persist($genreAction);
 		
-		$genrePolicier = new Genre();
-		$genrePolicier->setIntitule("Policier");
-		$manager->persist($genrePolicier);
+		$genreAventure = new Genre();
+		$genreAventure->setIntitule("Aventure");
+		$manager->persist($genreAventure);
         
         /* ******************************************************* */
         /* Création des thématiques     */
@@ -123,8 +131,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreHG -> setNom("Hunger Games")
 						-> setConcept("Dans l'histoire de Hunger Games, située dans un futur indéterminé, la nation de « Panem » est née des cendres de l'Amérique du Nord et est dirigée par le Président Snow. La capitale de Panem est une ville appelée le Capitole. Le pays est divisé en douze districts, vivant sous différents seuils de pauvreté, contrôlés par le Capitole. Le district Treize a été détruit 74 ans avant le début du roman Hunger Games, durant une période appelée les Jours Obscurs, le soulèvement des districts contre le Capitole. Pour rappeler aux habitants des districts que les jours obscurs ne devaient pas se reproduire, les Hunger Games furent créés.")
 						-> setProdDer("Trois tomes de ces livres Hunger Games sont déjà en vente : le Hunger Games Tome 1 (intitulé Hunger Games), le Tome 2 (intitulé L’Embrasement) et récemment le Tome 3 est aussi apparu sous le titre de Mockingjay. Et avec la sortie du film de Gary Ross en France, divers produits dérivés de la série sont actuellement disponibles sur le marché, en plus des versions du film en DVD ou en Blu Ray.")
-						-> setEpoque($epoque1020)
-						-> setGenre($genreFantastique)
+						-> setEpoque($epoqueFuturiste)
+						-> setGenre($genreScienceFiction)
 						-> setThematique($themeDictature)
 						-> setTrancheAge($trancheGrandPub)
 						-> setCompteurVues(0);
@@ -136,8 +144,8 @@ class Oeuvres implements FixtureInterface
 							-> setProdDer   ("Accessoires et vêtements avec le titre du livre ou la phrase «ok? ok.»
 											B.O. avec artistes invités comme Charlie XCX
 											Histoire de Esther Earl, jeune fille qui a inspiré John Green a écrire l'histoire: This Star Won't Go Out: The Life and Words of Esther Grace Earl")
-							-> setEpoque($epoque1020)
-							-> setGenre($genreRomance)
+							-> setEpoque($epoqueModerne)
+							-> setGenre($genreDrame)
 							-> setThematique($themeSens)
 							-> setTrancheAge($trancheAdo)
 							-> setCompteurVues(0);
@@ -147,8 +155,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreFCM  -> setNom("La face cachée de Margo")
                     -> setConcept("D’après le best-seller homonyme, La Face Cachée de Margo est l’histoire de Quentin et de Margo, sa voisine énigmatique. Après l’avoir entraîné avec elle toute la nuit dans une expédition vengeresse à travers leur Orlando, Margo disparaît subitement – laissant derrière elle des indices qu’il devra déchiffrer...")
                     -> setProdDer("B.O. et Blue-Ray")
-                    -> setEpoque($epoque1020)
-                    -> setGenre($genreRomance)
+                    -> setEpoque($epoqueMoyenAge)
+                    -> setGenre($genreDrame)
                     -> setThematique($themeSens)
                     -> setTrancheAge($trancheAdo)
                     -> setCompteurVues(0);
@@ -157,8 +165,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreLOTR = new Oeuvre();
 		$oeuvreLOTR -> setNom("Le Seigneur des Anneaux")
                     -> setConcept("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...")
-                    -> setEpoque($epoque5060)
-                    -> setGenre($genreFantastique)
+                    -> setEpoque($epoqueAntiquite)
+                    -> setGenre($genreAventure)
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheAdulte)
                     ->setProdDer("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).")
@@ -168,8 +176,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreCyrano = new Oeuvre();
 		$oeuvreCyrano -> setNom("Cyrano De Bergerac")
                     -> setConcept("Cyrano deBergerac est un turbulent mousquetaire de la compagnie des Cadets de Gascogne. Il est amoureux de sa cousine, la belle Roxane,mais n’ose pas le lui avouer car il est complexé par son nez difforme, même s’il défend cette difformité brillamment quand un vicomte trop audacieux se risque à lui faire une remarque. Lorsque Roxane sollicite une entrevue avec lui à la rôtisserie de Ragueneau, Cyrano est plein d’espoir, mais Roxane luirévèle qu’elle aime Christian, beau jeune homme qui s’apprête à entrer chez les Cadets de Gascogne, et elle demande à Cyrano de le protéger. Cyrano accepte et va même plus loin, puisqu’il conclut un pacte avec Christian, qui est beau mais peu spirituel : il va lui dicter les mots d’amour que Christian dira à Roxane. Grâce auxbons mots de Cyrano, Christian gagne le cœur de Roxane ils se marient très rapidement. Cependant De Guiche, rival jaloux, fait envoyer les Cadets de Gascogne à la guerre, au siège d’Arras. Cyrano y protège toujours Christian et envoie tous les jours des lettres à Roxane au nom de celui-ci. Néanmoins Christian s’aperçoit que Roxane l’aime surtout pour ce qu’elle croit être son bel esprit et qu’elle aime donc en réalité, sans le savoir, Cyrano. Il refuse de prolonger l’imposture et exige de Cyrano qu’il dise la vérité à Roxane. Mais au moment où Cyrano s’apprête à tout avouer, Christian est tué au front. Cyrano décide donc de se taire à jamais. L'histoire se ﬁnit quinze ans plus tard. Roxane est retirée dans un couvent, et Cyrano vient lui rendre visite toutes les semaines. Ce jour-là, victime d’un accident qui ressemble à un attentat, mourant, il lui demande de lire la dernière lettre de Christian. Alors qu’il la récite par cœur, Roxane comprend tout. Cyrano meurt en ayant reçu d’elle un baiser sur le front.")
-                    -> setEpoque($epoque8090)
-                    -> setGenre($genreDramatique)
+                    -> setEpoque($epoqueContemporaine)
+                    -> setGenre($genreComedie)
                     -> setThematique($themeRomantisme)
                     ->setTrancheAge($trancheGrandPub)
                     ->setProdDer("Accessoires et déguisements d'époque, le fameux modèle d'épée du héro, la 'rapière' ainsi que de faux nez en plastique pour se mettre dans la peau du personange.")
@@ -179,8 +187,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreHobbit = new Oeuvre();
 		$oeuvreHobbit -> setNom("Le Hobbit")
                     -> setConcept("Le hobbit Bilbo Bessac mène une existence paisible dans son trou de Cul-de-Sac jusqu’au jour où il croise le magicien Gandalf. Le lendemain, il a la surprise de voir venir prendre le thé chez lui non seulement Gandalf, mais également une compagnie de treize nains menée par Thorin Lécudechesne et composée de Balin, Dwalin, Fili, Kili, Dori, Nori, Ori, Oin, Gloin, Bifur, Bofur et Bombur. La compagnie est en route vers la Montagne Solitaire, où elle espère vaincre le dragon Smaug, qui a jadis dépossédé les nains de leur royaume et de leurs trésors. Cependant, pour mener à bien leurs projets, il leur faut un expert-cambrioleur, et Gandalf leur a recommandé Bilbo. Celui-ci est plus que réticent à l’idée de partir à l’aventure, mais il finit par accompagner la troupe.")
-                    -> setEpoque($epoque3040)
-                    -> setGenre($genreFantastique)
+                    -> setEpoque($epoqueMoyenAge)
+                    -> setGenre($genreAventure)
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheGrandPub)
                     ->setProdDer("Il y a tout types de produits qui sont dérivés de cette oeuvre : des jeux vidéos, des figurines, ou encore des costumes.")
@@ -191,8 +199,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreDPS -> setNom("Le Cercle des Poètes Disparus")
                     -> setConcept("En 1959, aux États-Unis, Todd Anderson, un garçon timide, est envoyé dans la prestigieuse académie de Welton, dans le Vermont, réputée pour être l'une des plus fermées et austères du pays et où son frère a suivi de brillantes études. Il y fait la rencontre d'un professeur de lettres anglaises aux pratiques plutôt originales, M. Keating, qui encourage le refus du conformisme, l'épanouissement des personnalités et le goût de la liberté. Voulant au maximum suivre la voie nouvelle qui leur est présentée, certains élèves vont redonner vie au cercle des poètes disparus, un groupe d'esprits libres et oniriques, dont M. Keating fut, en son temps, l'un des membres influents. La découverte d'une autre vie va à jamais bouleverser l'avenir de ces étudiants. En effet, les situations des divers personnages ne se prêtent guère à l'exercice de ces libertés récemment découvertes.")
                     -> setProdDer("Le film a été adapté en spectacle à Broadway.")
-                    -> setEpoque($epoque8090)
-                    -> setGenre($genreDramatique)
+                    -> setEpoque($epoqueModerne)
+                    -> setGenre($genreDrame)
                     -> setThematique($themeEcole)
                     -> setTrancheAge($trancheGrandPub)
                     -> setCompteurVues(0);
@@ -203,8 +211,8 @@ class Oeuvres implements FixtureInterface
 						-> setConcept("La Guerre des mondes (The War of the Worlds) est un roman de science-fiction écrit par H. G. Wells, publié en 1898.
                             C'est l'une des premières œuvres qui confronte l'humanité et une race extraterrestre hostile1, et le reflet de l'angoisse de l'époque victorienne et de l'impérialisme.")
 						-> setProdDer("On peut trouver le livre écrit en 1898 sur le net, mais aussi le film sorti en 2005. D'autres goodies sont aussi disponibles comme par exemple des figurines des fameuses 'créatures' attanquant la terre.")
-						-> setEpoque($epoque8090)
-						-> setGenre($genreFantastique)
+						-> setEpoque($epoqueModerne)
+						-> setGenre($genreScienceFiction)
 						-> setThematique($themeSurvie )
 						-> setTrancheAge($trancheAdulte)
 						-> setCompteurVues(0);
@@ -214,8 +222,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreDiv -> setNom("Divergente")
 						-> setConcept("Tris vit dans un monde post apocalyptique où la société est divisée en cinq clans (Audacieux, Erudits, Altruistes, Sincères, Fraternels). A 16 ans, elle doit choisir son appartenance pour le reste de sa vie. Cas rarissime, son test d’aptitudes n’est pas concluant ; elle est Divergente. Les Divergents sont des individus rares n’appartenant à aucun clan et sont traqués par le gouvernement. Dissimulant son secret, elle intègre l’univers brutal des Audacieux dont l’entrainement est basé sur la maitrise de nos peurs les plus intimes.")
 						-> setProdDer("Posters, B.O. des films, Une histoire de Divergente: Quatre et Accessoires représentant les factions.")
-						-> setEpoque($epoque1020)
-						-> setGenre($genreDystopie)
+						-> setEpoque($epoqueFuturiste)
+						-> setGenre($genreAction)
 						-> setThematique($themeDictature)
 						-> setTrancheAge($trancheAdo)
 						-> setCompteurVues(0);
@@ -225,8 +233,8 @@ class Oeuvres implements FixtureInterface
 		$oeuvreCOE->setNom("Le Crime de l'Orient-Express")
 						-> setConcept("Hercule Poirot, venu résoudre une affaire, est en Syrie à la gare d’Alep, à 5 heures du matin. Il repart à Istanbul où il compte faire un peu de tourisme. Quand il arrive à l’hôtel, le concierge, lui donne un télégramme lui disant de retourner à Londres. Il prend alors un billet pour l’Orient-Express en direction de Londres et va manger au restaurant de l’hôtel. Il reconnait son ami M. Bouc qui va aussi en direction de Londres. Dans le train, M. Ratchett, un riche américain est tué au milieu de la nuit. Il examine le corps avec l’aide du docteur Constantine. Il a été tué de douze coups de couteau. M. Poirot découvre vite que le vrai nom de M. Ratchett est Cassetti, connu comme ayant dirigé la bande qui avait enlevé la petite Daisy Armstrong et exigé une rançon de deux cent mille dollars. Le cadavre de la petite fille fut retrouvé après le paiement de la rançon. Traumatisée, la mère de Daisy mourut en accouchant d’un deuxième enfant et son mari, désespéré, se tira une balle dans la tête. Poirot, en collaboration avec M. Bouc et le docteur Constantine, interroge les passagers du train et découvre un grand nombre d’informations complémentaires.")
 						-> setProdDer("Cette histoire, en plus d'être à l'origine un livre, puis adaptée en film, a également été adaptée en feuilleton radiophonique de 5 épisodes. Il y a également eu une band dessinée et un jeu vidéo sur PC.")
-						-> setEpoque($epoque3040)
-						-> setGenre($genrePolicier)
+						-> setEpoque($epoqueModerne)
+						-> setGenre($genreAction)
 						-> setThematique($themeEnquete)
 						-> setTrancheAge($trancheGrandPub)
 						-> setCompteurVues(0);
@@ -311,7 +319,14 @@ class Oeuvres implements FixtureInterface
 		$EditeurCCC = new Editeur();
 		$EditeurCCC -> setNom("Collins Crime Club");
 		$manager->persist($EditeurCCC);
-		 
+		
+		/* ******************************************************* */
+         /* Création des images pour livres           */
+        /* ******************************************************* */  
+		$ImageLHG1 = new Image();
+		$ImageLHG1 -> setUrl("http://www.juliemag.com/files/hungergames-770x400.jpg");
+		$manager->persist($ImageLHG1);
+		
 		 /* ******************************************************* */
          /* Création des livres           */
         /* ******************************************************* */  
@@ -321,7 +336,8 @@ class Oeuvres implements FixtureInterface
 						-> addAuteur($AuteurCollins)
 						-> setEditeur($EditeurPocket)
 						-> setOeuvre($oeuvreHG)
-						-> setResume("Dans un futur sombre des Etats-Unis divisés par 12 districts et un capitole, un jeu télévisé est diffusé pour contrôler le peuple par la terreur. Cette émission doit être obligatoirement visionnée par tous. Chaque année, le jour de la moisson 12 filles et 12 garçons sont tirés au sort pour participer à cette téléréalité. Ces 24 participants sont alors placés dans une vaste arène où ils devront s'entretuer. Un seul survivra à ce jeu : le gagnant. Celui-ci pourra revenir chez lui riche et célèbre et grâce à lui, le district auquel il appartient pourra manger à sa faim pendant un an. Katniss, une jeune fille de 16 ans a dû apprendre à chasser pour nourrir sa famille. Comme tous, elle redoute que son nom soit tiré au sort le jour de la moisson. Son cauchemar deviendra pire que ce qu'elle aurait pu imaginer puisque c'est le nom de sa petite soeur qui retentit dans le micro ce soir là. Sans réfléchir, elle se lancera sur la scène et demandera à prendre sa place. Elle deviendra alors, l'une des participantes des Hunger Games.");
+						-> setResume("Dans un futur sombre des Etats-Unis divisés par 12 districts et un capitole, un jeu télévisé est diffusé pour contrôler le peuple par la terreur. Cette émission doit être obligatoirement visionnée par tous. Chaque année, le jour de la moisson 12 filles et 12 garçons sont tirés au sort pour participer à cette téléréalité. Ces 24 participants sont alors placés dans une vaste arène où ils devront s'entretuer. Un seul survivra à ce jeu : le gagnant. Celui-ci pourra revenir chez lui riche et célèbre et grâce à lui, le district auquel il appartient pourra manger à sa faim pendant un an. Katniss, une jeune fille de 16 ans a dû apprendre à chasser pour nourrir sa famille. Comme tous, elle redoute que son nom soit tiré au sort le jour de la moisson. Son cauchemar deviendra pire que ce qu'elle aurait pu imaginer puisque c'est le nom de sa petite soeur qui retentit dans le micro ce soir là. Sans réfléchir, elle se lancera sur la scène et demandera à prendre sa place. Elle deviendra alors, l'une des participantes des Hunger Games.")
+						-> setImage($ImageLHG1);
 		$manager->persist($LivreHG1);
 		
 		$LivreHG2 = new Livre();
@@ -961,13 +977,12 @@ class Oeuvres implements FixtureInterface
 		$manager->persist($FilmCOE);
 		 
 		 /* ******************************************************* */
-         /* Création des images          */
+         /* Création des images                  */
         /* ******************************************************* */  
-
 		$ImageHG = new Image();
 		$ImageHG -> setUrl("http://cdn02.cdn.justjared.com/wp-content/uploads/headlines/2015/03/hunger-games-mockingjay-available-dvd.jpg")
 				-> setOeuvre($oeuvreHG);
-		$manager->persist($ImageHG);		
+		$manager->persist($ImageHG);
 		
 		$ImageNEC = new Image();
 		$ImageNEC  -> setUrl("http://www.photogeniques.fr/wp-content/uploads/2014/09/The-Fault-in-Our-Stars_tfios_Nos-etoiles-contraires_okay-okay.jpg")

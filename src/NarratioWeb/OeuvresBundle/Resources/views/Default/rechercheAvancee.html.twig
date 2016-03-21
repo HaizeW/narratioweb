@@ -2,11 +2,67 @@
 
 
 
+
+
 {% block body %}
+
+
+
+
+<style>
+    
+    
+    a {
+      
+      color : #7D3232;
+      
+   }
+   
+   a:hover {
+      
+      color : #7D3232;
+      
+   }
+
+   .nav-tabs>li.active>a{
+      color: black;
+   }
+    
+    #Film{
+      text-align:justify;
+   }
+   
+   #Livre{
+      text-align:justify;
+   }
+   
+   
+   
+  .full-width-tabs > ul.nav.nav-tabs {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.full-width-tabs > ul.nav.nav-tabs > li {
+    float: none;
+    display: table-cell;
+}
+.full-width-tabs > ul.nav.nav-tabs > li > a {
+    text-align: center;
+}
+   
+    
+</style>
+
+
+
+
+
+
 
 <!-- Ligne 1 -->
 <div class="row">
-    <div class="col-sm-12" align="center">
+    <div class="col-lg-12" align="center">
         <div class="panel-heading" align="center"> <h3> Sélection des critères de recherche avancée</h3></div>
     </div>
 </div>
@@ -17,10 +73,10 @@
 
 <!-- mise en place des onglets -->
 <div class="container" style="background-color: #F7F5F0">
-  <div class="col-sm-12">
+  <div class="col-lg-12 tabbable full-width-tabs">
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#Film">Films</a></li>
-    <li><a data-toggle="tab" href="#Livre">Livres</a></li>
+    <li class="active"><a data-toggle="tab" href="#Film"><b>Films</b></a></li>
+    <li><a data-toggle="tab" href="#Livre"><b>Livres</b></a></li>
   </ul>
   
   <div class="tab-content">
@@ -85,7 +141,7 @@
                         <!-- Ligne 5 --> 
                         <div class="row">
                             
-                                       <center> <input name="action-type" value="Films" type="submit" class="btn btn-warning" id="film"/> </center> 
+                                       <center> <input name="action-type-films" value="Rechercher" type="submit" class="btn btn-warning" id="film"/> </center> 
                                        <br>
                                        <br>
                         </div>
@@ -146,7 +202,7 @@
                         <!-- Ligne 5 --> 
                         <div class="row">
                             
-                                       <center> <input name="action-type" value="Livres" type="submit" action="" class="btn btn-warning" id="livre"/> </center> 
+                                       <center> <input name="action-type-livres" value="Rechercher" type="submit" action="" class="btn btn-warning" id="livre"/> </center> 
                                        <br>
                                        <br>
                         </div>

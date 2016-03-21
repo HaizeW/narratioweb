@@ -13,41 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class FilmRepository extends EntityRepository
 {
     
-    
-    public function getFilmsAvancee($choixActeur, $choixRealisateur, $choixType) // OK
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT f FROM NarratioWebOeuvresBundle:Film f
-                                                            LEFT JOIN f.acteurs a
-                                                                    WHERE (f.type = :choixType
-                                                                        AND f.realisateur = :choixRealisateur
-                                                                        AND a.id = :choixActeur)
-                                                                        OR
-                                                                        (f.type = :choixType
-                                                                        AND (NOT f.realisateur = :choixRealisateur)
-                                                                        AND a.id = :choixActeur)
-                                                                        OR
-                                                                        (f.type = :choixType
-                                                                        AND f.realisateur = :choixRealisateur
-                                                                        AND (NOT a.id = :choixActeur))
-                                                                    
-                                                        ');
-                                         
-        // je definis mes parametres
-        $requetePerso->setParameter('choixActeur', $choixActeur);
-        $requetePerso->setParameter('choixRealisateur', $choixRealisateur);
-        $requetePerso->setParameter('choixType', $choixType);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
-    
+
     
     public function getFilmsByOeuvre($idOeuvre) // OK
     {
@@ -69,6 +35,403 @@ class FilmRepository extends EntityRepository
         return $tabResultats;
     }
     
+    
+    
+    public function getFilmsAvancee($choixActeur, $choixRealisateur, $choixType, $choixThematiqueF, $choixGenreF, $choixEpoqueF, $choixTrancheAgeF) // OK
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT f, o FROM NarratioWebOeuvresBundle:Film f
+                                                            LEFT JOIN f.oeuvre o
+                                                            LEFT JOIN f.acteurs a
+                                                                    WHERE 
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.type = :choixType
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.type = :choixType)
+                                                                        AND f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        f.realisateur = :choixRealisateur
+                                                                        AND (NOT a.id = :choixActeur)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT f.realisateur = :choixRealisateur)
+                                                                        AND a.id = :choixActeur
+                                                                        )
+                                                                        
+                                                                        
+                                                        ');
+                                       
+        // je definis mes parametres
+        $requetePerso->setParameter('choixActeur', $choixActeur);
+        $requetePerso->setParameter('choixRealisateur', $choixRealisateur);
+        $requetePerso->setParameter('choixType', $choixType);
+        $requetePerso->setParameter('choixGenre', $choixGenreF);
+        $requetePerso->setParameter('choixThematique', $choixThematiqueF);
+        $requetePerso->setParameter('choixEpoque', $choixEpoqueF);
+        $requetePerso->setParameter('choixTrancheAge', $choixTrancheAgeF);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+
+    
+    
 }
 
 
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+*/

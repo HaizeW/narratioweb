@@ -21,7 +21,8 @@ class OeuvreRepository extends EntityRepository
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT o FROM NarratioWebOeuvresBundle:Oeuvre o
-                                                                        WHERE (o.genre = :choixGenre
+                                                                        WHERE 
+                                                                        (o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
                                                                         AND o.trancheAge = :choixTrancheAge)
                                                                         OR
@@ -36,6 +37,10 @@ class OeuvreRepository extends EntityRepository
                                                                         ((NOT o.genre = :choixGenre)
                                                                         AND o.epoque = :choixEpoque
                                                                         AND  o.trancheAge = :choixTrancheAge)
+                                                                        OR
+                                                                        (o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge))
                                                         ');
                                             
                                             
@@ -52,7 +57,7 @@ class OeuvreRepository extends EntityRepository
         
     }
     
-    public function getOeuvreRecentes() // LES ID CHANGENT TOUT LE TEMPS DONC ?
+    public function getOeuvreRecentes() // 
     {
          // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
@@ -102,11 +107,6 @@ class OeuvreRepository extends EntityRepository
                                                                         AND o.thematique = :choixThematique)
                                                                         OR
                                                                         ((NOT o.genre = :choixGenre)
-                                                                        AND o.epoque = :choixEpoque
-                                                                        AND o.trancheAge = :choixTrancheAge
-                                                                        AND o.thematique = :choixThematique)
-                                                                        OR
-                                                                        (o.genre = :choixGenre
                                                                         AND o.epoque = :choixEpoque
                                                                         AND o.trancheAge = :choixTrancheAge
                                                                         AND o.thematique = :choixThematique)

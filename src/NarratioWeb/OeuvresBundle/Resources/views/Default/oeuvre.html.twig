@@ -17,6 +17,28 @@
       border-radius: 25px 10px / 10px 25px;
    }
    
+      #concept{
+      color:#F6EFD2;
+      text-align:center;
+      font-size:20px;
+      width:66%;
+      font-family: garamond;
+      background-color:#212524;
+      text-decoration:none;
+      border-radius: 10px 20px / 20px 10px;
+      border-radius: 10px 20px / 20px 10px;
+   }
+   
+   #modalButton{
+      
+      color:#212524;
+      text-align:center;
+      background-color:#F6EFD2;
+      border: none;
+      vertical-align:middle;
+      
+   }
+   
    #Oeuvre{
       text-align:justify;
    }
@@ -65,6 +87,14 @@
       color: black;
    }
    
+   #ptitle{
+      color:black;
+      text-align:center;
+      font-weight:bold;
+   }
+   
+   
+   
    
 </style>
 
@@ -74,23 +104,35 @@
         <div class="col-lg-8"><br>
             <div id=titre1>
                {{ oeuvre.nom }}
-            </div><br>
+            </div>
+            <br>
                 <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a data-toggle="tab" href="#Oeuvre" name="oeuvre">L'Oeuvre</a></li>
-                    <li ><a data-toggle="tab" href="#Livre" name="livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Livres</a></li>
-                    <li ><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> Films</a></li>
-                    <li><a data-toggle="tab" href="#Autre" name="autre"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Autres</a></li>
+                   <!-- definition des onglets -->
+                    <li class="active"><a data-toggle="tab" href="#Oeuvre" name="oeuvre"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span><b> L'Oeuvre</b></a></li>
+                    <li ><a data-toggle="tab" href="#Livre" name="livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><b> Livres</b></a></li>
+                    <li ><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><b> Films</b></a></li>
+                    <li><a data-toggle="tab" href="#Autre" name="autre"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span><b> Autres</b></a></li>
                 </ul>
 
 <!-- PREMIER ONGLET -->
     <div class="tab-content" >
         <div id="Oeuvre" class="tab-pane fade in active"><br>
         
-         <div class="panel panel-default">
-            <div class="panel-body">
-              {{oeuvre.concept}}<br/>
+           <div id=concept>
+               
+               <b>Concept de l'oeuvre</b>
+               
             </div>
+        
+         <div class="panel panel-default">
+            
+            <div class="panel-body">
+              {{oeuvre.concept}}
+              <br/>
+            </div>
+            
          </div>
+         
         </div>
 
 <!-- DEUXIEME ONGLET -->
@@ -98,12 +140,13 @@
         {% for LivreCourant in tabLivres %}
         
         <div class="panel panel-default">
-           <div class="panel-heading">
-        
-              <h3 align="center" class="panel-title">
-                  <b>{{LivreCourant.titre}}</b><br/>
-              </h3>
+           <div class="panel-heading" style="background-image:url({{ asset(LivreCourant.image.url |default('undefined'))}}); -webkit-filter:opacity(50%);"> 
+           <h3 id=ptitle align="center" class="panel-title">
+           {{LivreCourant.titre}}<br/> <!-- Le mettre en noir sans opacité ?? -->
+            </h3>       
             </div>
+                  
+            
             
             <div class="panel-body">
                
@@ -115,17 +158,23 @@
             
                <div style="float:right" align="right">
 
-                  Editeur : {{LivreCourant.editeur.nom}}
+                  <b>Editeur :</b>
+                  <br>
+                  
+                  <span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{LivreCourant.editeur.nom}}
                   
                </div>
                
                <div style="" align="left">
                   
                      
-                  Auteur(s) : <br>
+                  <b>Auteur(s) :</b>
+                  <br>
             
                   {%for auteurCourant in LivreCourant.auteur%}
-                     - {{auteurCourant.label}}
+                  
+                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{auteurCourant.label}}
+                     
                   {%endfor%}
                   
                </div>
@@ -166,16 +215,30 @@
            
          <div style="float:right" align="right">
 
-                  Durée: {{FilmCourant.duree}} min<br>
-                  Réalisateur: {{FilmCourant.realisateur.label}}<br/>
+                  
+                  <b>Durée :</b>
+                  <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
+                  {{FilmCourant.duree}} min
+                  <br>
+                  
+                  <br>
+                  <b>Réalisateur :</b>
+                  <br>
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{FilmCourant.realisateur.label}}<br/>
          
          </div>
          
          <div style="" align="left">
          
-         Acteurs: <br>
+         <b>Acteurs :</b> <br>
          {%for acteurCourant in FilmCourant.acteurs%}
-         - {{acteurCourant.label}}<br>
+         
+
+                  
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{acteurCourant.label}}<br>
+                  
+
+                  
          {%endfor%}
          
          </div>
@@ -193,17 +256,89 @@
 
 <!-- QUATRIEME ONGLET -->
     <div id="Autre" class="tab-pane fade"><br>
-    <div class="panel panel-default">
+    
+    
+                
+            <div id=concept>
+               
+               <center><b>Autres infos concernant l'oeuvre</b></center>
+               
+            </div>
+    
+    
+    
+       <div class="panel panel-default">
+          
+          
+          
             <div class="panel-body">
-        {{oeuvre.prodDer}}
-    </div>
-    </div>
+            
+            
+            
+               {{oeuvre.prodDer}}
+        
+               <br>
+               <br>
+   
+   {% if resImdb |length > 0 %}
+      
+         <div align="center" class="">
+               
+               <!-- Trigger the modal with a button -->
+               <button id="modalButton" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modal">Plus d'informations sur un film de {{oeuvre.nom}}</button>
+               
+               <!-- Modal -->
+               <div id="modal" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+               
+                   <!-- Modal content-->
+                   <div class="modal-content">
+                      
+                     <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                       <h4 class="modal-title">{{ resImdb.Title }} - {{ resImdb.Year }}</h4>
+                     </div>
+                     
+                     <div class="modal-body">
+                       <p>
+                          
+                          L'auteur du film est {{ resImdb.Writer }}.
+                          <br>
+                          Les acteurs de ce film sont {{ resImdb.Actors }}.
+                          <br>
+                          Disponible en {{ resImdb.Language }}.
+                          <br>
+                          Les récompenses obtenues par ce film : {{ resImdb.Awards }}.
+                          <br>
+                          Avec un total de {{ resImdb.imdbVotes }} votes, ce film a une note de {{ resImdb.imdbRating }} sur Imdb.
+                          <br>
+                       
+                       </p>
+                     </div>
+                     
+                     <div class="modal-footer">
+                       <button id="modalButton" type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+                     </div>
+                     
+                   </div>
+               
+                 </div>
+               </div>
+               
+         </div>
+         
+   {% endif %}
+         
+         
+            </div>
+            
+            
+            
+       </div>
     </div>
     </div>
     </div>
 
-<!-- liens vers les histoires qui correspondent aussi aux critères sélectionnés, A RENDRE DYNAMIQUE!!-->
-<!--  <img src="{# {img.url} #}" width=75 height=75 href="his voisines"/>
 <!-- image générale de l'oeuvre -->
 
 <!-- LATERAL: Image + Informations -->
@@ -222,6 +357,8 @@
     
 <!-- SUGGESTIONS   -->
     <div class="row">
+       
+      {#
       
       {% if tabImagesSuggestions |length > 1 %}
       
@@ -229,18 +366,24 @@
          <i>Suggestions</i>
          <br>
          
-         {%for imageCourante in tabImagesSuggestions |slice(0, 4) if imageCourante.oeuvre.id != id %}
+      
+         
+        {%for imageCourante in tabImagesSuggestions |slice(0, 4) if imageCourante.oeuvre.id != id %}
             <div class="col-xs-4 col-md-2" align="center">
                   <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) }}" class="thumbnail">
-                     <img id="images" src="{{imageCourante.url}}" id=image2 alt="Suggestions"></a>
+                     <img id="images" src="{{imageCourante.url}}" alt="Suggestions"></a>
                   </a>
             </div>
-         {%endfor%}
+         {%endfor%} 
       
-      {% endif %}
+      
+      
+         {% endif %}
+      #}
       
     </div>
 </div>
+
 
 {% endblock %}
 

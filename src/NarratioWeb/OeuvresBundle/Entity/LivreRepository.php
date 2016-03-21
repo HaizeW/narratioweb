@@ -34,27 +34,262 @@ class LivreRepository extends EntityRepository
     }
     
     
-    public function getLivresAvancee($choixAuteur, $choixEditeur)
+    public function getLivresAvancee($choixAuteur, $choixEditeur, $choixEpoqueL, $choixGenreL, $choixTrancheAgeL, $choixThematiqueL)
     {
         // appel du gestionnaire d'entité
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT l FROM NarratioWebOeuvresBundle:Livre l
+                                                            LEFT JOIN l.oeuvre o
                                                             LEFT JOIN l.auteur a
-                                                                    WHERE (l.editeur = :choixEditeur
-                                                                        AND a.id = :choixAuteur)
+                                                                    WHERE 
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
                                                                         OR
-                                                                        (l.editeur = :choixEditeur
-                                                                        AND (NOT a.id = :choixAuteur))
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
                                                                         OR
-                                                                        ((NOT l.editeur = :choixEditeur)
-                                                                        AND a.id = :choixAuteur)
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND o.genre = :choixGenre
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND o.thematique = :choixThematique
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND o.epoque = :choixEpoque
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND o.trancheAge = :choixTrancheAge
+                                                                        AND o.genre = :choixGenre
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND a.id = :choixAuteur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur
+                                                                        AND (NOT o.trancheAge = :choixTrancheAge)
+                                                                        AND (NOT o.genre = :choixGenre)
+                                                                        AND (NOT o.epoque = :choixEpoque)
+                                                                        AND (NOT o.thematique = :choixThematique)
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        (NOT l.editeur = :choixEditeur)
+                                                                        AND a.id = :choixAuteur
+                                                                        )
+                                                                        OR
+                                                                        (
+                                                                        l.editeur = :choixEditeur
+                                                                        AND (NOT a.id = :choixAuteur)
+                                                                        )
+                                                                        
+                                                                        
+                                                                        
                                                         ');
                                          
         // je definis mes parametres
         $requetePerso->setParameter('choixAuteur', $choixAuteur);
         $requetePerso->setParameter('choixEditeur', $choixEditeur);
+        $requetePerso->setParameter('choixGenre', $choixGenreL);
+        $requetePerso->setParameter('choixThematique', $choixThematiqueL);
+        $requetePerso->setParameter('choixEpoque', $choixEpoqueL);
+        $requetePerso->setParameter('choixTrancheAge', $choixTrancheAgeL);
         
         // execution de la requete et recup du resultat
         $tabResultats = $requetePerso -> getResult();
@@ -64,3 +299,20 @@ class LivreRepository extends EntityRepository
     }
     
 }
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

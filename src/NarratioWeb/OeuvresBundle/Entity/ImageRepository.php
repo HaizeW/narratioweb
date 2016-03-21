@@ -41,8 +41,8 @@ class ImageRepository extends EntityRepository
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT i FROM NarratioWebOeuvresBundle:Image i
-                                                        ');
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT i, o FROM NarratioWebOeuvresBundle:Image i
+                                                            LEFT JOIN i.oeuvre o');
                                                         
         $requetePerso->setMaxResults(5);
         

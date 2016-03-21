@@ -30,6 +30,12 @@ class Livre
      */
     private $resume;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="annee", type="string")
+     */
+    private $annee;
+    /**
      * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Auteur")
      */
     private $auteur;
@@ -43,6 +49,11 @@ class Livre
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
      */
     private $oeuvre;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Image")
+     */
+    private $image;
 
     /**
      * Get id
@@ -181,5 +192,49 @@ class Livre
     public function getOeuvre()
     {
         return $this->oeuvre;
+    }
+    
+    /**
+     * Set image
+     *
+     * @param \NarratioWeb\OeuvresBundle\Entity\Image $image
+     * @return Livre
+     */
+    public function setImage(\NarratioWeb\OeuvresBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+        return $this;
+    }
+    /**
+     * Get image
+     *
+     * @return \NarratioWeb\OeuvresBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set annee
+     *
+     * @param string $annee
+     * @return Livre
+     */
+    public function setAnnee($annee)
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return string 
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
     }
 }

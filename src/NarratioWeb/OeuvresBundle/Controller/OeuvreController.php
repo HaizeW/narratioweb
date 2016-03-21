@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class OeuvreController extends Controller
 {
         
-    public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUtilisateurNom)
+public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUtilisateurNom)
     {
         
         // Tableau dans lequel les données du formulaire seront recueillies       
@@ -65,7 +65,7 @@ class OeuvreController extends Controller
         
         	if($oeuvre == null)
         	{
-        	    throw $this->createNotFoundException('The product does not exist');
+        	    return $this->render('NarratioWebOeuvresBundle:Default:erreur.html.twig');
         	}
         	else
         	{
@@ -91,6 +91,34 @@ class OeuvreController extends Controller
             
                         // je recup des images de sugg
                         $tabImagesSuggestions = $repositoryImage->getImageSugg();
+                        
+                        
+                                // WEB SERVICE IMDB pour plus d'infos
+                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
+                                {
+
+                                        $titre = $oeuvre->getNom();
+                                        
+                                        //$annee = $oeuvre ->getAnnee();
+                                        
+                                        // je recupere le json
+                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
+                                        
+                                        // je decode le json
+                                        $resImdb=json_decode($json);
+                                        
+                                        
+                                        
+                                        var_dump($resImdb);
+                                        
+                                }
+                                else
+                                {
+                                    
+                                    $resImdb = null;
+                                    
+                                }
+                        
         	
                     //On augmente le compteur de vues de l'oeuvre !
                     $compteur = $oeuvre->getCompteurVues();
@@ -105,7 +133,8 @@ class OeuvreController extends Controller
                                                                                 'image'=>$image,
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                                                                'id'=>$idOeuvre
+                                                                                'id'=>$idOeuvre,
+                                                                                'resImdb'=>$resImdb
                                                                                 ));
         	}
     	}
@@ -130,7 +159,7 @@ class OeuvreController extends Controller
                     
                             if(count($tabOeuvreChoix) == 0)
                             {
-                                throw $this->createNotFoundException('The product does not exist');
+                                return $this->render('NarratioWebOeuvresBundle:Default:erreur.html.twig');
                             }
                             else
                             {
@@ -215,6 +244,34 @@ class OeuvreController extends Controller
                                                                 $l++;
                                                         }
                                         
+                                        
+                                // WEB SERVICE IMDB pour plus d'infos
+                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
+                                {
+
+                                        $titre = $oeuvre->getNom();
+                                        
+                                        //$annee = $oeuvre ->getAnnee();
+                                        
+                                        // je recupere le json
+                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
+                                        
+                                        // je decode le json
+                                        $resImdb=json_decode($json);
+                                        
+                                        
+                                        
+                                        //var_dump($resImdb);
+                                        
+                                }
+                                else
+                                {
+                                    
+                                    $resImdb = null;
+                                    
+                                }
+                                        
+                                        
                                         //On augmente le compteur de vues de l'oeuvre !
                                         $compteur = $oeuvre->getCompteurVues();
                                         $oeuvre->setCompteurVues($compteur+1);
@@ -227,7 +284,8 @@ class OeuvreController extends Controller
                                                                                 'image'=>$image,
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                                                                'id'=>$idOeuvre
+                                                                                'id'=>$idOeuvre,
+                                                                                'resImdb'=>$resImdb
                                                                                 ));
                                     }
                                 else 
@@ -289,6 +347,34 @@ class OeuvreController extends Controller
                                                         $tabImagesSuggestions[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
                                                         $j++;
                                                 }
+                                                
+                                        
+                                        // WEB SERVICE IMDB pour plus d'infos
+                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
+                                {
+
+                                        $titre = $oeuvre->getNom();
+                                        
+                                        //$annee = $oeuvre ->getAnnee();
+                                        
+                                        // je recupere le json
+                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
+                                        
+                                        // je decode le json
+                                        $resImdb=json_decode($json);
+                                        
+                                        
+                                        
+                                        //var_dump($resImdb);
+                                        
+                                }
+                                else
+                                {
+                                    
+                                    $resImdb = null;
+                                    
+                                }
+                                                
                                         
                                         //On augmente le compteur de vues de l'oeuvre !
                                         $compteur = $oeuvre->getCompteurVues();
@@ -302,7 +388,8 @@ class OeuvreController extends Controller
                                                                                 'image'=>$image,
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                                                                'id'=>$idOeuvre
+                                                                                'id'=>$idOeuvre,
+                                                                                'resImdb'=>$resImdb
                                                                                 ));
                                     }
                                    
@@ -401,12 +488,12 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
             ->add('Auteur','entity', array('label'=>'Auteur',
                                                 'class'=>'NarratioWebOeuvresBundle:Auteur',
                                                 'property'=>'label',
-                                                'multiple' => false,
+                                                'multiple' => true,
                                                 'expanded' => false))
             ->add('Editeur','entity', array('label'=>'Editeur',
                                                 'class'=>'NarratioWebOeuvresBundle:Editeur',
                                                 'property'=>'nom',
-                                                'multiple' => false,
+                                                'multiple' => true,
                                                 'expanded' => false)) 
             ->getForm();
         
@@ -417,8 +504,9 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
         
         
         // si le form FILMS a été soumis
-        if ($this->getRequest()->get('action-type') =='Films') //($formulaireRechAvanceeFilms->isSubmitted())
+        if ($this->getRequest()->get('action-type-films') =='Rechercher') //($formulaireRechAvanceeFilms->isSubmitted())
         {
+            
                 // on recupere les données du form dans un tableau
                 $tabChoixResFilms = $formulaireRechAvanceeFilms -> getData();
             
@@ -436,59 +524,60 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                         // je charge mon repository de Film pour executer une requete sur la BD
                         $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
                         // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
-                        $tabFilms = $repositoryFilms->getFilmsAvancee($choixActeur, $choixRealisateur, $choixType);
+                        $tabFilms = $repositoryFilms->getFilmsAvancee($choixActeur, $choixRealisateur, $choixType, $choixThematiqueF, $choixGenreF, $choixEpoqueF, $choixTrancheAgeF);
                         
-                        // je charge mon repository de Oeuvre pour executer une requete sur la BD
-                        $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-                                $idOeuvre = $tabFilms[0]->getOeuvre()->getId();
-                        $oeuvre = $repositoryOeuvre->findOneById($idOeuvre);
-                        
+        //var_dump($tabFilms);
+
                                 if(count($tabFilms) == 0)
                                 {
-                                        throw $this->createNotFoundException('The product does not exist');
+                                        return $this->render('NarratioWebOeuvresBundle:Default:erreur.html.twig');
                                 }
                                 else
                                 {
-                                                // je charge mon repository de Livre pour executer une requete sur la BD
-                                                $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-                                                // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
-                                                $tabLivres = $repositoryLivres->getLivresByOeuvre($idOeuvre);
                                         
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                                                $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
-
-                                                // je definis l'image de l'oeuvre
-                                                $image = $tabImage[0];
+                                /*
+                                        // je prepare mon tableau d'images des oeuvres 
+                                        $tabImages = array();
+                                        $k=0;
                                                 
-                                                // je recup des images de sugg
-                                                $tabImagesSuggestions = $repositoryImage->getImageSugg();
+                                                for($k=0;$k<count($tabFilms)-1;$k++)
+                                                {
+                                                
+                                                    $tabImages = $repositoryImage->getImageByFilm($tabFilms[$k]->getId());
+                                                    
+                                                }
+                                */
+$tabImages = $repositoryImage -> getImageSugg();
                                 }
                 
-                                //var_dump($tabImagesSuggestions);
+                $q = 0;
+                $c =0;
+                $tabRes = array();
+                for($q=0; $q < count($tabFilms)-1; $q++)
+                {
+                    
+                    $tabRes[$q][$c] = $tabFilms[$q];
+                    $c++;
+                    $tabRes[$q][$c] = $tabImages[$q];
+                    $c=0;
+                }
                 
-                                //On augmente le compteur de vues de l'oeuvre !
-                                $compteur = $oeuvre->getCompteurVues();
-                                $oeuvre->setCompteurVues($compteur+1);
-                                $gestionnaireEntite = $this->getDoctrine()->getManager();
-                                $gestionnaireEntite->persist($oeuvre);
-                                $gestionnaireEntite->flush();    
-
-                return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  
-                                        'tabLivres'=>$tabLivres,
-                                        'tabFilms'=>$tabFilms,
-                                        'image'=>$image,
-                                        'oeuvre'=>$oeuvre,
-                                        'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                        'id'=>$idOeuvre
-                                        ));
+            
+            //var_dump($tabRes);
+            
+                return $this->render('NarratioWebOeuvresBundle:Default:oeuvreAvanceeFilms.html.twig', 
+                                array(
+                                        'tabRes'=>$tabRes
+                                ));
         }
         
         // si le form LIVRES a été soumis
-        if ($this->getRequest()->get('action-type') =='Livres') //($formulaireRechAvanceeLivres->isSubmitted())
+        if ($this->getRequest()->get('action-type-livres') =='Rechercher') //($formulaireRechAvanceeLivres->isSubmitted())
         {
-        
+                    
             // on recupere les données du form dans un tableau de 3 cases indicés par 'TrancheAge' 'Genre' et 'Epoque'
             $tabChoixResLivres = $formulaireRechAvanceeLivres -> getData();
             
@@ -499,59 +588,60 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
             $choixGenreL = $tabChoixResLivres['GenreL'] -> getId();
             $choixTrancheAgeL = $tabChoixResLivres['TrancheAgeL'] -> getId();
             $choixThematiqueL = $tabChoixResLivres['ThematiqueL'] -> getId();
-            $choixAuteur = $tabChoixResLivres['Auteur'] -> getId();
-            $choixEditeur = $tabChoixResLivres['Editeur'] -> getId();
+            $choixAuteur = $tabChoixResLivres['Auteur'][0] -> getId();
+            $choixEditeur = $tabChoixResLivres['Editeur'][0] -> getId();
 
                         // je charge mon repository de Livre pour executer une requete sur la BD
                         $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                         // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
-                        $tabLivres = $repositoryLivres->getLivresAvancee($choixAuteur, $choixEditeur);
-
-                
-                        // je charge mon repository de Oeuvre pour executer une requete sur la BD
-                        $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-                                $idOeuvre = $tabLivres[0]->getOeuvre()->getId();
-                        $oeuvre = $repositoryOeuvre->findOneById($idOeuvre);
+                        $tabLivres = $repositoryLivres->getLivresAvancee($choixAuteur, $choixEditeur, $choixEpoqueL, $choixGenreL, $choixTrancheAgeL, $choixThematiqueL);
+                        
+        //var_dump($tabLivres);
                         
                                 if(count($tabLivres) == 0)
                                 {
-                                        throw $this->createNotFoundException('The product does not exist');
+                                        return $this->render('NarratioWebOeuvresBundle:Default:erreur.html.twig');
                                 }
                                 else
                                 {
-                                                // je charge mon repository de Film pour executer une requete sur la BD
-                                                $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
-                                                // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
-                                                $tabFilms = $repositoryFilms->getFilmsByOeuvre($idOeuvre);
-                                                
+
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                                                $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
-
-                                                // je definis l'image de l'oeuvre
-                                                $image = $tabImage[0];
+                                /*
+                                        // je prepare mon tableau d'images des oeuvres 
+                                        $tabImages = array();
+                                        $k=0;
                                                 
-                                                // je recup des images de sugg
-                                                $tabImagesSuggestions = $repositoryImage->getImageSugg();
+                                                for($k=0;$k<count($tabLivres)-1;$k++)
+                                                {
                                                 
-                                                //var_dump($tabImagesSuggestions);
+                                                    $tabImages = $repositoryImage->getImageByFilm($tabLivres[$k]->getId());
+                                                    
+                                                }
+                                */
+$tabImages = $repositoryImage -> getImageSugg();
                                 }
-                                //On augmente le compteur de vues de l'oeuvre !
-                                $compteur = $oeuvre->getCompteurVues();
-                                $oeuvre->setCompteurVues($compteur+1);
-                                $gestionnaireEntite = $this->getDoctrine()->getManager();
-                                $gestionnaireEntite->persist($oeuvre);
-                                $gestionnaireEntite->flush();    
 
-                return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  
-                                        'tabLivres'=>$tabLivres,
-                                        'tabFilms'=>$tabFilms,
-                                        'image'=>$image,
-                                        'oeuvre'=>$oeuvre,
-                                        'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                        'id'=>$idOeuvre
-                                        ));
+                $q = 0;
+                $c =0;
+                $tabRes = array();
+                for($q=0; $q < count($tabLivres)-1; $q++)
+                {
+                    
+                    $tabRes[$q][$c] = $tabLivres[$q];
+                    $c++;
+                    $tabRes[$q][$c] = $tabImages[$q];
+                    $c=0;
+                    
+                }
+                
+    //var_dump($tabRes);
+
+                return $this->render('NarratioWebOeuvresBundle:Default:oeuvreAvanceeLivres.html.twig', 
+                                array(
+                                        'tabRes'=>$tabRes
+                                ));
         }
         
         
@@ -562,7 +652,7 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
 
     
             
-    public function voirOeuvreAction($id)
+public function voirOeuvreAction($id)
         {
             
         // recup des oeuvres pour remplir le menu déroulant
@@ -579,7 +669,7 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                 $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                 // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
                 $tabLivres = $repositoryLivres->getLivresByOeuvre($idOeuvre);
-        
+                
                 // je charge mon repository de Film pour executer une requete sur la BD
                 $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
                 // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
@@ -591,7 +681,7 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                 $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
                                
                                //var_dump($tabOeuvreChoix);
-                                                
+
                                         // je definis l image principale
                                         $image = $tabImage[0];
                                                 
@@ -632,6 +722,34 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                                                 $tabImagesSuggestions = array();
                                                 $tabImagesSuggestions = $repositoryImage->getImageSugg();
                                         }
+                                        
+                                        
+                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
+                                {
+
+                                        $titre = $oeuvre->getNom();
+                                        
+                                        //$annee = $oeuvre ->getAnnee();
+                                        
+                                        // je recupere le json
+                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
+                                        
+                                        // je decode le json
+                                        $resImdb=json_decode($json);
+                                        
+                                        
+                                        
+                                        var_dump($resImdb);
+                                        
+                                }
+                                else
+                                {
+                                    
+                                    $resImdb = null;
+                                    
+                                }
+                                        
+                                    
                             
                                     //var_dump($tabImagesSuggestions);
                                         
@@ -648,10 +766,13 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                                                                                 'image'=>$image,
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
-                                                                                'id'=>$idOeuvre
+                                                                                'id'=>$idOeuvre,
+                                                                                'resImdb'=>$resImdb
                                                                                 ));
             
         }
+    
+    
     
     public function connexionAction(){
         return $this->render('NarratioWebOeuvresBundle:Default:seConnecter.html.twig');
