@@ -32,6 +32,10 @@
    #Film{
       text-align:justify;
    }
+   
+   #aCentrer{
+       text-align:center;
+   }
 
    
 </style>
@@ -48,7 +52,8 @@
         
         <br>
             <div id=titre1>
-               <b>Films</b>
+               <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+               <b> Films</b>
             </div>
         <br>
 
@@ -74,8 +79,8 @@
                 
                 <div class="panel-footer">
                    
-                 <div style="float:right" align="right">
-                        
+                 <div class="col-sm-3" style="float:right" align="right">
+                         <p id="aCentrer">
                           <b>Durée :</b> 
                           <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
                           {{FilmCourant[0].duree}} min
@@ -85,11 +90,12 @@
                           <b>Réalisateur :</b>
                           <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                           {{FilmCourant[0].realisateur.label}}<br/>
-                 
+                        </p>
                  </div>
                  
                  
-                 <div style="" align="left">
+                 <div class="col-sm-3" style="" align="left">
+                    <p id="aCentrer">
                  
                  <b>Acteurs :</b>
                  <br>
@@ -103,7 +109,7 @@
                           
                           
                  {%endfor%}
-                 
+                 </p>
                  </div>
                 
                 

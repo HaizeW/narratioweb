@@ -680,12 +680,12 @@ public function voirOeuvreAction($id)
                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
                 $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
                                
-                               //var_dump($tabOeuvreChoix);
+                               var_dump($tabOeuvreChoix);
 
                                         // je definis l image principale
                                         $image = $tabImage[0];
                                                 
-                                        if(count($tabOeuvreChoix) > 3)
+                                        if(count($tabFilms) > 3)
                                         {        
                                                 // IMAGE DE SUGGESTION A FAIRE
                                                 $tabImagesId = array();
@@ -739,7 +739,7 @@ public function voirOeuvreAction($id)
                                         
                                         
                                         
-                                        var_dump($resImdb);
+                                        //var_dump($resImdb);
                                         
                                 }
                                 else
