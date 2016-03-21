@@ -351,7 +351,7 @@ class Oeuvres implements FixtureInterface
 		$manager->persist($LivreHG2);
 		
 		$LivreHG3 = new Livre();
-		$LivreHG3   -> setTitre("Hunger games la Revolte")
+		$LivreHG3   -> setTitre("Hunger Games la Revolte")
 						-> addAuteur($AuteurCollins)
 						-> setEditeur($EditeurPocket)
 						-> setOeuvre($oeuvreHG)
@@ -1065,6 +1065,60 @@ class Oeuvres implements FixtureInterface
 		$ImageCOE -> setURL("http://fr.web.img4.acsta.net/pictures/14/08/14/15/42/182502.jpg")
 		          -> setOeuvre($oeuvreCOE);
 		$manager->persist($ImageCOE);
+		
+		/* ******************************************************* */
+         /* Création des images                  */
+        /* ******************************************************* */  
+        
+        $noteHG = new Note();
+        $noteHG -> setValeur(3)
+                -> setOeuvre($oeuvreHG);
+        $manager->persist($noteHG);
+        
+        $noteNEC = new Note();
+        $noteNEC -> setValeur(2)
+                -> setOeuvre($oeuvreNEC);
+        $manager->persist($noteNEC);
+        
+        $noteFCM = new Note();
+        $noteFCM -> setValeur(4)
+                -> setOeuvre($oeuvreFCM);
+        $manager->persist($noteFCM);
+        
+        $noteLOTR = new Note();
+        $noteLOTR -> setValeur(4)
+                -> setOeuvre($oeuvreLOTR);
+        $manager->persist($noteLOTR);
+        
+        $noteCyrano = new Note();
+        $noteCyrano->setValeur(3)
+                ->setOeuvre($oeuvreCyrano);
+        $manager->persist($noteCyrano);
+        
+        $noteHobbit = new Note();
+        $noteHobbit -> setValeur(5)
+                    -> setOeuvre($oeuvreHobbit);
+        $manager->persist($noteHobbit);
+        
+        $noteDPS = new Note();
+        $noteDPS->setValeur(2)
+                ->setOeuvre($oeuvreDPS);
+        $manager->persist($noteDPS);
+        
+        $noteGdM = new Note();
+        $noteGdM->setValeur(5)
+                ->setOeuvre($oeuvreGdM);
+        $manager->persist($noteGdM);
+        
+        $noteDiv = new Note();
+        $noteDiv -> setValeur(3)
+                -> setOeuvre($oeuvreDiv);
+        $manager->persist($notDiv);
+        
+        $noteCOE = new Note();
+        $noteCOE->setValeur(1)
+                ->setOeuvre($oeuvreCOE);
+        $manager->persist($noteCOE);
 		
 		/* ******************************************************* */
         /*                    Enregistrement en BD                 */
