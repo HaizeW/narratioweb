@@ -16,6 +16,7 @@ use NarratioWeb\OeuvresBundle\Entity\Acteur;
 use NarratioWeb\OeuvresBundle\Entity\Realisateur;
 use NarratioWeb\OeuvresBundle\Entity\Type;
 use NarratioWeb\OeuvresBundle\Entity\Image;
+use NarratioWeb\OeuvresBundle\Entity\Note;
 
 class Oeuvres implements FixtureInterface
 {
@@ -1113,7 +1114,7 @@ class Oeuvres implements FixtureInterface
         $noteDiv = new Note();
         $noteDiv -> setValeur(3)
                 -> setOeuvre($oeuvreDiv);
-        $manager->persist($notDiv);
+        $manager->persist($noteDiv);
         
         $noteCOE = new Note();
         $noteCOE->setValeur(1)
