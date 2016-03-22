@@ -31,9 +31,9 @@ class Film
     private $titre;
     
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="synopsis", type="string")
+     * @ORM\Column(name="synopsis", type="text")
      */
     private $synopsis;
     

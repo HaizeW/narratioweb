@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

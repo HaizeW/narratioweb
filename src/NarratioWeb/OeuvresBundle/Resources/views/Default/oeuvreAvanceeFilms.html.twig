@@ -44,6 +44,22 @@
       text-align:justify;
    }
 
+
+.pager li>a, .pager li>span {
+    background-color: #212524;
+    border:none;
+    border-radius: 10px;
+    font-size: 1.33em;
+    font-family: garamond;
+}a {
+    color: #F6EFD2;
+    text-decoration: none;
+}a:hover {
+  color: black;
+  background-color: #212524;
+  text-decoration: underline;
+}
+
    
 </style>
 
@@ -63,7 +79,7 @@
 
 
 
-        {% for FilmCourant in tabRes |slice(0, 4) %}
+        {% for FilmCourant in tabRes |slice(0, 5) %}
             
     <!-- PANEL -->
     <div class="panel panel-default">
@@ -137,20 +153,27 @@
 
 {% if tabRes|length > 5 %}
 
-{% set page = page + 1 %}
-
 <nav>
-  <ul class="pager">
-    <li><a action="{{ path('narratio_web_oeuvres_oeuvreAvanceeFilms', {'page': page}) }}" href="#">Precedent</a></li>
-    <li><a href="#">Suivant</a></li>
+  <ul class="pager" action="{{ path('narratio_web_oeuvres_oeuvreAvanceeFilms', {'page': page, 'tabFilmsIdBrut': tabFilmsIdBrut, 'filmsId': filmsId}) }}" method="post" >
+    {% if page > 0 %}
+    <li><a name="action-type-films" value="Precedent" type="submit" href="{{ path('narratio_web_oeuvres_oeuvreAvanceeFilms', {'page': page - 1, 'tabFilmsIdBrut': tabFilmsIdBrut, 'filmsId': filmsId}) }}">Precedent</a></li>
+    {% endif %}
+    <li><a name="action-type-films" value="Suivant" type="submit" href="{{ path('narratio_web_oeuvres_oeuvreAvanceeFilms', {'page': page + 1, 'tabFilmsIdBrut': tabFilmsIdBrut, 'filmsId': filmsId}) }}">Suivant</a></li>
   </ul>
 </nav>
 
 {% endif %}
 
-    
-    
-    
+
+{% if tabRes|length <= 5 and page > 0 %}
+<nav>
+<ul class="pager" action="{{ path('narratio_web_oeuvres_oeuvreAvanceeFilms', {'page': page, 'tabFilmsIdBrut': tabFilmsIdBrut, 'filmsId': filmsId}) }}" method="post" >
+    <li><a name="action-type-films" value="Precedent" type="submit" href="{{ path('narratio_web_oeuvres_oeuvreAvanceeFilms', {'page': page - 1, 'tabFilmsIdBrut': tabFilmsIdBrut, 'filmsId': filmsId}) }}">Precedent</a></li>
+</ul>
+</nav>
+{% endif %}
+
+
     
     </div>
 

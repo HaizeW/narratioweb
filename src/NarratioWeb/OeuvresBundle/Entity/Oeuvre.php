@@ -27,9 +27,9 @@ class Oeuvre
     private $nom;
     
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="concept", type="string")
+     * @ORM\Column(name="concept", type="text")
      */
     private $concept;
     
@@ -41,9 +41,9 @@ class Oeuvre
     private $compteurVues;
     
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="prodDer", type="string")
+     * @ORM\Column(name="prodDer", type="text")
      */
     private $prodDer;
     

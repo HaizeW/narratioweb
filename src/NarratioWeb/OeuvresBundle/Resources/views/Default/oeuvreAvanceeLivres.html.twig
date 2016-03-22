@@ -43,6 +43,23 @@
       max-height:175px;
    }
    
+   
+.pager li>a, .pager li>span {
+    background-color: #212524;
+    border:none;
+    border-radius: 10px;
+    font-size: 1.33em;
+    font-family: garamond;
+}a {
+    color: #F6EFD2;
+    text-decoration: none;
+}a:hover {
+  color: black;
+  background-color: #212524;
+  text-decoration: underline;
+}
+   
+
 </style>
 
     <!-- mise en place des onglets -->
@@ -60,10 +77,7 @@
         <br>
 
 
-
-
-
-{% for LivreCourant in tabRes %}
+{% for LivreCourant in tabRes|slice(0, 5) %}
         
         <div class="panel panel-default">
            <div class="panel-heading">
@@ -122,13 +136,27 @@
         {%endfor%}
 
 
+{% if tabRes|length > 5 %}
+
 <nav>
-  <ul class="pager">
-    <li><a href="#">Precedent</a></li>
-    <li><a href="#">Suivant</a></li>
+  <ul id="pager" class="pager" action="{{ path('narratio_web_oeuvres_oeuvreAvanceeLivres', {'page': page, 'tabLivresIdBrut': tabLivresIdBrut, 'livresId': livresId}) }}" method="post" >
+    {% if page > 0 %}
+    <li><a name="action-type-livres" value="Precedent" type="submit" href="{{ path('narratio_web_oeuvres_oeuvreAvanceeLivres', {'page': page - 1, 'tabLivresIdBrut': tabLivresIdBrut, 'livresId': livresId}) }}">Precedent</a></li>
+    {% endif %}
+    <li><a name="action-type-livres" value="Suivant" type="submit" href="{{ path('narratio_web_oeuvres_oeuvreAvanceeLivres', {'page': page + 1, 'tabLivresIdBrut': tabLivresIdBrut, 'livresId': livresId}) }}">Suivant</a></li>
   </ul>
 </nav>
 
+{% endif %}
+
+
+{% if tabRes|length <= 5 and page > 0 %}
+<nav>
+<ul id="pager" class="pager" action="{{ path('narratio_web_oeuvres_oeuvreAvanceeLivres', {'page': page, 'tabLivresIdBrut': tabLivresIdBrut, 'livresId': livresId}) }}" method="post" >
+    <li><a name="action-type-livres" value="Precedent" type="submit" href="{{ path('narratio_web_oeuvres_oeuvreAvanceeLivres', {'page': page - 1, 'tabLivresIdBrut': tabLivresIdBrut, 'livresId': livresId}) }}">Precedent</a></li>
+</ul>
+</nav>
+{% endif %}
 
 
     </div>

@@ -81,6 +81,7 @@
    color: white;
    height:60px;
    }
+
 </style>
 
 
@@ -267,8 +268,16 @@
             
             {% for i in 1..note %}
             
-               <span style="font-size:1.5em;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+               <a href="star{{i}}" class="no-decoration"><span style="font-size:1.5em;" class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
             
+            {% endfor %}
+            
+            {% for j in note..4 %}
+               {%if note == 5%}
+               
+               {%else%}
+                  <a href="star{{j+1}}" class="no-decoration"><span style="font-size:1.5em;" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></a>
+               {%endif%}
             {% endfor %}
          
          {% endif %}
@@ -293,8 +302,8 @@
       <br>
       {%for imageCourante in tabImagesSuggestions |slice(0, 4) if imageCourante.oeuvre.id != id %}
       <div class="col-xs-4 col-md-2" align="center">
-         <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) |imagine_filter('my_thumb') }}" class="thumbnail">
-         <img id="images" src="{{imageCourante.url}}" alt="Suggestions"></a>
+         <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) }}" class="thumbnail">
+         <img id="images" src="{{ imageCourante.url |imagine_filter('my_thumb') }}" alt="Suggestions"></a>
          </a>
       </div>
       {%endfor%} 

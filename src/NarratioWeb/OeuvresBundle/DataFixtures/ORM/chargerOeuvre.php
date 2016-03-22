@@ -983,8 +983,7 @@ class Oeuvres implements FixtureInterface
                  -> setSynopsis("C'est l’histoire de Quentin et de Margo, sa voisine énigmatique, qui aimait tant les mystères qu’elle en est devenue un. Après l’avoir entraîné avec elle toute la nuit dans une expédition vengeresse à travers leur ville, Margo disparaît subitement – laissant derrière elle des indices qu’il devra déchiffrer. Sa recherche entraîne Quentin et sa bande de copains dans une aventure exaltante à la fois drôle et émouvante. Pour trouver Margo, Quentin va devoir découvrir le vrai sens de l’amitié… et de l’amour.")
                  -> setImagefilm($ImageFFCM);
 		$manager->persist($FilmFCM);
-		
-		$FilmLOTR1 = new Film();
+				$FilmLOTR1 = new Film();
 		$FilmLOTR1 -> setTitre("La Communauté de l'Anneau")
                    -> setDuree(165)
                    -> setType($TypeLongMetrage)
@@ -1202,7 +1201,7 @@ class Oeuvres implements FixtureInterface
          /* Création des images                  */
         /* ******************************************************* */  
 		$ImageHG = new Image();
-		$ImageHG -> setUrl("http://cdn02.cdn.justjared.com/wp-content/uploads/headlines/2015/03/hunger-games-mockingjay-available-dvd.jpg")
+		$ImageHG -> setUrl("http://invisiblechildren.com/wp-content/uploads/2014/11/hunger-games-movie-wp_trio01.jpg")
 				-> setOeuvre($oeuvreHG);
 		$manager->persist($ImageHG);
 		
@@ -1313,8 +1312,5 @@ class Oeuvres implements FixtureInterface
 		$manager->flush();
     }
 }
-
-
-
 
 ?>

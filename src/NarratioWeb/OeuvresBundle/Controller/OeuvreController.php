@@ -585,11 +585,9 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
         
         
         // si le form FILMS a été soumis
-        if ($this->getRequest()->get('action-type-films') =='Rechercher') //($formulaireRechAvanceeFilms->isSubmitted())
+        if (($this->getRequest()->get('action-type-films') =='Rechercher')) // or ($this->getRequest()->get('action-type-films') =='Suivant')
         {
-            
-            if($page=)
-            
+        
                 // on recupere les données du form dans un tableau
                 $tabChoixResFilms = $formulaireRechAvanceeFilms -> getData();
             
@@ -610,7 +608,14 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                         $tabFilms = $repositoryFilms->getFilmsAvancee($choixActeur, $choixRealisateur, $choixType, $choixThematiqueF, $choixGenreF, $choixEpoqueF, $choixTrancheAgeF);
                         
         //var_dump($tabFilms);
-
+                    $g=0;
+                    $tabFilmsIdBrut="";
+                    for ($g=0; $g < count($tabFilms); $g++)
+                    {
+                        $tabFilmsIdBrut = $tabFilms[$g]->getId() . ";" . $tabFilmsIdBrut;
+                    }
+                    $filmsId=$tabFilmsIdBrut;
+    //var_dump($filmsId);
                                 if(count($tabFilms) == 0)
                                 {
                                         return $this->render('NarratioWebOeuvresBundle:Default:erreur.html.twig');
@@ -633,11 +638,11 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                                                 }
                                 
                                 }
-                                    
+                             
                 $q = 0;
                 $c =0;
                 $tabRes = array();
-                for($q=0; $q < count($tabFilms)-1; $q++)
+                for($q=0; $q < count($tabFilms); $q++)
                 {
                     
                     $tabRes[$q][$c] = $tabFilms[$q];
@@ -645,14 +650,17 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                     $tabRes[$q][$c] = $tabImages[$q][0];
                     $c=0;
                 }
-                
-            
-            //var_dump($tabRes);
+
+//var_dump($tabRes);    
+//var_dump($tabFilmsIdBrut);
+            $page = 0;
             
                 return $this->render('NarratioWebOeuvresBundle:Default:oeuvreAvanceeFilms.html.twig', 
                                 array(
                                         'tabRes'=>$tabRes,
-                                        'page'=>$page
+                                        'page'=>$page,
+                                        'tabFilmsIdBrut'=>$tabFilmsIdBrut,
+                                        'filmsId'=>$filmsId
                                 ));
         }
         
@@ -677,8 +685,16 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                         $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
                         // j'execute la requete perso pour remplir un tableau de livre en accord avec le formulaire de page d'acceuil
                         $tabLivres = $repositoryLivres->getLivresAvancee($choixAuteur, $choixEditeur, $choixEpoqueL, $choixGenreL, $choixTrancheAgeL, $choixThematiqueL);
-                        
         //var_dump($tabLivres);
+        
+                    $g=0;
+                    $tabLivresIdBrut="";
+                    for ($g=0; $g < count($tabLivres); $g++)
+                    {
+                        $tabLivresIdBrut = $tabLivres[$g]->getId() . ";" . $tabLivresIdBrut;
+                    }
+                    $livresId=$tabLivresIdBrut;
+    //var_dump($filmsId);
                         
                                 if(count($tabLivres) == 0)
                                 {
@@ -718,9 +734,14 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                 
     //var_dump($tabRes);
 
+            $page = 0;
+
                 return $this->render('NarratioWebOeuvresBundle:Default:oeuvreAvanceeLivres.html.twig', 
                                 array(
-                                        'tabRes'=>$tabRes
+                                        'tabRes'=>$tabRes,
+                                        'page'=>$page,
+                                        'tabLivresIdBrut'=>$tabLivresIdBrut,
+                                        'livresId'=>$livresId
                                 ));
         }
         
@@ -889,6 +910,204 @@ public function voirOeuvreAction($id)
         }
 
 
+public function oeuvreAvanceeFilmsAction($page, $tabFilmsIdBrut, $filmsId)
+    {
+        
+        if (isset($_POST["page"]) & isset($_POST["tabFilmsIdBrut"]) & isset($_POST["filmsId"]))
+        {
+            $page = $_POST["page"];
+            $tabFilmsIdBrut = $_POST["tabFilmsIdBrut"];
+            $filmsId = $_POST["filmsId"];
+        }
+        
+    //var_dump($filmsId,$filmsId,$page);
+            
+            $tabFilmsIdCONS = array();
+            $tabFilmsIdCONS = explode(";", $filmsId);
+            
+            $tabFilmsId = array();
+            $tabFilmsId = explode(";", $tabFilmsIdBrut);
+            
+            //j'inverse les tableaux
+            $tabFilmsIdCONS=array_reverse($tabFilmsIdCONS);
+            //$tabFilmsId=array_reverse($tabFilmsId);
+            
+            /*On efface le premier élément du tableau*/
+            //unset($tabFilmsId[0]);
+            unset($tabFilmsIdCONS[0]);
+            
+    //var_dump($tabFilmsIdCONS);
+    
+            // je charge mon repository de Film pour executer une requete sur la BD
+            $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
+            // je prepare mon tableau de film des oeuvres 
+            $tabFilms = array();
+            $e=0;
+            $k=1;
+            //je commence a 1 car j'ai suppprimer le premier indice : 0
+            for($k=1;$k<count($tabFilmsIdCONS)+1;$k++)
+            {
+            
+                $tabFilms[$e] = $repositoryFilms->findById($tabFilmsIdCONS[$k]);
+                $e++;
+                
+            }
+            //var_dump($tabFilms);
+            
+                            // je charge mon repository de Image pour executer une requete sur la BD
+                            $repositoryImages = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
+                            // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                                
+                            // je prepare mon tableau d'images des oeuvres 
+                            $tabImages = array();
+                            $k=0;
+                                    for($k=0;$k<count($tabFilms);$k++)
+                                    {
+                                    
+                                        $tabImages[$k] = $repositoryImages->getImageByFilm($tabFilms[$k][0]->getImageFilm());
+                                        
+                                    }
+    //var_dump($tabImages);
+    
+                $q = 0;
+                $c = 0;
+                $tabRes = array();
+                for($q=0; $q < count($tabFilms); $q++)
+                {
+                    
+                    $tabRes[$q][$c] = $tabFilms[$q][0];
+                    $c++;
+                    $tabRes[$q][$c] = $tabImages[$q][0];
+                    $c=0;
+                    
+                }
+                
+            //var_dump($tabRes);
+    // JE GERE LE DECALAGE DES FILMS
+            if(($page >= 0) & (count($tabRes)>5))
+            {
+                
+                // je coupe mon tableau de 5 * le nb de page car 5 elements par page
+                $tabRes = array_splice($tabRes, 5*$page);
+                
+            }
+            //var_dump($tabRes);
+                    $g=0;
+                    $tabFilmsIdBrut="";
+                    for ($g=0; $g < count($tabRes); $g++)
+                    {
+                        $tabFilmsIdBrut = $tabRes[$g][0]->getId() . ";" . $tabFilmsIdBrut;
+                    }
+           
+            //var_dump($tabRes);
+            
+                return $this->render('NarratioWebOeuvresBundle:Default:oeuvreAvanceeFilms.html.twig', 
+                                array(
+                                        'tabRes'=>$tabRes,
+                                        'page'=>$page,
+                                        'tabFilmsIdBrut'=>$tabFilmsIdBrut,
+                                        'filmsId'=>$filmsId
+                                ));
+        
+    }
+
+
+
+public function oeuvreAvanceeLivresAction($page, $tabLivresIdBrut, $livresId)
+    {
+        
+        if (isset($_POST["page"]) & isset($_POST["tabLivresIdBrut"]) & isset($_POST["livresId"]))
+        {
+            $page = $_POST["page"];
+            $tabFilmsIdBrut = $_POST["tabLivresIdBrut"];
+            $filmsId = $_POST["livresId"];
+        }
+            
+            $tabLivresIdCONS = array();
+            $tabLivresIdCONS = explode(";", $livresId);
+            
+            $tabLivresId = array();
+            $tabLivresId = explode(";", $tabLivresIdBrut);
+            
+            //j'inverse les tableaux
+            $tabLivresIdCONS=array_reverse($tabLivresIdCONS);
+            
+            /*On efface le premier élément du tableau*/
+            unset($tabLivresIdCONS[0]);
+            
+    //var_dump($tabFilmsIdCONS);
+    
+            // je charge mon repository de Film pour executer une requete sur la BD
+            $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
+            // je prepare mon tableau de film des oeuvres 
+            $tabLivres = array();
+            $e=0;
+            $k=1;
+            //je commence a 1 car j'ai suppprimer le premier indice : 0
+            for($k=1;$k<count($tabLivresIdCONS)+1;$k++)
+            {
+            
+                $tabLivres[$e] = $repositoryLivres->findById($tabLivresIdCONS[$k]);
+                $e++;
+                
+            }
+            
+                            // je charge mon repository de Image pour executer une requete sur la BD
+                            $repositoryImages = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
+                            // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
+                                
+                            // je prepare mon tableau d'images des oeuvres 
+                            $tabImages = array();
+                            $k=0;
+                                    for($k=0;$k<count($tabLivres);$k++)
+                                    {
+                                    
+                                        $tabImages[$k] = $repositoryImages->getImageByLivre($tabLivres[$k][0]->getImageLivre());
+                                        
+                                    }
+    //var_dump($tabImages);
+    
+                $q = 0;
+                $c = 0;
+                $tabRes = array();
+                for($q=0; $q < count($tabLivres); $q++)
+                {
+                    
+                    $tabRes[$q][$c] = $tabLivres[$q][0];
+                    $c++;
+                    $tabRes[$q][$c] = $tabImages[$q][0];
+                    $c=0;
+                    
+                }
+                
+            //var_dump($tabRes);
+    // JE GERE LE DECALAGE DES LIVRES
+            if(($page >= 0) & (count($tabRes)>5))
+            {
+                
+                // je coupe mon tableau de 5 * le nb de page car 5 elements par page
+                $tabRes = array_splice($tabRes, 5*$page);
+                
+            }
+            //var_dump($tabRes);
+                    $g=0;
+                    $tabLivresIdBrut="";
+                    for ($g=0; $g < count($tabRes); $g++)
+                    {
+                        $tabLivresIdBrut = $tabRes[$g][0]->getId() . ";" . $tabLivresIdBrut;
+                    }
+           
+            //var_dump($tabRes);
+            
+                return $this->render('NarratioWebOeuvresBundle:Default:oeuvreAvanceeLivres.html.twig', 
+                                array(
+                                        'tabRes'=>$tabRes,
+                                        'page'=>$page,
+                                        'tabLivresIdBrut'=>$tabLivresIdBrut,
+                                        'livresId'=>$livresId
+                                ));
+        
+    }
 
     public function connexionAction(){
         return $this->render('NarratioWebOeuvresBundle:Default:seConnecter.html.twig');

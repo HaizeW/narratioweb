@@ -24,9 +24,9 @@ class Livre
      */
     private $titre;
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="resume", type="string")
+     * @ORM\Column(name="resume", type="text")
      */
     private $resume;
     /**
