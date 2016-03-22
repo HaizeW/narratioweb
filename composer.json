@@ -20,10 +20,11 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "incenteev/composer-parameter-handler": "~2.0",
         
-        
         "friendsofsymfony/user-bundle": "*",
         "sonata-project/admin-bundle": "^2.3",
-        "sonata-project/doctrine-orm-admin-bundle": "^2.3"
+        "sonata-project/doctrine-orm-admin-bundle": "^2.3",
+        "liip/imagine-bundle": "^1.5",
+        "damianociarla/rating-bundle": "^1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

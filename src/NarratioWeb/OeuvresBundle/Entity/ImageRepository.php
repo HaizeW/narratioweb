@@ -42,7 +42,9 @@ class ImageRepository extends EntityRepository
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT i, o FROM NarratioWebOeuvresBundle:Image i
-                                                            LEFT JOIN i.oeuvre o');
+                                                            LEFT JOIN i.oeuvre o
+                                                                WHERE i.oeuvre IS NOT NULL
+                                                            ');
                                                         
         $requetePerso->setMaxResults(5);
         
@@ -53,5 +55,27 @@ class ImageRepository extends EntityRepository
         return $tabResultats;
     }
 
+        
+    public function getImageByLivre($idLivre) // OK
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT i FROM NarratioWebOeuvresBundle:Image i
+                                                                        WHERE :idLivre = i.id
+                                                        ');
+                                        
+        // je definis mes parametres
+        $requetePerso->setParameter('idLivre', $idLivre);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
+    
     
 }

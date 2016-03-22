@@ -5,6 +5,7 @@
 {% block body %}
 
 
+
 <style type="text/css">
    #titre1{
       color:#F6EFD2;
@@ -23,7 +24,7 @@
       font-size:20px;
       width:66%;
       font-family: garamond;
-      background-color:#212524;
+      background-color:#848484;
       margin-left:18%;
       text-decoration:none;
       border-radius: 10px 20px / 20px 10px;
@@ -67,9 +68,11 @@
    }
    
    .thumbnail {
-      width: 175px;
-      height: 175px;
+      width: auto;
+      height: auto;
       overflow: hidden;
+      max-width:175px;
+      max-height:175px;
    }
    
    a {
@@ -89,19 +92,32 @@
    }
    
    #ptitle{
-      color:black;
+      padding:10px;
+      color:white;
       text-align:center;
+      font-style:italic;
       font-weight:bold;
+      font-size:20px;
+      font-family: georgia;
+      text-shadow: 2px 2px #000;
+      text-shadow: -1px 0 #151515, 1px 0 #151515, 0 1px #000, 0 -1px #151515;
+      color: #fff;
    }
    
    .panel > .panel-heading {
     color: white;
+    height:60px;
 
 }
-   
-   
-   
+
+
+
+
 </style>
+
+<script language="jQuery">
+$("#input-id").rating();
+</script>
 
     <!-- mise en place des onglets -->
 <div class="container" style="background-color: #F7F5F0">
@@ -145,9 +161,11 @@
         {% for LivreCourant in tabLivres %}
         
         <div class="panel panel-default">
-           <div class="panel-heading" style="background-image:url({{ asset(LivreCourant.image.url |default('undefined'))}}); -webkit-filter:opacity(50%);"> 
+           <div class="panel-heading" style=" background-image:url({{ asset(LivreCourant.imageLivre.url |default('undefined'))}}); -webkit-filter:opacity(50%);"> 
            <h3 id=ptitle align="center" class="panel-title">
-           {{LivreCourant.titre}}<br/> <!-- Le mettre en noir sans opacité ?? -->
+           {{LivreCourant.titre}}<br/>
+           <!-- <b>~ ~ ~</b> -->
+           <!-- Le mettre en noir sans opacité ?? -->
             </h3>       
             </div>
                   
@@ -161,7 +179,7 @@
             
             <div class="panel-footer">
             
-               <div style="float:right" align="right">
+               <div class="col-sm-3" style="float:right" align="right" id="aCentrer">
 
                   <b>Editeur :</b>
                   <br>
@@ -170,7 +188,7 @@
                   
                </div>
                
-               <div style="" align="left">
+               <div class="col-sm-3"  style="" align="left" id="aCentrer">
                   
                      
                   <b>Auteur(s) :</b>
@@ -182,7 +200,21 @@
                      
                   {%endfor%}
                   
+                  <br><br>
+                  <b>Année de parution :</b>
+                  <br>
+            
+                  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{LivreCourant.annee}}
+                  
                </div>
+               
+               
+               <div style="float:center" class="" align="center">
+                      <a class="thumbnail">
+                         <img id="images" src="{{LivreCourant.imageLivre.url}}" alt="Suggestions"></a>
+                      </a>
+                </div>
+               
                
             </div>
             
@@ -202,10 +234,10 @@
     {% for FilmCourant in tabFilms %}
     
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" style=" background-image:url({# asset(FilmCourant.imageLivre.url |default('undefined'))#}); -webkit-filter:opacity(50%);">
            
-             <h3 align="center" class="panel-title">
-                <b>{{FilmCourant.titre}}</b>
+             <h3 id=ptitle align="center" class="panel-title">
+                {{FilmCourant.titre}}
             </h3>
             
         </div>
@@ -218,35 +250,48 @@
         
         <div class="panel-footer">
            
-         <div style="float:right" align="right">
+         <div class="col-sm-3" style="float:right" align="right" id="aCentrer">
 
-                  
-                  <b>Durée :</b>
                   <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
-                  {{FilmCourant.duree}} min
+                  <b>Durée : </b>{{FilmCourant.duree}} min
                   <br>
                   
-                  <br>
+                  <br><br>
                   <b>Réalisateur :</b>
                   <br>
                   <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{FilmCourant.realisateur.label}}<br/>
          
          </div>
          
-         <div style="" align="left">
-         
-         <b>Acteurs :</b> <br>
-         {%for acteurCourant in FilmCourant.acteurs%}
-         
-
+         <div class="col-sm-3" style="" align="left" id="aCentrer">
                   
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{acteurCourant.label}}<br>
+               <b>Année de parution :</b>
+               <br>
                   
-
-                  
-         {%endfor%}
+               <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{FilmCourant.annee}}
+               
+               <br><br><b>Acteurs :</b> <br>
+               {%for acteurCourant in FilmCourant.acteurs%}
+               
+      
+                        
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{acteurCourant.label}}<br>
+                        
+      
+                        
+               {%endfor%}
+               
+               <br>
          
          </div>
+         
+         
+         <div style="float:center" class="" align="center">
+                      <a class="thumbnail">
+                         <img id="images" src="{#FilmCourant.imageFilm.url#}" alt="Suggestions"></a>
+                      </a>
+         </div>
+         
          
         </div>
         
@@ -334,8 +379,7 @@
          
    {% endif %}
          
-         
-            </div>
+   </div>
             
             
             
@@ -353,7 +397,13 @@
             <b>Genre :</b> {{oeuvre.genre.intitule}}<br>
             <b>Epoque :</b> {{oeuvre.epoque.intitule}}<br>
             <b>Thématique :</b> {{oeuvre.thematique.intitule}}<br>
-            <b>Tranche d'age :</b> {{oeuvre.trancheAge.intitule}}<br><br>
+            <b>Tranche d'age :</b> {{oeuvre.trancheAge.intitule}}<br>
+            <br>
+            
+            
+            
+            <br>
+            
             <b>Nombre de vues :</b> {{oeuvre.compteurVues}}
         </div>
     </div>
@@ -363,28 +413,26 @@
 <!-- SUGGESTIONS   -->
     <div class="row">
        
-      {#
       
-      {% if tabImagesSuggestions |length > 1 %}
+      
+      {% if tabImagesSuggestions != null %}
       
          &nbsp;&nbsp;&nbsp;&nbsp;
          <i>Suggestions</i>
          <br>
-         
-      
-         
+
+
         {%for imageCourante in tabImagesSuggestions |slice(0, 4) if imageCourante.oeuvre.id != id %}
             <div class="col-xs-4 col-md-2" align="center">
-                  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) }}" class="thumbnail">
+                  <a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) |imagine_filter('my_thumb') }}" class="thumbnail">
                      <img id="images" src="{{imageCourante.url}}" alt="Suggestions"></a>
                   </a>
             </div>
          {%endfor%} 
       
       
-      
          {% endif %}
-      #}
+      
       
     </div>
 </div>

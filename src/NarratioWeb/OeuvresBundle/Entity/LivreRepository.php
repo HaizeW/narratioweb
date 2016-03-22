@@ -298,6 +298,9 @@ class LivreRepository extends EntityRepository
         return $tabResultats;
     }
     
+
+    
+    
 }
 
 

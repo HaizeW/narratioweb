@@ -109,7 +109,7 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                         
                                         
                                         
-                                        var_dump($resImdb);
+                                        //var_dump($resImdb);
                                         
                                 }
                                 else
@@ -536,23 +536,22 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                                 {
                                         
                                                 // je charge mon repository de Image pour executer une requete sur la BD
-                                                $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
+                                                $repositoryImages = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
                                 /*
                                         // je prepare mon tableau d'images des oeuvres 
                                         $tabImages = array();
                                         $k=0;
-                                                
-                                                for($k=0;$k<count($tabFilms)-1;$k++)
+                                                for($k=0;$k<count($tabFilms);$k++)
                                                 {
                                                 
-                                                    $tabImages = $repositoryImage->getImageByFilm($tabFilms[$k]->getId());
+                                                    $tabImages[$k] = $repositoryImages->getImageByFilm($tabFilms[$k]->getImageLivre());
                                                     
                                                 }
                                 */
-$tabImages = $repositoryImage -> getImageSugg();
+$tabImages = $repositoryImages -> getImageSugg();
                                 }
-                
+                                    
                 $q = 0;
                 $c =0;
                 $tabRes = array();
@@ -561,7 +560,7 @@ $tabImages = $repositoryImage -> getImageSugg();
                     
                     $tabRes[$q][$c] = $tabFilms[$q];
                     $c++;
-                    $tabRes[$q][$c] = $tabImages[$q];
+                    $tabRes[$q][$c] = $tabImages[$q];//[0];
                     $c=0;
                 }
                 
@@ -606,32 +605,30 @@ $tabImages = $repositoryImage -> getImageSugg();
                                 {
 
                                                 // je charge mon repository de Image pour executer une requete sur la BD
-                                                $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
+                                                $repositoryImages = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                                /*
+                                            
                                         // je prepare mon tableau d'images des oeuvres 
                                         $tabImages = array();
                                         $k=0;
-                                                
-                                                for($k=0;$k<count($tabLivres)-1;$k++)
+                                                for($k=0;$k<count($tabLivres);$k++)
                                                 {
                                                 
-                                                    $tabImages = $repositoryImage->getImageByFilm($tabLivres[$k]->getId());
+                                                    $tabImages[$k] = $repositoryImages->getImageByLivre($tabLivres[$k]->getImageLivre());
                                                     
                                                 }
-                                */
-$tabImages = $repositoryImage -> getImageSugg();
+                                
                                 }
-
+                                    
                 $q = 0;
                 $c =0;
                 $tabRes = array();
-                for($q=0; $q < count($tabLivres)-1; $q++)
+                for($q=0; $q < count($tabLivres); $q++)
                 {
                     
                     $tabRes[$q][$c] = $tabLivres[$q];
                     $c++;
-                    $tabRes[$q][$c] = $tabImages[$q];
+                    $tabRes[$q][$c] = $tabImages[$q][0];
                     $c=0;
                     
                 }
@@ -680,7 +677,7 @@ public function voirOeuvreAction($id)
                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
                 $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
                                
-                               var_dump($tabOeuvreChoix);
+                               //var_dump($tabOeuvreChoix);
 
                                         // je definis l image principale
                                         $image = $tabImage[0];
@@ -723,23 +720,27 @@ public function voirOeuvreAction($id)
                                                 $tabImagesSuggestions = $repositoryImage->getImageSugg();
                                         }
                                         
-                                        
-                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
+                                
+                                // je prepare mes parametres pour le web service de IMDB
+                                $titre = $tabFilms[0]->getOeuvre()->getNom();     
+                                $annee = $tabFilms[0]->getAnnee();
+                                // j'ajoute le %20 a la place des espaces
+                                $titreUrl=rawurlencode($titre);
+                                 
+                                // je recupere le web service pour voir si ca echoue ou pas
+                                $resImdbBrut=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
+                                // je le decode pour avoir l objet et non la string
+                                $resImdb=json_decode($resImdbBrut);
+                                $resImdbBool=$resImdb->{'Response'};
+                                
+                                if ($resImdbBool != "False")
                                 {
-
-                                        $titre = $oeuvre->getNom();
-                                        
-                                        //$annee = $oeuvre ->getAnnee();
-                                        
-                                        // je recupere le json
-                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
-                                        
-                                        // je decode le json
-                                        $resImdb=json_decode($json);
-                                        
-                                        
-                                        
-                                        //var_dump($resImdb);
+                                            
+                                    // je recupere le json
+                                    $json=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
+                                    
+                                    // je decode le json
+                                    $resImdb=json_decode($json);
                                         
                                 }
                                 else
@@ -751,7 +752,7 @@ public function voirOeuvreAction($id)
                                         
                                     
                             
-                                    //var_dump($tabImagesSuggestions);
+                                    //var_dump($tabFilms);
                                         
                                 //On augmente le compteur de vues de l'oeuvre !
                                 $compteur = $oeuvre->getCompteurVues();
@@ -771,9 +772,9 @@ public function voirOeuvreAction($id)
                                                                                 ));
             
         }
-    
-    
-    
+
+
+
     public function connexionAction(){
         return $this->render('NarratioWebOeuvresBundle:Default:seConnecter.html.twig');
     }

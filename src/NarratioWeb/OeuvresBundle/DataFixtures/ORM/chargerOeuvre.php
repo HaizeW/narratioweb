@@ -325,8 +325,68 @@ class Oeuvres implements FixtureInterface
          /* Création des images pour livres           */
         /* ******************************************************* */  
 		$ImageLHG1 = new Image();
-		$ImageLHG1 -> setUrl("http://www.juliemag.com/files/hungergames-770x400.jpg");
+		$ImageLHG1 -> setUrl("http://2.bp.blogspot.com/-J-bpWQqv3dw/T6s0TJuG7RI/AAAAAAAACNw/4qWuCxrb0so/s1600/background_2.jpg");
 		$manager->persist($ImageLHG1);
+		
+		$ImageLHG2 = new Image();
+		$ImageLHG2 -> setUrl("http://lbc9.net/movies-and-tv/movie/hunger-games-catching-fire/catching-fire-black-film-hd-wallpaper.jpg");
+		$manager->persist($ImageLHG2);
+		
+		$ImageLHG3 = new Image();
+		$ImageLHG3 -> setUrl("http://www.hdwallpapers.in/walls/the_hunger_games_mockingjay-wide.jpg");
+		$manager->persist($ImageLHG3);
+		
+		$ImageLNEC = new Image();
+		$ImageLNEC -> setUrl("http://orig15.deviantart.net/8c25/f/2014/110/b/a/untitled_drawing_by_bernadetteanne-d7f8p6a.png");
+		$manager->persist($ImageLNEC);
+		
+		$ImageLFCM = new Image();
+		$ImageLFCM -> setUrl("http://hdwallpicx.com/wp-content/uploads/2015/03/paper-towns-2015-movie-wallpapers-hd-1366X768-desktop-01.jpg");
+		$manager->persist($ImageLFCM);
+		
+		$ImageLLOTR1 = new Image();
+		$ImageLLOTR1 -> setUrl("http://awesomewallpaper.files.wordpress.com/2012/11/wallpaper-2170245.jpg");
+		$manager->persist($ImageLLOTR1);
+		
+		$ImageLLOTR2 = new Image();
+		$ImageLLOTR2 -> setUrl("http://i.imgur.com/uiMZN9O.jpg");
+		$manager->persist($ImageLLOTR2);
+		
+		$ImageLLOTR3 = new Image();
+		$ImageLLOTR3 -> setUrl("http://media.moddb.com/images/groups/1/2/1488/33172_the_lord_of_the_rings_wallpaper.jpg");
+		$manager->persist($ImageLLOTR3);
+		
+		$ImageLCyrano = new Image();
+		$ImageLCyrano -> setUrl("http://img12.deviantart.net/465c/i/2006/132/b/5/cyrano_de_bergerac___act_ii_by_protvscar.jpg");
+		$manager->persist($ImageLCyrano);
+		
+		$ImageLHobbit = new Image();
+		$ImageLHobbit -> setUrl("https://wallpaperscraft.com/image/the_hobbit_the_battle_of_the_five_armies_torin_smaugs_lair_martin_freeman_97112_3840x2160.jpg");
+		$manager->persist($ImageLHobbit);
+		
+		$ImageLDPS = new Image();
+		$ImageLDPS -> setUrl("http://www.photo-cinema.fr/wp-content/uploads/2014/09/Le-cercle-des-po%C3%A8tes-disparus.jpg");
+		$manager->persist($ImageLDPS);
+		
+		$ImageLGdM = new Image();
+		$ImageLGdM -> setUrl("http://image.noelshack.com/fichiers/2012/51/1356085994-twilight-termina-by-spire-iii-d2wod7g.png");
+		$manager->persist($ImageLGdM);
+		
+		$ImageLDiv1 = new Image();
+		$ImageLDiv1 -> setUrl("http://vignette2.wikia.nocookie.net/divergent/images/b/b5/Divergent-poster.jpg/revision/latest?cb=20140423192527&path-prefix=fr");
+		$manager->persist($ImageLDiv1);
+		
+		$ImageLDiv2 = new Image();
+		$ImageLDiv2 -> setUrl("http://hdwallpaperbackgrounds.net/wp-content/uploads/2015/10/insurgent-buildings-guns-cool-wallpaper-3840x2160.jpg");
+		$manager->persist($ImageLDiv2);
+		
+		$ImageLDiv3 = new Image();
+		$ImageLDiv3 -> setUrl("http://www.hdwallpapers.in/walls/the_divergent_series_allegiant-wide.jpg");
+		$manager->persist($ImageLDiv3);
+		
+		$ImageLCOE = new Image();
+		$ImageLCOE -> setUrl("http://img.jeuxvideo.fr/028A016D311223-c2-photo-oYToxOntzOjE6InciO2k6NjUwO30%3D-agatha-christie-le-crime-de-l-orient-express.jpg");
+		$manager->persist($ImageLCOE);
 		
 		 /* ******************************************************* */
          /* Création des livres           */
@@ -339,7 +399,7 @@ class Oeuvres implements FixtureInterface
 						-> setOeuvre($oeuvreHG)
 						-> setAnnee(2008)
 						-> setResume("Dans un futur sombre des Etats-Unis divisés par 12 districts et un capitole, un jeu télévisé est diffusé pour contrôler le peuple par la terreur. Cette émission doit être obligatoirement visionnée par tous. Chaque année, le jour de la moisson 12 filles et 12 garçons sont tirés au sort pour participer à cette téléréalité. Ces 24 participants sont alors placés dans une vaste arène où ils devront s'entretuer. Un seul survivra à ce jeu : le gagnant. Celui-ci pourra revenir chez lui riche et célèbre et grâce à lui, le district auquel il appartient pourra manger à sa faim pendant un an. Katniss, une jeune fille de 16 ans a dû apprendre à chasser pour nourrir sa famille. Comme tous, elle redoute que son nom soit tiré au sort le jour de la moisson. Son cauchemar deviendra pire que ce qu'elle aurait pu imaginer puisque c'est le nom de sa petite soeur qui retentit dans le micro ce soir là. Sans réfléchir, elle se lancera sur la scène et demandera à prendre sa place. Elle deviendra alors, l'une des participantes des Hunger Games.")
-						-> setImage($ImageLHG1);
+						-> setImagelivre($ImageLHG1);
 		$manager->persist($LivreHG1);
 		
 		$LivreHG2 = new Livre();
@@ -348,7 +408,8 @@ class Oeuvres implements FixtureInterface
 						-> setEditeur($EditeurPocket)
 						-> setOeuvre($oeuvreHG)
 						-> setAnnee(2009)
-						-> setResume("Katniss et Peeta doivent effectuer la tournée de la victoire à travers les différents districts. Tout le monde est impatient de les retrouver mais le capitole les attend au tournant, il s'agit surtout de se rattraper et de prouver que Katniss n'a jamais voulu défier le capitole avec ces baies. Le président Snow surveille et fait bien comprendre à Katniss l'importance qu'aura son attitude lors de cette tournée. Katniss a lancé un vent de révolte dans les districts et elle en paiera le prix fort. Je m'attendais pas à ça, je croyais deviner ce qui allait se passer : Katniss et Peeta allaient faire leur tournée et Katniss finirait par tomber amoureuse de Peeta, les districts allaient se révolter et tout finirait bien dans le meilleur des mondes... Et bien tout le contraire justement ! C'est de surprise en surprise qu'on dévore une nouvelle fois ces Hunger games, on agrippe ce bouquin comme si on allait nous le voler, on ne s'attend à rien et ce jusqu'à la fin !");
+						-> setResume("Katniss et Peeta doivent effectuer la tournée de la victoire à travers les différents districts. Tout le monde est impatient de les retrouver mais le capitole les attend au tournant, il s'agit surtout de se rattraper et de prouver que Katniss n'a jamais voulu défier le capitole avec ces baies. Le président Snow surveille et fait bien comprendre à Katniss l'importance qu'aura son attitude lors de cette tournée. Katniss a lancé un vent de révolte dans les districts et elle en paiera le prix fort. Je m'attendais pas à ça, je croyais deviner ce qui allait se passer : Katniss et Peeta allaient faire leur tournée et Katniss finirait par tomber amoureuse de Peeta, les districts allaient se révolter et tout finirait bien dans le meilleur des mondes... Et bien tout le contraire justement ! C'est de surprise en surprise qu'on dévore une nouvelle fois ces Hunger games, on agrippe ce bouquin comme si on allait nous le voler, on ne s'attend à rien et ce jusqu'à la fin !")
+						-> setImagelivre($ImageLHG2);
 		$manager->persist($LivreHG2);
 		
 		$LivreHG3 = new Livre();
@@ -357,7 +418,8 @@ class Oeuvres implements FixtureInterface
 						-> setEditeur($EditeurPocket)
 						-> setOeuvre($oeuvreHG)
 						-> setAnnee(2010)
-						-> setResume("Ce troisième et dernier tome de la série nous apporte toutes les réponses aux questions et c'est - hélas - son seul intérêt. Ecrire un troisième tome de Hunger Games sans Hunger Games, le challenge était difficile, et malheureusement le pari a été largement perdu par Suzanne Collins. Autant j'avais été épaté des rebondissements dans le tome 2, autant dans ce tome 3 l'action est très lente pour ne pas dire inexistante, même si à la fin les morts s'enfilent par dizaines y compris chez certains personnages principaux qui sont exécutés en une demi-ligne (!!!) mais cette avalanche d'hémoglobine n'insuffle pas pour autant plus de dynamisme! Contrairement aux jeux de l'arène (les Hunger Games) on ne sent aucune identification avec Katniss, on regarde ça de très loin sans se sentir impliqué...");
+						-> setResume("Ce troisième et dernier tome de la série nous apporte toutes les réponses aux questions et c'est - hélas - son seul intérêt. Ecrire un troisième tome de Hunger Games sans Hunger Games, le challenge était difficile, et malheureusement le pari a été largement perdu par Suzanne Collins. Autant j'avais été épaté des rebondissements dans le tome 2, autant dans ce tome 3 l'action est très lente pour ne pas dire inexistante, même si à la fin les morts s'enfilent par dizaines y compris chez certains personnages principaux qui sont exécutés en une demi-ligne (!!!) mais cette avalanche d'hémoglobine n'insuffle pas pour autant plus de dynamisme! Contrairement aux jeux de l'arène (les Hunger Games) on ne sent aucune identification avec Katniss, on regarde ça de très loin sans se sentir impliqué...")
+						-> setImagelivre($ImageLHG3);
 		$manager->persist($LivreHG3);
 		
 		$LivreNEC = new Livre();
@@ -366,7 +428,8 @@ class Oeuvres implements FixtureInterface
                      -> setEditeur($EditeurNathan)
                      -> setOeuvre($oeuvreNEC)
                      -> setAnnee(2012)
-                     -> setResume("Hazel, 16 ans, est atteinte d'un cancer. Son dernier traitement semble avoir arrêté l'évolution de la maladie, mais elle se sait condamnée. Bien qu'elle s'y ennuie passablement, elle intègre un groupe de soutien, fréquenté par d'autres jeunes malades. C'est là qu'elle rencontre Augustus, un garçon en rémission, qui partage son humour et son goût de la littérature. Entre les deux adolescents, l'attirance est immédiate. Et malgré les réticences d'Hazel, qui a peur de s'impliquer dans une relation dont le temps est compté, leur histoire d'amour commence... Les entraînant vite dans un projet un peu fou, ambitieux, drôle et surtout plein de vie.");
+                     -> setResume("Hazel, 16 ans, est atteinte d'un cancer. Son dernier traitement semble avoir arrêté l'évolution de la maladie, mais elle se sait condamnée. Bien qu'elle s'y ennuie passablement, elle intègre un groupe de soutien, fréquenté par d'autres jeunes malades. C'est là qu'elle rencontre Augustus, un garçon en rémission, qui partage son humour et son goût de la littérature. Entre les deux adolescents, l'attirance est immédiate. Et malgré les réticences d'Hazel, qui a peur de s'impliquer dans une relation dont le temps est compté, leur histoire d'amour commence... Les entraînant vite dans un projet un peu fou, ambitieux, drôle et surtout plein de vie.")
+                     -> setImagelivre($ImageLNEC);
 		$manager->persist($LivreNEC);
 		 
 		$LivreFCM = new Livre();
@@ -375,7 +438,8 @@ class Oeuvres implements FixtureInterface
                     -> setEditeur($EditeurGall)
                     -> setOeuvre($oeuvreFCM)
                     -> setAnnee(2008)
-                    -> setResume("Margo Roth Speigelman, le nom aux six syllabes qui fait fantasmer Quentin depuis toujours. Alors forcément, quand elle s'introduit dans sa chambre, une nuit, par la fenêtre ouverte, pour l'entraîner dans une expédition vengeresse, il la suit. Mais au lendemain de leur folle nuit blanche, Margo n'apparaît pas au lycée, elle a disparu. Quentin saura-t-il décrypter les indices qu'elle lui a laissés pour la retrouver ? Plus il s'en rapproche, plus Margo semble lui échapper...");
+                    -> setResume("Margo Roth Speigelman, le nom aux six syllabes qui fait fantasmer Quentin depuis toujours. Alors forcément, quand elle s'introduit dans sa chambre, une nuit, par la fenêtre ouverte, pour l'entraîner dans une expédition vengeresse, il la suit. Mais au lendemain de leur folle nuit blanche, Margo n'apparaît pas au lycée, elle a disparu. Quentin saura-t-il décrypter les indices qu'elle lui a laissés pour la retrouver ? Plus il s'en rapproche, plus Margo semble lui échapper...")
+                    -> setImagelivre($ImageLFCM);
 		$manager->persist($LivreFCM);
 		
 		$LivreLOTR1 = new Livre();
@@ -384,7 +448,8 @@ class Oeuvres implements FixtureInterface
 					 -> setEditeur($EditeurAU)
                      -> setOeuvre($oeuvreLOTR)
                      -> setAnnee(1954)
-                     -> setResume("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...");
+                     -> setResume("Un jeune Hobbit nommé Frodon Sacquet, hérite d'un anneau. Mais il se trouve que cet anneau est L'Anneau UNIQUE, un instrument de pouvoir absolu crée pour Sauron, le Seigneur des ténèbres, pour lui permettre de régner sur la Terre du Milieu et de réduire en esclavage ses peuples. Frodon a donc comme mission de détruire l'anneau en le jetant dans les laves de la Crevasse du Destin où l'Anneau à été forgé et ainsi le détruir pour toujours. Pour cela, Frodon sera aidé d'une Compagnie constituée d'Hobbits, d'Hommes, d'un Magicien, d'un Nain, et d'un Elfe, Un tel périple signifie s'aventurer très loin en Mordor, les terres du Seigneur des ténèbres, où est rassemblée son armée d'Orques maléfiques. La Compagnie doit non seulement combattre les forces extérieures du mal mais aussi les dissensions internes et l'influence corruptrice qu'exerce l'Anneau lui-même sur Frodon...")
+                     -> setImagelivre($ImageLLOTR1);
 		$manager->persist($LivreLOTR1);
          
 		$LivreLOTR2 = new Livre();
@@ -393,7 +458,8 @@ class Oeuvres implements FixtureInterface
                      -> setEditeur($EditeurAU)
                      -> setOeuvre($oeuvreLOTR)
                      -> setAnnee(1954)
-                     -> setResume("Frodon le Hobbit et ses Compagnons se sont engagés, au Grand Conseil d'Elrond, à détruire l'Anneau de Puissance dont Sauron de Mordor cherche à s'emparer pour asservir tous les peuples de la terre habitée : Elfes et Nains, Hommes et Hobbits.");
+                     -> setResume("Frodon le Hobbit et ses Compagnons se sont engagés, au Grand Conseil d'Elrond, à détruire l'Anneau de Puissance dont Sauron de Mordor cherche à s'emparer pour asservir tous les peuples de la terre habitée : Elfes et Nains, Hommes et Hobbits.")
+                     -> setImagelivre($ImageLLOTR2);
 		$manager->persist($LivreLOTR2);
 		 
 		$LivreLOTR3 = new Livre();
@@ -402,7 +468,8 @@ class Oeuvres implements FixtureInterface
                      -> setEditeur($EditeurAU)
                      -> setOeuvre($oeuvreLOTR)
                      -> setAnnee(1955)
-                     -> setResume("Tandis que le continent se couvre de ténèbres, annonçant pour le peuple des Hobbits l'aube d'une ère nouvelle, Frodon poursuit son entreprise. Alors qu'il n'a pu franchir la Porte Noire, il se demande comment atteindre le Mont du Destin. Peut-être est-il trop tard : le Seigneur des Ténèbres mobilise ses troupes. Les Rohirrim n'ont plus le temps d'en finir avec le traître assiégé dans l'imprenable tour d'Orthanc ; ils doivent se rassembler pour faire face à l'ennemi. Tentant une fois de plus sa chance, Frodon passe par le Haut Col, où il sera livré à l'abominable Arachné. Survivra-t-il à son dangereux périple à travers le Pays Noir ?");
+                     -> setResume("Tandis que le continent se couvre de ténèbres, annonçant pour le peuple des Hobbits l'aube d'une ère nouvelle, Frodon poursuit son entreprise. Alors qu'il n'a pu franchir la Porte Noire, il se demande comment atteindre le Mont du Destin. Peut-être est-il trop tard : le Seigneur des Ténèbres mobilise ses troupes. Les Rohirrim n'ont plus le temps d'en finir avec le traître assiégé dans l'imprenable tour d'Orthanc ; ils doivent se rassembler pour faire face à l'ennemi. Tentant une fois de plus sa chance, Frodon passe par le Haut Col, où il sera livré à l'abominable Arachné. Survivra-t-il à son dangereux périple à travers le Pays Noir ?")
+                     -> setImagelivre($ImageLLOTR3);
 		$manager->persist($LivreLOTR3);
 		
 		$LivreCyrano = new Livre();
@@ -411,7 +478,8 @@ class Oeuvres implements FixtureInterface
                      -> setEditeur($EditeurLibrio)
                      -> setOeuvre($oeuvreCyrano)
                      -> setAnnee(1897)
-                     -> setResume("Le nez de Cyrano s'est mis en travers de son coeur. La belle Roxane aime ailleurs, en l'espèce un cadet sans esprit mais de belle apparence, Christian de Neuvillette. La pièce de Rostand met en scène la tragique complicité entre deux moitiés d'homme, et s'achève sur une évidence en forme d'espérance : sous les traits de Christian, ce n'était pas moins que l'âme de Cyrano qu'aimait Roxane. Avec ce drame en cinq actes, au travers des reprises ou des adaptations cinématographiques, Rostand a connu et connaît un succès ininterrompu et planétaire. Pourquoi ? A cause des qualités d'écriture, des vertus dramatiques ou de la réussite du personnage principal de la pièce ? Sans doute, pour une part. Mais la raison profonde tient à son art de caresser l'un de nos plus anciens mythes : il n'est pas de justice ici-bas, ni d'amour heureux. Presque pas. Et tout est dans cette manière de nous camper sur cette frontière, entre rêve et réalité, entre lune et terre.");
+                     -> setResume("Le nez de Cyrano s'est mis en travers de son coeur. La belle Roxane aime ailleurs, en l'espèce un cadet sans esprit mais de belle apparence, Christian de Neuvillette. La pièce de Rostand met en scène la tragique complicité entre deux moitiés d'homme, et s'achève sur une évidence en forme d'espérance : sous les traits de Christian, ce n'était pas moins que l'âme de Cyrano qu'aimait Roxane. Avec ce drame en cinq actes, au travers des reprises ou des adaptations cinématographiques, Rostand a connu et connaît un succès ininterrompu et planétaire. Pourquoi ? A cause des qualités d'écriture, des vertus dramatiques ou de la réussite du personnage principal de la pièce ? Sans doute, pour une part. Mais la raison profonde tient à son art de caresser l'un de nos plus anciens mythes : il n'est pas de justice ici-bas, ni d'amour heureux. Presque pas. Et tout est dans cette manière de nous camper sur cette frontière, entre rêve et réalité, entre lune et terre.")
+                     -> setImagelivre($ImageLCyrano);
 		$manager->persist($LivreCyrano);
 		
 		$LivreHobbit = new Livre();
@@ -420,7 +488,8 @@ class Oeuvres implements FixtureInterface
 					 -> setEditeur($EditeurAU)
                      -> setOeuvre($oeuvreHobbit)
                      -> setAnnee(1937)
-                     -> setResume("Le hobbit Bilbo Bessac mène une existence paisible dans son trou de Cul-de-Sac jusqu’au jour où il croise le magicien Gandalf. Le lendemain, il a la surprise de voir venir prendre le thé chez lui non seulement Gandalf, mais également une compagnie de treize nains menée par Thorin Lécudechesne et composée de Balin, Dwalin, Fili, Kili, Dori, Nori, Ori, Oin, Gloin, Bifur, Bofur et Bombur. La compagnie est en route vers la Montagne Solitaire, où elle espère vaincre le dragon Smaug, qui a jadis dépossédé les nains de leur royaume et de leurs trésors. Cependant, pour mener à bien leurs projets, il leur faut un expert-cambrioleur, et Gandalf leur a recommandé Bilbo. Celui-ci est plus que réticent à l’idée de partir à l’aventure, mais il finit par accompagner la troupe.");
+                     -> setResume("Le hobbit Bilbo Bessac mène une existence paisible dans son trou de Cul-de-Sac jusqu’au jour où il croise le magicien Gandalf. Le lendemain, il a la surprise de voir venir prendre le thé chez lui non seulement Gandalf, mais également une compagnie de treize nains menée par Thorin Lécudechesne et composée de Balin, Dwalin, Fili, Kili, Dori, Nori, Ori, Oin, Gloin, Bifur, Bofur et Bombur. La compagnie est en route vers la Montagne Solitaire, où elle espère vaincre le dragon Smaug, qui a jadis dépossédé les nains de leur royaume et de leurs trésors. Cependant, pour mener à bien leurs projets, il leur faut un expert-cambrioleur, et Gandalf leur a recommandé Bilbo. Celui-ci est plus que réticent à l’idée de partir à l’aventure, mais il finit par accompagner la troupe.")
+                     -> setImagelivre($ImageLHobbit);
 		$manager->persist($LivreHobbit);
 		
 		$LivreDPS = new Livre();
@@ -429,7 +498,8 @@ class Oeuvres implements FixtureInterface
                      -> setEditeur($EditeurPoche)
                      -> setOeuvre($oeuvreDPS)
                      -> setAnnee(1990)
-                     -> setResume("Il fut leur inspiration. Il a transformé leur vie à jamais. A Welton, un austère collège du Vermont, dans les années 60, la vie studieuse des pensionnaires est bouleversée par l'arrivée d'un nouveau professeur de lettres, M. Keating. Ce pédagogue peu orthodoxe va leur communiquer sa passion de la poésie, de la liberté, de l'anticonformisme, secouant la poussière des autorités parentales, académiques et sociales. Même si le drame - le suicide d'un adolescent - déchire finalement cette expérience unique, même si Keating doit quitter le collège, il restera pour tous celui qui leur a fait découvrir le sens de la vie.");
+                     -> setResume("Il fut leur inspiration. Il a transformé leur vie à jamais. A Welton, un austère collège du Vermont, dans les années 60, la vie studieuse des pensionnaires est bouleversée par l'arrivée d'un nouveau professeur de lettres, M. Keating. Ce pédagogue peu orthodoxe va leur communiquer sa passion de la poésie, de la liberté, de l'anticonformisme, secouant la poussière des autorités parentales, académiques et sociales. Même si le drame - le suicide d'un adolescent - déchire finalement cette expérience unique, même si Keating doit quitter le collège, il restera pour tous celui qui leur a fait découvrir le sens de la vie.")
+                     -> setImagelivre($ImageLDPS);
 		$manager->persist($LivreDPS);
 		
 		$LivreGdM = new Livre();
@@ -439,7 +509,8 @@ class Oeuvres implements FixtureInterface
 						-> setOeuvre($oeuvreGdM )
 						-> setAnnee(1898)
 						-> setResume("Un soir de juin 1900, un météore s'abat prés de Londres, bientôt suivi de nombreux autres. Des cratères calcinés qu'ils ont creusés dans le sol émergent alors d'énormes tripodes de métal, terrifiants engins de guerre venus de Mars pour envahir la Terre!
-                            Face à leur rayon mortel, les armes terrestres s'avèrent dérisoires et les survivants ne peuvent que fuir à travers les ruines fumantes des villes et  les campagnes ravagées pour tenter d'échapper à une mort qui semble inéluctable.");
+                            Face à leur rayon mortel, les armes terrestres s'avèrent dérisoires et les survivants ne peuvent que fuir à travers les ruines fumantes des villes et  les campagnes ravagées pour tenter d'échapper à une mort qui semble inéluctable.")
+                            -> setImagelivre($ImageLGdM);
 		$manager->persist($LivreGdM );
 		
 		$LivreDiv1 = new Livre();
@@ -448,7 +519,8 @@ class Oeuvres implements FixtureInterface
 						-> setEditeur($EditeurNathan)
 						-> setOeuvre($oeuvreDiv)
 						-> setAnnee(2011)
-						-> setResume("Tris vit dans un monde post apocalyptique où la société est divisée en cinq clans (Audacieux, Erudits, Altruistes, Sincères, Fraternels). A 16 ans, elle doit choisir son appartenance pour le reste de sa vie. Cas rarissime, son test d’aptitudes n’est pas concluant ; elle est Divergente. Les Divergents sont des individus rares n’appartenant à aucun clan et sont traqués par le gouvernement. Dissimulant son secret, elle intègre l’univers brutal des Audacieux dont l’entrainement est basé sur la maitrise de nos peurs les plus intimes.");
+						-> setResume("Tris vit dans un monde post apocalyptique où la société est divisée en cinq clans (Audacieux, Erudits, Altruistes, Sincères, Fraternels). A 16 ans, elle doit choisir son appartenance pour le reste de sa vie. Cas rarissime, son test d’aptitudes n’est pas concluant ; elle est Divergente. Les Divergents sont des individus rares n’appartenant à aucun clan et sont traqués par le gouvernement. Dissimulant son secret, elle intègre l’univers brutal des Audacieux dont l’entrainement est basé sur la maitrise de nos peurs les plus intimes.")
+						-> setImagelivre($ImageLDiv1);
 		$manager->persist($LivreDiv1);
 		
 		$LivreDiv2 = new Livre();
@@ -457,7 +529,8 @@ class Oeuvres implements FixtureInterface
 						-> setEditeur($EditeurNathan)
 						-> setOeuvre($oeuvreDiv)
 						-> setAnnee(2012)
-						-> setResume("Un choix peut vous transformer — ou encore vous détruire. Mais chaque choix comporte son lot de conséquences, et alors qu’elle est entourée d’une vague de mécontentement au sein des factions, Tris Prior doit encore essayer de sauver ceux qu’elle aime — ainsi qu’elle-même — tout en luttant contre des questions de douleur et de pardon, d’identité et de loyauté, de politique et d’amour. Le jour de l’initiation de Tris aurait dû être marqué par la célébration et la victoire auprès de sa faction; au contraire, cette journée se termina par des horreurs indescriptibles. La guerre menace d’éclater alors que le conflit croît entre les factions aux idéologies différentes. Et en temps de guerre, les camps se forment, les secrets émergent, et les choix se font du plus en plus irrévocables — et d’autant plus puissants. Transformée par ses propres décisions, mais aussi rongée par la douleur et le remords, des découvertes radicales et des relations changeantes, Tris devra embrasser pleinement sa Divergence, même si elle n’a pas conscience de ce qu’elle pourrait perdre en suivant cette voie.");
+						-> setResume("Un choix peut vous transformer — ou encore vous détruire. Mais chaque choix comporte son lot de conséquences, et alors qu’elle est entourée d’une vague de mécontentement au sein des factions, Tris Prior doit encore essayer de sauver ceux qu’elle aime — ainsi qu’elle-même — tout en luttant contre des questions de douleur et de pardon, d’identité et de loyauté, de politique et d’amour. Le jour de l’initiation de Tris aurait dû être marqué par la célébration et la victoire auprès de sa faction; au contraire, cette journée se termina par des horreurs indescriptibles. La guerre menace d’éclater alors que le conflit croît entre les factions aux idéologies différentes. Et en temps de guerre, les camps se forment, les secrets émergent, et les choix se font du plus en plus irrévocables — et d’autant plus puissants. Transformée par ses propres décisions, mais aussi rongée par la douleur et le remords, des découvertes radicales et des relations changeantes, Tris devra embrasser pleinement sa Divergence, même si elle n’a pas conscience de ce qu’elle pourrait perdre en suivant cette voie.")
+						-> setImagelivre($ImageLDiv2);
 		$manager->persist($LivreDiv2);
 		
 		$LivreDiv3 = new Livre();
@@ -466,7 +539,8 @@ class Oeuvres implements FixtureInterface
 						-> setEditeur($EditeurNathan)
 						-> setOeuvre($oeuvreDiv)
 						-> setAnnee(2013)
-						-> setResume("Tris et ses alliés ont renversé leurs ennemis, mais le combat ne s'arrête pas là : la ville a été mise à sac par la guerre. La société en laquelle elle croyait autrefois est rongée par la violence et les luttes de pouvoir. Quand on lui offre une chance d'explorer le monde au-delà des limites qu'elle connaît, Tris est prëte. Peut-être qu'au-delà des frontières, Tobias et elle trouveront une nouvelle vie, sans mensonges ni trahisons. Mais le monde qu'il découvrent au-delà de la Clôture ne correspond en rien à ce qu'on leur a dit. Ils apprennent ainsi que leur ville, Chicago, fait partie d'une expérience censée sauver l'humanité contre sa propre dégénérescence. Mais l'Humanité peut-être être sauvée contre elle-même ?");
+						-> setResume("Tris et ses alliés ont renversé leurs ennemis, mais le combat ne s'arrête pas là : la ville a été mise à sac par la guerre. La société en laquelle elle croyait autrefois est rongée par la violence et les luttes de pouvoir. Quand on lui offre une chance d'explorer le monde au-delà des limites qu'elle connaît, Tris est prëte. Peut-être qu'au-delà des frontières, Tobias et elle trouveront une nouvelle vie, sans mensonges ni trahisons. Mais le monde qu'il découvrent au-delà de la Clôture ne correspond en rien à ce qu'on leur a dit. Ils apprennent ainsi que leur ville, Chicago, fait partie d'une expérience censée sauver l'humanité contre sa propre dégénérescence. Mais l'Humanité peut-être être sauvée contre elle-même ?")
+						-> setImagelivre($ImageLDiv3);
 		$manager->persist($LivreDiv3);
 		
 		$LivreCOE = new Livre();
@@ -475,7 +549,8 @@ class Oeuvres implements FixtureInterface
 						-> setEditeur($EditeurCCC)
 						-> setOeuvre($oeuvreCOE)
 						-> setAnnee(1934)
-						-> setResume("Hercule Poirot, venu résoudre une affaire, est en Syrie à la gare d’Alep, à 5 heures du matin. Il repart à Istanbul où il compte faire un peu de tourisme. Quand il arrive à l’hôtel, le concierge, lui donne un télégramme lui disant de retourner à Londres. Il prend alors un billet pour l’Orient-Express en direction de Londres et va manger au restaurant de l’hôtel. Il reconnait son ami M. Bouc qui va aussi en direction de Londres. Dans le train, M. Ratchett, un riche américain est tué au milieu de la nuit. Il examine le corps avec l’aide du docteur Constantine. Il a été tué de douze coups de couteau. M. Poirot découvre vite que le vrai nom de M. Ratchett est Cassetti, connu comme ayant dirigé la bande qui avait enlevé la petite Daisy Armstrong et exigé une rançon de deux cent mille dollars. Le cadavre de la petite fille fut retrouvé après le paiement de la rançon. Traumatisée, la mère de Daisy mourut en accouchant d’un deuxième enfant et son mari, désespéré, se tira une balle dans la tête. Poirot, en collaboration avec M. Bouc et le docteur Constantine, interroge les passagers du train et découvre un grand nombre d’informations complémentaires.");
+						-> setResume("Hercule Poirot, venu résoudre une affaire, est en Syrie à la gare d’Alep, à 5 heures du matin. Il repart à Istanbul où il compte faire un peu de tourisme. Quand il arrive à l’hôtel, le concierge, lui donne un télégramme lui disant de retourner à Londres. Il prend alors un billet pour l’Orient-Express en direction de Londres et va manger au restaurant de l’hôtel. Il reconnait son ami M. Bouc qui va aussi en direction de Londres. Dans le train, M. Ratchett, un riche américain est tué au milieu de la nuit. Il examine le corps avec l’aide du docteur Constantine. Il a été tué de douze coups de couteau. M. Poirot découvre vite que le vrai nom de M. Ratchett est Cassetti, connu comme ayant dirigé la bande qui avait enlevé la petite Daisy Armstrong et exigé une rançon de deux cent mille dollars. Le cadavre de la petite fille fut retrouvé après le paiement de la rançon. Traumatisée, la mère de Daisy mourut en accouchant d’un deuxième enfant et son mari, désespéré, se tira une balle dans la tête. Poirot, en collaboration avec M. Bouc et le docteur Constantine, interroge les passagers du train et découvre un grand nombre d’informations complémentaires.")
+						-> setImagelivre($ImageLCOE);
 		$manager->persist($LivreCOE);
         		 
 		 /* ******************************************************* */

@@ -17,6 +17,14 @@
       border-radius: 25px 10px / 10px 25px;
    }
    
+   #aCentrer{
+       
+       
+       text-align:center;
+       
+       
+   }
+   
 
    #Livre{
       text-align:justify;
@@ -27,19 +35,13 @@
       border-radius: 35px;
    }
    
-   #aCentrer{
-       text-align:center;
-   }
-   
    .thumbnail {
-      width: 250px;
-      height: 175px;
+      width: auto;
+      height: auto;
       overflow: hidden;
+      max-width:175px;
+      max-height:175px;
    }
-   
-   #prim {
-    font-size: 20px;
-    }
    
 </style>
 
@@ -47,16 +49,13 @@
 <div class="container" style="background-color: #F7F5F0">
     
 <div class="row">
-        
-<div class="col-lg-1"></div>
 
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         
         
         <br>
             <div id=titre1>
-                <span class="glyphicon glyphicon-book" aria-hidden="true" id="prim"></span>
-               <b> Livres</b>
+               <b>Livres</b>
             </div>
         <br>
 
@@ -82,17 +81,17 @@
             
             <div class="panel-footer">
             
-               <div class="col-sm-3" style="float:right" align="right">
-                    <p id="aCentrer">
+               <div class="col-sm-4" style="float:right" align="right" id="aCentrer">
+
                   <span class="glyphicon glyphicon-book" aria-hidden="true"></span> 
                   <b>Editeur :</b>
                   {{LivreCourant[0].editeur.nom}}
-                  </p>
+                  
                </div>
                
-               <div class="col-sm-3" style="" align="left">
+               <div class="col-sm-4"  style="" align="left" id="aCentrer">
                   
-                     <p id="aCentrer">
+                     
                   <b>Auteur(s) :</b>
                   <br>
             
@@ -100,8 +99,7 @@
                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                      {{auteurCourant.label}}
                   {%endfor%}
-                     </P>
-                     
+                  
                </div>
                
                 
@@ -137,9 +135,7 @@
 
 
 </div>
-
-<div class="col-lg-1"></div>
-    
+ 
 </div>
 
 {% endblock %}

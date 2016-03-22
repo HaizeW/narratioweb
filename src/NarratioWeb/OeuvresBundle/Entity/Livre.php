@@ -53,7 +53,7 @@ class Livre
     /**
      * @ORM\OneToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Image")
      */
-    private $image;
+    private $imageLivre;
 
     /**
      * Get id
@@ -195,24 +195,24 @@ class Livre
     }
     
     /**
-     * Set image
+     * Set imageLivre
      *
-     * @param \NarratioWeb\OeuvresBundle\Entity\Image $image
+     * @param \NarratioWeb\OeuvresBundle\Entity\Image $imageLivre
      * @return Livre
      */
-    public function setImage(\NarratioWeb\OeuvresBundle\Entity\Image $image = null)
+    public function setImagelivre(\NarratioWeb\OeuvresBundle\Entity\Image $imageLivre = null)
     {
-        $this->image = $image;
+        $this->imageLivre = $imageLivre;
         return $this;
     }
     /**
-     * Get image
+     * Get imageLivre
      *
      * @return \NarratioWeb\OeuvresBundle\Entity\Image 
      */
-    public function getImage()
+    public function getImageLivre()
     {
-        return $this->image;
+        return $this->imageLivre;
     }
 
     /**

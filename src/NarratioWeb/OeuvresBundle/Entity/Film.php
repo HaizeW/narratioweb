@@ -63,6 +63,11 @@ class Film
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
      */
     private $oeuvre;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Image")
+     */
+    private $imageFilm;
 
     /**
      * Get id
@@ -229,6 +234,27 @@ class Film
     public function getOeuvre()
     {
         return $this->oeuvre;
+    }
+    
+    /**
+     * Set imageFilm
+     *
+     * @param \NarratioWeb\OeuvresBundle\Entity\Image $imageFilm
+     * @return Film
+     */
+    public function setImageFilm(\NarratioWeb\OeuvresBundle\Entity\Image $imageFilm = null)
+    {
+        $this->imageFilm = $imageFilm;
+        return $this;
+    }
+    /**
+     * Get imageFilm
+     *
+     * @return \NarratioWeb\OeuvresBundle\Entity\Image 
+     */
+    public function getImageFilm()
+    {
+        return $this->imageFilm;
     }
 
     /**

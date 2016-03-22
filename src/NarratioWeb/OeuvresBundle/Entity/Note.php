@@ -28,6 +28,11 @@ class Note
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
      */
     private $oeuvre;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="NarratioWeb\UserBundle\Entity\User")
+     */
+    private $utilisateur;
     /**
      * Get id
      *
