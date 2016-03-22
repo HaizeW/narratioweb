@@ -12,4 +12,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class NoteRepository extends EntityRepository
 {
+    
+    public function getNotesByOeuvre($idOeuvre)
+    {
+        
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT n FROM NarratioWebOeuvresBundle:Note n
+                                                                    WHERE n.oeuvre = :idOeuvre
+                                                        ');
+                                         
+        // je definis mes parametres
+        $requetePerso->setParameter('idOeuvre', $idOeuvre);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+        
+    }
+    
 }

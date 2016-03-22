@@ -242,7 +242,7 @@ class Film
      * @param \NarratioWeb\OeuvresBundle\Entity\Image $imageFilm
      * @return Film
      */
-    public function setImageFilm(\NarratioWeb\OeuvresBundle\Entity\Image $imageFilm = null)
+    public function setImagefilm(\NarratioWeb\OeuvresBundle\Entity\Image $imageFilm = null)
     {
         $this->imageFilm = $imageFilm;
         return $this;

@@ -118,6 +118,31 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                     $resImdb = null;
                                     
                                 }
+                                
+                                
+                // je charge mon repository de Note pour executer une requete sur la BD
+                $repositoryNotes = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Note');
+                // j'execute la requete perso pour remplir un tableau de notes en accord avec le formulaire de page d'acceuil
+                $tabNotes = $repositoryNotes->getNotesByOeuvre($idOeuvre);
+                    
+                    if($tabNotes != null)
+                    {
+                        $note=0;
+                        $q=0;
+                        for($q=0; $q<count($tabNotes); $q++)
+                        {
+                            // je calcule la note
+                            $note = $note + $tabNotes[$q]->getValeur();
+                            $note = $note / count($tabNotes);
+                            // je l'arrondis pour afficher n étoiles
+                            $note = round($note);
+                        }
+                        
+                    }
+                    else
+                    {
+                        $note = null;
+                    }
                         
         	
                     //On augmente le compteur de vues de l'oeuvre !
@@ -134,7 +159,8 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb
+                                                                                'resImdb'=>$resImdb,
+                                                                                'note'=>$note
                                                                                 ));
         	}
     	}
@@ -270,6 +296,33 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                     $resImdb = null;
                                     
                                 }
+                                
+                                
+                // je charge mon repository de Note pour executer une requete sur la BD
+                $repositoryNotes = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Note');
+                // j'execute la requete perso pour remplir un tableau de notes en accord avec le formulaire de page d'acceuil
+                $tabNotes = $repositoryNotes->getNotesByOeuvre($idOeuvre);
+                    
+                    //var_dump($tabNotes);
+                    
+                    if($tabNotes != null)
+                    {
+                        $note=0;
+                        $q=0;
+                        for($q=0; $q<count($tabNotes); $q++)
+                        {
+                            // je calcule la note
+                            $note = $note + $tabNotes[$q]->getValeur();
+                            $note = $note / count($tabNotes);
+                            // je l'arrondis pour afficher n étoiles
+                            $note = round($note);
+                        }
+                        
+                    }
+                    else
+                    {
+                        $note = null;
+                    }    
                                         
                                         
                                         //On augmente le compteur de vues de l'oeuvre !
@@ -285,7 +338,8 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb
+                                                                                'resImdb'=>$resImdb,
+                                                                                'note'=>$note
                                                                                 ));
                                     }
                                 else 
@@ -374,7 +428,33 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                     $resImdb = null;
                                     
                                 }
-                                                
+                                
+                                
+                // je charge mon repository de Note pour executer une requete sur la BD
+                $repositoryNotes = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Note');
+                // j'execute la requete perso pour remplir un tableau de notes en accord avec le formulaire de page d'acceuil
+                $tabNotes = $repositoryNotes->getNotesByOeuvre($idOeuvre);
+                    
+                    //var_dump($tabNotes);
+                    
+                    if($tabNotes != null)
+                    {
+                        $note=0;
+                        $q=0;
+                        for($q=0; $q<count($tabNotes); $q++)
+                        {
+                            // je calcule la note
+                            $note = $note + $tabNotes[$q]->getValeur();
+                            $note = $note / count($tabNotes);
+                            // je l'arrondis pour afficher n étoiles
+                            $note = round($note);
+                        }
+                        
+                    }
+                    else
+                    {
+                        $note = null;
+                    }                
                                         
                                         //On augmente le compteur de vues de l'oeuvre !
                                         $compteur = $oeuvre->getCompteurVues();
@@ -389,7 +469,8 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb
+                                                                                'resImdb'=>$resImdb,
+                                                                                'note'=>$note
                                                                                 ));
                                     }
                                    
@@ -507,6 +588,8 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
         if ($this->getRequest()->get('action-type-films') =='Rechercher') //($formulaireRechAvanceeFilms->isSubmitted())
         {
             
+            if($page=)
+            
                 // on recupere les données du form dans un tableau
                 $tabChoixResFilms = $formulaireRechAvanceeFilms -> getData();
             
@@ -538,18 +621,17 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImages = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                                /*
+                                
                                         // je prepare mon tableau d'images des oeuvres 
                                         $tabImages = array();
                                         $k=0;
                                                 for($k=0;$k<count($tabFilms);$k++)
                                                 {
                                                 
-                                                    $tabImages[$k] = $repositoryImages->getImageByFilm($tabFilms[$k]->getImageLivre());
+                                                    $tabImages[$k] = $repositoryImages->getImageByFilm($tabFilms[$k]->getImageFilm());
                                                     
                                                 }
-                                */
-$tabImages = $repositoryImages -> getImageSugg();
+                                
                                 }
                                     
                 $q = 0;
@@ -560,7 +642,7 @@ $tabImages = $repositoryImages -> getImageSugg();
                     
                     $tabRes[$q][$c] = $tabFilms[$q];
                     $c++;
-                    $tabRes[$q][$c] = $tabImages[$q];//[0];
+                    $tabRes[$q][$c] = $tabImages[$q][0];
                     $c=0;
                 }
                 
@@ -569,7 +651,8 @@ $tabImages = $repositoryImages -> getImageSugg();
             
                 return $this->render('NarratioWebOeuvresBundle:Default:oeuvreAvanceeFilms.html.twig', 
                                 array(
-                                        'tabRes'=>$tabRes
+                                        'tabRes'=>$tabRes,
+                                        'page'=>$page
                                 ));
         }
         
@@ -641,9 +724,17 @@ $tabImages = $repositoryImages -> getImageSugg();
                                 ));
         }
         
+        // je met page a 0 pour la premiere fois que ca affiche
+        $page=0;
         
         // ici, on affiche la page dont le formulaire permettant le choix d'une oeuvre via Random
-        return $this->render('NarratioWebOeuvresBundle:Default:rechercheAvancee.html.twig', array('formFilms'=>$formulaireRechAvanceeFilms->createView(), 'formLivres'=>$formulaireRechAvanceeLivres->createView()));
+        return $this->render('NarratioWebOeuvresBundle:Default:rechercheAvancee.html.twig', 
+        array(
+            'formFilms'=>$formulaireRechAvanceeFilms->createView(), 
+            'formLivres'=>$formulaireRechAvanceeLivres->createView(),
+            'page'=>$page
+            
+            ));
         
     }
 
@@ -749,10 +840,33 @@ public function voirOeuvreAction($id)
                                     $resImdb = null;
                                     
                                 }
-                                        
-                                    
+                                
+                                
+                // je charge mon repository de Note pour executer une requete sur la BD
+                $repositoryNotes = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Note');
+                // j'execute la requete perso pour remplir un tableau de notes en accord avec le formulaire de page d'acceuil
+                $tabNotes = $repositoryNotes->getNotesByOeuvre($idOeuvre);
+                    
+                    if($tabNotes != null)
+                    {
+                        $note=0;
+                        $q=0;
+                        for($q=0; $q<count($tabNotes); $q++)
+                        {
+                            // je calcule la note
+                            $note = $note + $tabNotes[$q]->getValeur();
+                            $note = $note / count($tabNotes);
+                            // je l'arrondis pour afficher n étoiles
+                            $note = round($note);
+                        }
+                        
+                    }
+                    else
+                    {
+                        $note = null;
+                    }
                             
-                                    //var_dump($tabFilms);
+                                    //var_dump($note);
                                         
                                 //On augmente le compteur de vues de l'oeuvre !
                                 $compteur = $oeuvre->getCompteurVues();
@@ -768,7 +882,8 @@ public function voirOeuvreAction($id)
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb
+                                                                                'resImdb'=>$resImdb,
+                                                                                'note'=>$note
                                                                                 ));
             
         }

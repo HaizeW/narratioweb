@@ -76,6 +76,26 @@ class ImageRepository extends EntityRepository
         return $tabResultats;
     }
     
+    public function getImageByFilm($idFilm) // OK
+    {
+        // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT i FROM NarratioWebOeuvresBundle:Image i
+                                                                        WHERE :idFilm = i.id
+                                                        ');
+                                        
+        // je definis mes parametres
+        $requetePerso->setParameter('idFilm', $idFilm);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+    
     
     
 }

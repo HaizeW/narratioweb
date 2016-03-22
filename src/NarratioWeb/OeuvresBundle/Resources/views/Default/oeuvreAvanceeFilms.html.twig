@@ -63,7 +63,7 @@
 
 
 
-        {% for FilmCourant in tabRes %}
+        {% for FilmCourant in tabRes |slice(0, 4) %}
             
     <!-- PANEL -->
     <div class="panel panel-default">
@@ -135,14 +135,18 @@
         {%endfor%}
 
 
+{% if tabRes|length > 5 %}
 
+{% set page = page + 1 %}
 
 <nav>
   <ul class="pager">
-    <li><a href="#">Precedent</a></li>
+    <li><a action="{{ path('narratio_web_oeuvres_oeuvreAvanceeFilms', {'page': page}) }}" href="#">Precedent</a></li>
     <li><a href="#">Suivant</a></li>
   </ul>
 </nav>
+
+{% endif %}
 
     
     

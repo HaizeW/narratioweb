@@ -7,11 +7,11 @@ narratio_web_oeuvres_rechercheAvancee:
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:rechercheAvancee }
     
 narratio_web_oeuvres_oeuvreAvanceeFilms:
-    path:     /oeuvreAvanceeFilms
+    path:     /oeuvreAvanceeFilms/{page}
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:oeuvreAvancee }
     
 narratio_web_oeuvres_oeuvreAvanceeLivres:
-    path:     /oeuvreAvanceeLivres
+    path:     /oeuvreAvanceeLivres/{page}
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:oeuvreAvancee }
     
 narratio_web_oeuvres_voirOeuvre:
