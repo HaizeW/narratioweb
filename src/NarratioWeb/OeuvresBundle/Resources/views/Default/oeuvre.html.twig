@@ -265,20 +265,20 @@
             <b>Notation :</b>
          
          {% if note is not null %}
-            
-            
+
+         {% if note != 0 %}
             {% for i in 1..note %}
          {% set nameP = i %}
-{{i}}
+
                <a href="{{ path('narratio_web_oeuvres_vote', {'id':id, 'nEtoile':nameP }) }}" class="no-decoration"><span style="font-size:1.5em;" class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
             
             {% endfor %}
-            
+         {% endif %}
             {% for j in note .. 4 %}
                {%if note == 5%}
                
                {%else%}
-{{j}}
+
          {% set nameV = j %}
                   <a href="{{ path('narratio_web_oeuvres_vote', {'id':id, 'nEtoile':nameV }) }}" class="no-decoration"><span style="font-size:1.5em;" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></a>
                {%endif%}
@@ -287,11 +287,7 @@
          {% endif %}
             
          </div>
-         <div align="center">
 
-
-         </div>
-         
             <br>
             <b>Nombre de vues :</b> {{oeuvre.compteurVues}}
          </div>

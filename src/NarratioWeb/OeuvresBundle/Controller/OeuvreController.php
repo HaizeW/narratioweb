@@ -42,8 +42,8 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
         
         // -- FORMULAIRE DE RECHERCHE NOMINALE
         $formulaireRechercheNominale = $this->createFormBuilder($rechercheNominale)
-            ->add('nom', 'genemu_jqueryautocomplete_entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Oeuvre',
-                                                                    'property' => 'nom'))
+            ->add('nom', 'genemu_jqueryautocomplete_entity', array('route_name' => 'ajax_oeuvre',
+                                                                    'class' => 'NarratioWeb\OeuvresBundle\Entity\Oeuvre',))
         	->getForm();
         
         // enregistrement des données dans $tabChoix apres soumission
