@@ -107,3 +107,6 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [175, 175], mode: outbound }
+                
+genemu_form:
+    autocomplete: ~

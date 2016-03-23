@@ -25,7 +25,9 @@
         "sonata-project/doctrine-orm-admin-bundle": "^2.3",
         "liip/imagine-bundle": "^1.5",
         "damianociarla/rating-bundle": "^1.2",
-        "pugx/autocompleter-bundle": "^1.2"
+        "pugx/autocompleter-bundle": "^1.2",
+        
+        "genemu/form-bundle": "2.2.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

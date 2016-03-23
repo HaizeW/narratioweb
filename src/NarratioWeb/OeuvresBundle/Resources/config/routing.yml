@@ -19,6 +19,12 @@ narratio_web_oeuvres_voirOeuvre:
     defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:voirOeuvre }
     requirements:
         id: \d+
+        
+narratio_web_oeuvres_vote:
+    path:     /oeuvre/{id}/{nEtoile}
+    defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:vote }
+    requirements:
+        id: \d+
 
 narratio_web_oeuvres_oeuvreMenu:
     path:     /oeuvre/{id}

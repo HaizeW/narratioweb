@@ -8,7 +8,8 @@ use OC\PlatformBundle\Entity\Advert;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-//use Oeuvre;
+use NarratioWeb\OeuvresBundle\Entity\Oeuvre;
+use NarratioWeb\OeuvresBundle\Entity\Note;
 
 class OeuvreController extends Controller
 {
@@ -41,10 +42,9 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
         
         // -- FORMULAIRE DE RECHERCHE NOMINALE
         $formulaireRechercheNominale = $this->createFormBuilder($rechercheNominale)
-            ->add('nom','text',array('required'=>false))
+            ->add('nom', 'genemu_jqueryautocomplete_entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Oeuvre',
+                                                                    'property' => 'nom'))
         	->getForm();
-        	
-        
         
         // enregistrement des données dans $tabChoix apres soumission
         $formulaireChoix->handleRequest($requeteUtilisateurChoix);
@@ -270,24 +270,26 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                                 $l++;
                                                         }
                                         
-                                        
-                                // WEB SERVICE IMDB pour plus d'infos
-                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
+                                // je prepare mes parametres pour le web service de IMDB
+                                $titre = $tabFilms[0]->getOeuvre()->getNom();     
+                                $annee = $tabFilms[0]->getAnnee();
+                                // j'ajoute le %20 a la place des espaces
+                                $titreUrl=rawurlencode($titre);
+                                 
+                                // je recupere le web service pour voir si ca echoue ou pas
+                                $resImdbBrut=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
+                                // je le decode pour avoir l objet et non la string
+                                $resImdb=json_decode($resImdbBrut);
+                                $resImdbBool=$resImdb->{'Response'};
+                                
+                                if ($resImdbBool != "False")
                                 {
-
-                                        $titre = $oeuvre->getNom();
-                                        
-                                        //$annee = $oeuvre ->getAnnee();
-                                        
-                                        // je recupere le json
-                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
-                                        
-                                        // je decode le json
-                                        $resImdb=json_decode($json);
-                                        
-                                        
-                                        
-                                        //var_dump($resImdb);
+                                            
+                                    // je recupere le json
+                                    $json=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
+                                    
+                                    // je decode le json
+                                    $resImdb=json_decode($json);
                                         
                                 }
                                 else
@@ -403,23 +405,26 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                 }
                                                 
                                         
-                                        // WEB SERVICE IMDB pour plus d'infos
-                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
+                                // je prepare mes parametres pour le web service de IMDB
+                                $titre = $tabFilms[0]->getOeuvre()->getNom();     
+                                $annee = $tabFilms[0]->getAnnee();
+                                // j'ajoute le %20 a la place des espaces
+                                $titreUrl=rawurlencode($titre);
+                                 
+                                // je recupere le web service pour voir si ca echoue ou pas
+                                $resImdbBrut=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
+                                // je le decode pour avoir l objet et non la string
+                                $resImdb=json_decode($resImdbBrut);
+                                $resImdbBool=$resImdb->{'Response'};
+                                
+                                if ($resImdbBool != "False")
                                 {
-
-                                        $titre = $oeuvre->getNom();
-                                        
-                                        //$annee = $oeuvre ->getAnnee();
-                                        
-                                        // je recupere le json
-                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
-                                        
-                                        // je decode le json
-                                        $resImdb=json_decode($json);
-                                        
-                                        
-                                        
-                                        //var_dump($resImdb);
+                                            
+                                    // je recupere le json
+                                    $json=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
+                                    
+                                    // je decode le json
+                                    $resImdb=json_decode($json);
                                         
                                 }
                                 else
@@ -876,11 +881,10 @@ public function voirOeuvreAction($id)
                         {
                             // je calcule la note
                             $note = $note + $tabNotes[$q]->getValeur();
+                        }
                             $note = $note / count($tabNotes);
                             // je l'arrondis pour afficher n étoiles
                             $note = round($note);
-                        }
-                        
                     }
                     else
                     {
@@ -897,7 +901,8 @@ public function voirOeuvreAction($id)
                                 $gestionnaireEntite->flush();               
             
             // je retourne la vue avec les oeuvres a mettre en forme
-            return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  'tabLivres'=>$tabLivres,
+            return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  
+                                                                                'tabLivres'=>$tabLivres,
                                                                                 'tabFilms'=>$tabFilms,
                                                                                 'image'=>$image,
                                                                                 'oeuvre'=>$oeuvre,
@@ -1117,9 +1122,53 @@ public function oeuvreAvanceeLivresAction($page, $tabLivresIdBrut, $livresId)
         return $this->render('NarratioWebOeuvresBundle:Default:sInscrire.html.twig');
     }
 
+
+
+public function voteAction($id, $nEtoile)
+    {
+        
+        
+        switch ($nEtoile)
+        {
+            case 1:     $note =  1;
+                        
+                        break;
+                        
+            case 2:     $note =  2;
+                        break;
+                        
+            case 3:     $note =  3;
+                        break;
+                        
+            case 4:     $note =  4;
+                        break;
+                        
+            case 5:     $note =  5;
+                        break;
+                        
+        }
+        
+        // je recupère l'oeuvre noté
+        $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
+        // On récupère l'oeuvre ayant pour identifiant $id
+        $oeuvre = $repositoryOeuvre->findOneById($id);
+        
+        // J'ajoute la note
+        $laNote = new Note();
+        $laNote->setValeur($note);
+        $laNote->setOeuvre($oeuvre);
+                //On met en BD !!
+                $gestionnaireEntite = $this->getDoctrine()->getManager();
+                $gestionnaireEntite->persist($laNote);
+                $gestionnaireEntite->flush();
+//var_dump($laNote);
+
+        // je retourne vers la même oeuvre
+        return $this->voirOeuvreAction($id);
+    }
+
+
 }
-
-
 /*
 
 
