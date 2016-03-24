@@ -16,12 +16,12 @@ class MyClassAjaxController extends Controller
         $value = $request->get('term');
 
         $em = $this->getDoctrine()->getEntityManager();
-        $oeuvres = $em->getRepository('NarratioWebOeuvresBundle:Oeuvre')->findAjaxValue($value);
+        $oeuvres = $em->getRepository('OeuvresBundle:Oeuvre')->findAjaxValue($value);
 
         $json = array();
         foreach ($oeuvres as $oeuvre) {
             $json[] = array(
-                'value' => $oeuvre->getName()
+                'value' => $oeuvre->getNom()
             );
         }
 

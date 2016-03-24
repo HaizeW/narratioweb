@@ -36,7 +36,7 @@ class Livre
      */
     private $annee;
     /**
-     * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Auteur")
+     * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Auteur", cascade={"persist"})
      */
     private $auteur;
     
@@ -111,7 +111,7 @@ class Livre
      * @return Livre
      */
      
-    public function setAuteur(\NarratioWeb\OeuvresBundle\Entity\Epoque $auteur = null)
+    public function setAuteur(\NarratioWeb\OeuvresBundle\Entity\Epoque $auteur)
     {
         $this->auteur = $auteur;
         return $this;

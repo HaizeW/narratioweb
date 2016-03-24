@@ -93,6 +93,25 @@ class OeuvreRepository extends EntityRepository
         return $tabResultats;
     }
     
+    public function getDerniereOeuvre() // OK
+    {
+         // appel du gestionnaire d'entité
+        $gestionnaireEntite = $this->_em;
+        
+        // ecriture de la requete personnalisée
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT o.id, o.nom, o FROM NarratioWebOeuvresBundle:Oeuvre o ORDER BY o.compteurVues DESC');
+                                            
+        //je fixe ma limite à 1 résultat
+        $requetePerso->setMaxResults(1);
+        
+        // execution de la requete et recup du resultat
+        $tabResultats = $requetePerso -> getResult();
+        
+        // retour du resultat
+        return $tabResultats;
+    }
+
+    
     public function getOeuvreChoixAvancee($choixEpoque, $choixGenre, $choixTrancheAge, $choixThematique) // OK
     {
         

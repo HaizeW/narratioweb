@@ -19,7 +19,7 @@ narratio_web_oeuvres_voirOeuvre:
     defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:voirOeuvre }
     requirements:
         id: \d+
-        
+       
 narratio_web_oeuvres_vote:
     path:     /oeuvre/{id}/{nEtoile}
     defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:vote }
@@ -29,16 +29,12 @@ narratio_web_oeuvres_vote:
 narratio_web_oeuvres_oeuvreMenu:
     path:     /oeuvre/{id}
     defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:oeuvre }
-    
-naratio_web_oeuvres_test:
-    path: /haize
-    defaults:   { _controller: NarratioWebOeuvresBundle:Oeuvre:test }
-    
-narratio_web_oeuvres_connexion:
-    path:     /accueil/connexion
-    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:connexion }
 
-narratio_web_oeuvres_inscription:
-    path:     /accueil/inscription
-    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:inscription }
-    
+#Pages réservées aux membres
+narratio_web_oeuvres_ajouterOeuvre:
+    path:     /membre/ajoutOeuvre
+    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:ajouterOeuvre }
+
+narratio_web_oeuvres_modifierOeuvre:
+    path:     /membre/modifierOeuvre/{type}/{id}
+    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:modifierOeuvre }

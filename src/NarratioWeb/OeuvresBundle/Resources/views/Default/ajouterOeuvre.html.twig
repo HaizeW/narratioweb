@@ -1,0 +1,79 @@
+{% extends "::vueMere.html.twig" %} {#La vue fille 1 hérite de la vue mère #}
+{% block body %} 
+
+<style type="text/css">
+a {
+color : #7D3232;
+}
+a:hover {
+color : #7D3232;
+}
+</style>
+
+<!-- onglets -->
+<div class="container" style="background-color: #F7F5F0">
+   <div class="row">
+      <ul class="nav nav-tabs nav-justified">
+         <li class="active"><a data-toggle="tab" href="#Oeuvre" name="oeuvre"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b> Ajouter l'Oeuvre</b></a></li>
+         <li ><a data-toggle="tab" href="#ImageOeuvre" name="imageO"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span><b> Ajouter l'image de l'Oeuvre</b></a></li>
+         <li ><a data-toggle="tab" href="#Livre" name="livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><b> Ajouter le(s) livre(s)</b></a></li>
+         <li><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><b> Ajouter le(s) film(s)</b></a></li>
+      </ul>
+      <!-- PREMIER ONGLET Oeuvre -->
+      <div class="tab-content" >
+         <div id="Oeuvre" class="tab-pane fade in active">
+            <div class = "panel panel-default">
+               <div class= "panel-heading">
+                  <h4>
+                     <center>Ajouter une oeuvre</center>
+                  </h4>
+               </div>
+               {# novalidate sert à supprimer la vérif côté client #}
+               <form method="post" novalidate="novalidate"
+               {{ form_enctype(formulaireOeuvre) }}> 
+               {{ form_widget(formulaireOeuvre) }} 
+               <input type="submit" class="btn btn-primary" />
+               </form>
+            </div>
+         </div>
+         <!-- DEUXIEME ONGLET ImageOeuvre -->
+        <div id="ImageOeuvre" class="tab-pane fade">
+        	<div class = "panel panel-default">
+               <div class= "panel-heading">
+                  <h4>
+                     <center>Ajouter l'image de l'oeuvre</center>
+                  </h4>
+               </div>
+               <form method="post" novalidate="novalidate"
+               {{ form_enctype(formulaireImage) }}> 
+               {{ form_widget(formulaireImage) }} 
+               <input type="submit" class="btn btn-primary" />
+               </form>
+            </div>
+        </div>	
+        <!-- TROISIEME ONGLET Livres -->
+        <div id="Livre" class="tab-pane fade">
+        	<div class = "panel panel-default">
+               <div class= "panel-heading">
+                  <h4>
+                     <center>Ajouter le(s) livre(s)</center>
+                  </h4>
+               </div>
+               <!-- FORMULAIRE DES LIVRES -->
+            </div>
+        </div>
+        <!-- QUATRIEME ONGLET Films -->
+        <div id="Film" class="tab-pane fade">
+        	<div class = "panel panel-default">
+               <div class= "panel-heading">
+                  <h4>
+                     <center>Ajouter le(s) film(s)</center>
+                  </h4>
+               </div>
+               <!-- FORMULAIRE DES FILMS -->
+            </div>
+        </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

@@ -1,0 +1,404 @@
+{%extends 'vueMere.html.twig' %}
+
+{% block body %}
+
+
+{# On charge la bibliothèque jQuery #}
+<script src="{{ asset('js/jquery.js')}}"></script>
+
+<style type="text/css">
+	#titre1{
+	color:#F6EFD2;
+	text-align:center;
+	font-size:30px;
+	font-family: garamond;
+	background-color:#212524;
+	text-decoration:none;
+	border-color:#7D3232;
+	border-width:25%;
+	border-radius: 25px 10px / 10px 25px;
+	border-radius: 25px 10px / 10px 25px;
+	}
+	.h5{
+	text-align:center;
+	font-size:20px;
+	text-decoration:none;
+	color:#7D3232;
+	}
+	#ptitle{
+	padding:10px;
+	color:white;
+	text-align:center;
+	font-style:italic;
+	font-weight:bold;
+	font-size:20px;
+	font-family: georgia;
+	text-shadow: 2px 2px #000;
+	text-shadow: -1px 0 #151515, 1px 0 #151515, 0 1px #000, 0 -1px #151515;
+	color: #fff;
+	}
+	.panel > .panel-heading {
+	color: white;
+	height:60px;
+	}
+	.panel{
+	color: white;
+	}
+	.list-group-item {
+	color: black;
+	}
+	
+</style>
+
+<div class="container" style="background-color: #F7F5F0">
+
+{% if type == 'monOeuvre' %}
+
+	<form action="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monOeuvre', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
+		
+		<div class="panel panel-default">
+  		<!-- Default panel contents -->
+  			<div class="panel-heading" style=" background-image:url({{ asset(image |default('undefined'))}}); -webkit-filter:opacity(50%);">
+  			<h3 id=ptitle align="center" class="panel-title" >{{obj[0].nom}}</h3>
+  			</div>
+		
+			<div class="panel-body">
+				<!-- panel body -->    
+				<div class="h5"><h5><b>Modifier {{obj[0].nom}} grâce à ce formulaire !</b></h5></div>
+				
+        		<div class="row">
+        			
+        			
+        		    <div class="col-md-6" align="center">
+        			
+        				<ul class="list-group">
+        				
+        					<li class="list-group-item">
+        		                <center><b>Genre : </b>{{form_widget(monForm.Genre)}}</center>
+        		            </li>
+        		                
+        		            <li class="list-group-item">
+        		                <center><b>Thematique : </b>{{form_widget(monForm.Thematique)}}</center>
+        		            </li>
+        				
+        					<li class="list-group-item">
+        						<center><b>Epoque : </b>{{form_widget(monForm.Epoque)}}</center>
+        					</li>
+        						
+        					<li class="list-group-item">
+        		                <center><b>Produits dérivés : </b>{{form_widget(monForm.ProduitDerive, { 'attr': { 'rows' : '10', 'cols' : '20' }})}}</center>
+        		        	</li>
+        		        	
+        		        	<li class="list-group-item">
+        		                <center><b>Image de l'oeuvre : </b>{{form_widget(monForm.Image)}}</center>
+        		        	</li>
+        		        
+        		        </ul>
+        		        
+        			</div>
+        			
+        			<div class="col-md-6" align="center">
+        			
+        				<ul class="list-group">
+        			
+        					<li class="list-group-item">
+        						<center><b>Tranche d'Age : </b>{{form_widget(monForm.TrancheAge)}}</center>
+        					</li>
+        			
+        					<li class="list-group-item">
+        		                <center><b>Concept de l'oeuvre : </b>{{form_widget(monForm.Concept, { 'attr': { 'rows' : '20', 'cols' : '30' }})}}</center>
+        		            </li>
+        		                
+        		        </ul>
+        		        
+        			</div>
+        		            
+        		            
+        		</div>
+			
+			</div>
+			
+			<div class="panel-footer">
+				
+				<center> <input name="action-type-oeuvre" value="Valider" type="submit" class="btn btn-warning" id="oeuvre"/> </center> 
+				
+			</div>
+			
+		</div>
+			
+	</form>
+
+{% endif %}
+
+{% if type == 'monLivre' %}
+
+{# Script permettant d'ajouter et supprimer dynamiquement des formulaires auteurs #}
+<script type="text/javascript">
+    $(document).ready(function() {
+        // On récupère la balise <div>qui contient l'attribut « data-prototype » qui nous intéresse.
+        var $codeHtmlFormulaireAuteur = $('div#form_Auteur');
+        // On ajoute un lien pour ajouter une nouvel auteur
+        var $lienAjoutAuteur = $('<a href="#" id="add_auteur">Ajouter un auteur</a>');
+        $codeHtmlFormulaireAuteur.append($lienAjoutAuteur);
+        // On ajoute un nouveau champ auteur à chaque clic sur le lien d'ajout.
+        $lienAjoutAuteur.click(function(e) {
+            addAuteur($codeHtmlFormulaireAuteur);
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+        });
+        // On définit un compteur unique pour nommer les champs Auteur qu'on va ajouter dynamiquement
+        var compteurAuteurs = $codeHtmlFormulaireAuteur.find(':input').length;
+        // On ajoute le code html d'un premier formulaire Auteur s'il n'en existe pas déjà un (cas d'ajout d'un nouveau livre).
+        if (compteurAuteurs == 0) {
+            addAuteur($codeHtmlFormulaireAuteur);
+        } else {
+            // Pour chaque formulaire auteur affiché, on ajoute un lien de suppression
+            $codeHtmlFormulaireAuteur.children('div').each(function() {
+                ajouterLienSuppression($(this));
+            });
+        }
+        // La fonction qui ajoute un formulaire Auteur
+        function addAuteur($codeHtmlFormulaireAuteur) {
+            // Dans le contenu de l'attribut « data-prototype », on remplace :
+            // - le texte "__name__label__" qu'il contient par notre label (ici un label vide pour ne pas surcharger le formulaire)
+            // - le texte "__name__" qu'il contient par le numéro du champ
+            var $codeHtmlNouvelAuteur = $($codeHtmlFormulaireAuteur.attr('data-prototype').replace(/__name__label__/g, ' ')
+                                          .replace(/__name__/g, compteurAuteurs));
+            // On ajoute au code html un lien pour pouvoir supprimer l'auteur
+            ajouterLienSuppression($codeHtmlNouvelAuteur);
+            // On ajoute le code html qu'on vient de modifier à la fin de la balise <div>
+            $codeHtmlFormulaireAuteur.append($codeHtmlNouvelAuteur);
+            // On incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+            compteurAuteurs++;
+        }
+        // La fonction qui ajoute un lien de suppression d'un auteur
+        function ajouterLienSuppression($codeHtmlNouvelAuteur) {
+            // Création du lien
+            $lienSuppression = $('<a href="#">Supprimer cet auteur</a>');
+            // Ajout du lien
+            $codeHtmlNouvelAuteur.append($lienSuppression);
+            // Ajout du listener sur le clic du lien
+            $lienSuppression.click(function(e) {
+                $codeHtmlNouvelAuteur.remove();
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+        }
+    });
+</script>
+    
+
+
+	<form action="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monLivre', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
+		
+		<div class="panel panel-default">
+  		<!-- Default panel contents -->
+  			<div class="panel-heading" style=" background-image:url({{ asset(image |default('undefined'))}}); -webkit-filter:opacity(50%);">
+  			<h3 id=ptitle align="center" class="panel-title" >{{obj[0].titre}}</h3>
+  			</div>
+		
+			<div class="panel-body">
+				<!-- panel body -->    
+				<div class="h5"><h5><b>Modifier {{obj[0].titre}} grâce à ce formulaire !</b></h5></div>
+				
+        		<div class="row">
+        			
+        			
+        		    <div class="col-md-6" align="center">
+        			
+        				<ul class="list-group">
+        				
+        					<li class="list-group-item">
+        		                <center><b>Annee de parution : </b>{{form_widget(monForm.Annee)}}</center>
+        		            </li>
+        		                
+        		            <li class="list-group-item">
+        		                <center><b>Editeur : </b>{{form_widget(monForm.Editeur)}}</center>
+        					</li>
+        				
+        					<li class="list-group-item">
+        		                <center><b>Auteur(s) : </b>{{form_widget(monForm.Auteur)}}</center>
+        		        	</li>
+        		        
+        		        	<li class="list-group-item">
+        		                <center><b>Image du livre : </b>{{form_widget(monForm.Image)}}</center>
+        		        	</li>
+        		        
+        		        </ul>
+        		        
+        			</div>
+        			
+        			<div class="col-md-6" align="center">
+        				
+        				<ul class="list-group">
+        				
+        					<li class="list-group-item">
+        		                <center><b>Résumé : </b>{{form_widget(monForm.Resume, { 'attr': { 'rows' : '20', 'cols' : '30' }})}}</center>
+        		            </li>
+        		        </ul>
+        		         
+        			</div>
+        		            
+        		            
+        		</div>
+			
+			</div>
+			
+			<div class="panel-footer">
+				
+				<center> <input name="action-type-livre" value="Valider" type="submit" class="btn btn-warning" id="livre"/> </center> 
+				
+			</div>
+			
+		</div>
+			
+	</form>
+
+{% endif %}
+
+{% if type == 'monFilm' %}
+
+<script type="text/javascript">
+        $(document).ready(function() {
+        // On récupère la balise <div>qui contient l'attribut « data-prototype » qui nous intéresse.
+        var $codeHtmlFormulaireActeur = $('div#form_Acteur');
+        // On ajoute un lien pour ajouter une nouvel auteur
+        var $lienAjoutActeur = $('<a href="#" id="add_acteur">Ajouter un acteur</a>');
+        $codeHtmlFormulaireActeur.append($lienAjoutActeur);
+        // On ajoute un nouveau champ auteur à chaque clic sur le lien d'ajout.
+        $lienAjoutActeur.click(function(e) {
+            addActeur($codeHtmlFormulaireActeur);
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+        });
+        // On définit un compteur unique pour nommer les champs Auteur qu'on va ajouter dynamiquement
+        var compteurActeurs = $codeHtmlFormulaireActeur.find(':input').length;
+        // On ajoute le code html d'un premier formulaire Auteur s'il n'en existe pas déjà un (cas d'ajout d'un nouveau livre).
+        if (compteurActeurs == 0) {
+            addActeur($codeHtmlFormulaireActeur);
+        } else {
+            // Pour chaque formulaire auteur affiché, on ajoute un lien de suppression
+            $codeHtmlFormulaireActeur.children('div').each(function() {
+                ajouterLienSuppression($(this));
+            });
+        }
+        // La fonction qui ajoute un formulaire Auteur
+        function addActeur($codeHtmlFormulaireActeur) {
+            // Dans le contenu de l'attribut « data-prototype », on remplace :
+            // - le texte "__name__label__" qu'il contient par notre label (ici un label vide pour ne pas surcharger le formulaire)
+            // - le texte "__name__" qu'il contient par le numéro du champ
+            var $codeHtmlNouvelActeur = $($codeHtmlFormulaireActeur.attr('data-prototype').replace(/__name__label__/g, ' ')
+                                          .replace(/__name__/g, compteurActeurs));
+            // On ajoute au code html un lien pour pouvoir supprimer l'auteur
+            ajouterLienSuppression($codeHtmlNouvelActeur);
+            // On ajoute le code html qu'on vient de modifier à la fin de la balise <div>
+            $codeHtmlFormulaireActeur.append($codeHtmlNouvelActeur);
+            // On incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+            compteurActeurs++;
+        }
+        // La fonction qui ajoute un lien de suppression d'un auteur
+        function ajouterLienSuppression($codeHtmlNouvelActeur) {
+            // Création du lien
+            $lienSuppression = $('<a href="#">Supprimer cet acteur</a>');
+            // Ajout du lien
+            $codeHtmlNouvelActeur.append($lienSuppression);
+            // Ajout du listener sur le clic du lien
+            $lienSuppression.click(function(e) {
+                $codeHtmlNouvelActeur.remove();
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+        }
+    });
+</script>
+
+	<form action="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monFilm', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
+		
+		<div class="panel panel-default">
+  		<!-- Default panel contents -->
+  			<div class="panel-heading" style=" background-image:url({{ asset(image |default('undefined'))}}); -webkit-filter:opacity(50%);">
+  			<h3 id=ptitle align="center" class="panel-title" >{{obj[0].titre}}</h3>
+  			</div>
+		
+			<div class="panel-body">
+				<!-- panel body -->    
+				<div class="h5"><h5><b>Modifier {{obj[0].titre}} grâce à ce formulaire !</b></h5></div>
+				
+        		<div class="row">
+        			
+        			
+        			<div class="col-md-6" align="center">
+        					
+        				<ul class="list-group">
+        			
+        		             <li class="list-group-item">
+        		                <center><b>Annee de parution : </b>{{form_widget(monForm.Annee)}}</center>
+        		                 </li>
+        		                
+        		               <li class="list-group-item">
+        		                <center><b>Durée : </b>{{form_widget(monForm.Duree)}}</center>
+        		                 </li>
+        		                
+        		               <li class="list-group-item">
+        		                <center><b>Acteur(s) : </b>{{form_row(monForm.Acteur)}}</center>
+        		                 </li>
+        			
+        				</ul>
+        			
+        			</div>
+        			
+        			<ul class="list-group">
+        			
+        			<div class="col-md-6" align="center">
+        				
+        				<ul class="list-group">
+        			
+        					<li class="list-group-item">
+        		                <center><b>Type : </b>{{form_widget(monForm.Type)}}</center>
+        		                 </li>
+        		                
+        						<li class="list-group-item">
+        							<center><b>Réalisateur : </b></center>
+        		               		<div  class="col-md-6" align="left">{{form_widget(monForm.Realisateur.nom)}}</div>
+        		                	<div  class="col-md-6" align="right">{{form_widget(monForm.Realisateur.prenom)}}</div>
+        		                	<br>
+        		                	<br>
+        		                 </li>
+        		        
+        		        		<li class="list-group-item">
+        		                <center><b>Synopsis : </b>{{form_widget(monForm.Synopsis, { 'attr': { 'rows' : '20', 'cols' : '30' }})}}</center>
+        		                 </li>
+        		             
+        		        		<li class="list-group-item">
+        		                	<center><b>Image du film : </b>{{form_widget(monForm.Image)}}</center>
+        		        		</li>
+        		        
+        				</ul>
+        				   
+        			</div>
+        			
+        				  
+        		</div>
+			
+			</div>
+			
+			<div class="panel-footer">
+				
+				<center> <input name="action-type-film" value="Valider" type="submit" class="btn btn-warning" id="livre"/> </center> 
+				
+			</div>
+			
+		</div>
+			
+	</form>
+
+{% endif %}
+
+</div>
+
+
+    
+{% endblock %}
+
+
+        			

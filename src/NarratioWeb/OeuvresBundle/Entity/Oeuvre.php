@@ -147,6 +147,7 @@ class Oeuvre
         $this->prodDer = $prodDer;
         return $this;
     }
+    
     /**
      * Get prodDer
      *

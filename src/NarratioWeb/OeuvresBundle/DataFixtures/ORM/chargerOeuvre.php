@@ -1201,7 +1201,7 @@ class Oeuvres implements FixtureInterface
          /* Création des images                  */
         /* ******************************************************* */  
 		$ImageHG = new Image();
-		$ImageHG -> setUrl("http://invisiblechildren.com/wp-content/uploads/2014/11/hunger-games-movie-wp_trio01.jpg")
+		$ImageHG -> setUrl("http://cdn02.cdn.justjared.com/wp-content/uploads/headlines/2015/03/hunger-games-mockingjay-available-dvd.jpg")
 				-> setOeuvre($oeuvreHG);
 		$manager->persist($ImageHG);
 		

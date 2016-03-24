@@ -55,7 +55,7 @@ class Film
     private $realisateur;
     
     /**
-     * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Acteur")
+     * @ORM\ManyToMany(targetEntity="NarratioWeb\OeuvresBundle\Entity\Acteur", cascade={"persist"})
      */
     private $acteurs;
 

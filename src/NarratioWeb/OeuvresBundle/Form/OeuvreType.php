@@ -15,13 +15,33 @@ class OeuvreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('nom')
-            //->add('resume')
-            //->add('compteurVues')
-            ->add('epoque')
-            ->add('genre')
-            ->add('thematique')
-            ->add('trancheAge')
+            ->add('nom')
+            ->add('concept')
+            ->add('prodDer', 'text', array('label' => 'Produits dérivés'))
+            -> add('TrancheAge', 'entity',
+            array('label' => 'Tranche dÂge',
+            'class' => 'NarratioWebOeuvresBundle:TrancheAge',
+            'property' => 'intitule',
+            'multiple' => false,
+            'expanded' => false))
+            -> add('Epoque', 'entity',
+            array('label' => 'Epoque',
+            'class' => 'NarratioWebOeuvresBundle:Epoque',
+            'property' => 'intitule',
+            'multiple' => false,
+            'expanded' => false))
+            -> add('Genre', 'entity',
+            array('label' => 'Genre',
+            'class' => 'NarratioWebOeuvresBundle:Genre',
+            'property' => 'intitule',
+            'multiple' => false,
+            'expanded' => false))
+            -> add('Thematique', 'entity',
+            array('label' => 'Thématique',
+            'class' => 'NarratioWebOeuvresBundle:Thematique',
+            'property' => 'intitule',
+            'multiple' => false,
+            'expanded' => false))
         ;
     }
     

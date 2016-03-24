@@ -58,6 +58,11 @@ class Image
     {
         return $this->url;
     }
+    
+    public function __toString()
+    {
+        return $this->url;
+    }
     /**
      * Set oeuvre
      *
