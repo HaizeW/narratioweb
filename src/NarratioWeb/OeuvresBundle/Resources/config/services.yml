@@ -37,3 +37,21 @@ services:
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\TrancheAge, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: TrancheAge}
+
+    narratio_web_oeuvres.admin.auteur:
+        class: NarratioWeb\OeuvresBundle\Admin\AuteurAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Auteur, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Auteur}
+
+    narratio_web_oeuvres.admin.realisateur:
+        class: NarratioWeb\OeuvresBundle\Admin\RealisateurAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Realisateur, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Realisateur}
+
+    narratio_web_oeuvres.admin.acteur:
+        class: NarratioWeb\OeuvresBundle\Admin\ActeurAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Acteur, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Acteur}

@@ -1195,10 +1195,10 @@ public function ajouterOeuvreAction(Request $requeteUtilisateur)
 		$gestionnaireEntite -> flush();
 		
 		// on redirige l'utilisateur vers la page de l'oeuvre nouvellement ajoutée
-		return $this ->redirect($this -> generateUrl('narratio_web_oeuvres_oeuvre', array ('id'=>$oeuvre -> getId())));	
+		// return $this ->redirect($this -> generateUrl('narratio_web_oeuvres_oeuvre', array ('id'=>$oeuvre -> getId())));	
         }
         
-         // Créer un objet image vide
+        // Créer un objet image vide
 		$image = new Image();
 		
 		$formulaireImage = $this -> createForm(new ImageType, $image);
@@ -1503,11 +1503,10 @@ var_dump($tabAuteur);
 
     $auteurDuLivre = $livre->getAuteur()->toArray();
     $w=0;
-    $l=0;
     for($w=0; $w < count($tabAuteur); $w++)
     {
         
-        if($auteurDuLivre[$l] == $tabAuteur[$w])
+        if(in_array($auteurDuLivre[$w], $tabAuteur))
         {
             
         }
@@ -1515,11 +1514,11 @@ var_dump($tabAuteur);
         {
             
         }
-        $l++;
+        
     }
     
     
-var_dump($auteurDuLivre);
+var_dump(($auteurDuLivre[$w]);
         $repositoryAuteur = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Auteur');
         $t=0;
         for ($t=0; $t < count($tabAuteur)+1; $t++)

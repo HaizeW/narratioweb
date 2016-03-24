@@ -15,6 +15,7 @@ class LivreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('oeuvre')
             ->add('titre')
             ->add('auteur')
             ->add('editeur')

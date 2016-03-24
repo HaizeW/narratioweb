@@ -60,7 +60,12 @@ color : #7D3232;
                      <center>Ajouter le(s) livre(s)</center>
                   </h4>
                </div>
-               <!-- FORMULAIRE DES LIVRES -->
+                {# novalidate sert à supprimer la vérif côté client #}
+               <form method="post" novalidate="novalidate"
+               {{ form_enctype(formulaireLivre) }}> 
+               {{ form_widget(formulaireLivre) }} 
+               <input type="submit" class="btn btn-primary" />
+               </form>
             </div>
         </div>
         <!-- QUATRIEME ONGLET Films -->
@@ -71,7 +76,12 @@ color : #7D3232;
                      <center>Ajouter le(s) film(s)</center>
                   </h4>
                </div>
-               <!-- FORMULAIRE DES FILMS -->
+                {# novalidate sert à supprimer la vérif côté client #}
+               <form method="post" novalidate="novalidate"
+               {{ form_enctype(formulaireFilm) }}> 
+               {{ form_widget(formulaireFilm) }} 
+               <input type="submit" class="btn btn-primary" />
+               </form>
             </div>
         </div>
       </div>
