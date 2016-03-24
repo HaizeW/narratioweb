@@ -52,6 +52,15 @@ class OeuvreAdmin extends Admin
             ->add('nom')
             ->add('concept')
             ->add('prodDer', null, array('label' => 'Produits Derives'))
+            ->add('epoque', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Epoque', 
+                                  'multiple' => false, 
+                                  'expanded' => 'true'))
+            ->add('genre', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Genre', 
+                                  'multiple' => false, 
+                                  'expanded' => 'true'))
+            ->add('trancheAge', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\TrancheAge', 
+                                  'multiple' => false, 
+                                  'expanded' => 'true'))
         ;
     }
 

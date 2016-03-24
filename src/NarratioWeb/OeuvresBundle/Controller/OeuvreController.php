@@ -1176,7 +1176,7 @@ public function voteAction($id, $nEtoile)
     }
 
 
-public function ajouterOeuvreAction($id, Request $requeteUtilisateur)
+public function ajouterOeuvreAction(Request $requeteUtilisateur)
 {
          // Créer un objet oeuvre vide
 		$oeuvre = new Oeuvre();
@@ -1198,20 +1198,10 @@ public function ajouterOeuvreAction($id, Request $requeteUtilisateur)
 		return $this ->redirect($this -> generateUrl('narratio_web_oeuvres_oeuvre', array ('id'=>$oeuvre -> getId())));	
         }
         
-         // Créer un objet oeuvre vide
+         // Créer un objet image vide
 		$image = new Image();
 		
-		// Création du formulaire d'ajout d'une image à une oeuvre concrète
-		$repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
-		$oeuvre = $repositoryOeuvres->findById($id);
-        $obj = $oeuvre;
-        
-		$formulaireImage = $this -> createFormBuilder($image)
-            ->add('oeuvre', 'text',
-            array('data'=>$obj[0]->getDerniereOeuvre(),
-            'disabled'=>true))
-            ->add('url')
-            ->getForm();
+		$formulaireImage = $this -> createForm(new ImageType, $image);
 			
 		// Enregistrer après soumission du formulaire les données dans l'objet $image
 		$formulaireImage -> handleRequest($requeteUtilisateur);
@@ -1222,12 +1212,17 @@ public function ajouterOeuvreAction($id, Request $requeteUtilisateur)
 		$gestionnaireEntite = $this -> getDoctrine() -> getManager();
 		$gestionnaireEntite -> persist($image);
 		$gestionnaireEntite -> flush();
+		
         }
-    
-        // Envoi du formulaire à la vue chargée de l'afficher 
-        return $this->render('NarratioWebOeuvresBundle:Default:ajouterOeuvre.html.twig', array('formulaireOeuvre' => $formulaireOeuvre -> createView(),
-                                                                                                'formulaireImage' => $formulaireImage -> createView()));
+        
+         // Envoi du formulaire à la vue chargée de l'afficher 
+    return $this->render('NarratioWebOeuvresBundle:Default:ajouterOeuvre.html.twig', array('formulaireOeuvre' => $formulaireOeuvre -> createView(),
+                                                                                            'formulaireImage' => $formulaireImage -> createView()));
 }
+
+        
+    
+
         
 
 public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, Request $requeteUtilisateurF, Request $requeteUtilisateurO)
@@ -1495,7 +1490,7 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         
             // je charge mon repository de Film pour executer une requete sur la BD
             $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
-            // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
+            // j'execute la requete perso
             $livre = $repositoryLivres->findById($id);
         $livre=$livre[0];
         
@@ -1503,8 +1498,28 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $livre->setResume($Resume);
         $livre->setAnnee($Annee);
         $tabAuteur = $Auteur->toArray();
+        
 var_dump($tabAuteur);
 
+    $auteurDuLivre = $livre->getAuteur()->toArray();
+    $w=0;
+    $l=0;
+    for($w=0; $w < count($tabAuteur); $w++)
+    {
+        
+        if($auteurDuLivre[$l] == $tabAuteur[$w])
+        {
+            
+        }
+        else
+        {
+            
+        }
+        $l++;
+    }
+    
+    
+var_dump($auteurDuLivre);
         $repositoryAuteur = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Auteur');
         $t=0;
         for ($t=0; $t < count($tabAuteur)+1; $t++)
@@ -1537,7 +1552,7 @@ var_dump($tabAuteur);
             }
             }
         }
-var_dump($monAuteur);
+
                 //On met en BD !!
                 $gestionnaireEntite = $this->getDoctrine()->getManager();
                 $gestionnaireEntite->persist($livre);

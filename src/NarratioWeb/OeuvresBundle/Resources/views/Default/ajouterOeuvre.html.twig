@@ -44,6 +44,7 @@ color : #7D3232;
                      <center>Ajouter l'image de l'oeuvre</center>
                   </h4>
                </div>
+                {# novalidate sert à supprimer la vérif côté client #}
                <form method="post" novalidate="novalidate"
                {{ form_enctype(formulaireImage) }}> 
                {{ form_widget(formulaireImage) }} 

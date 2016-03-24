@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class LivreAdmin extends Admin
+class GenreAdmin extends Admin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,7 +17,7 @@ class LivreAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('titre')
+            ->add('intitule')
         ;
     }
 
@@ -28,7 +28,7 @@ class LivreAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('titre')
+            ->add('intitule')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -45,12 +45,7 @@ class LivreAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('titre')
-            ->add('resume')
-            ->add('annee')
-            ->add('oeuvre', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Oeuvre', 
-                                  'multiple' => false, 
-                                  'expanded' => 'true'))
+            ->add('intitule')
         ;
     }
 
@@ -61,8 +56,7 @@ class LivreAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('titre')
-            ->add('resume')
+            ->add('intitule')
         ;
     }
 }

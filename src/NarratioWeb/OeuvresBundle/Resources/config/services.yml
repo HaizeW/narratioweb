@@ -19,3 +19,21 @@ services:
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\Film, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: Film}
+
+    narratio_web_oeuvres.admin.epoque:
+        class: NarratioWeb\OeuvresBundle\Admin\EpoqueAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Epoque, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Epoque}
+
+    narratio_web_oeuvres.admin.genre:
+        class: NarratioWeb\OeuvresBundle\Admin\GenreAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Genre, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Genre}
+
+    narratio_web_oeuvres.admin.tranche_age:
+        class: NarratioWeb\OeuvresBundle\Admin\TrancheAgeAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\TrancheAge, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TrancheAge}
