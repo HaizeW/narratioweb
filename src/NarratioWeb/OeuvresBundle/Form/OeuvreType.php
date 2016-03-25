@@ -15,29 +15,30 @@ class OeuvreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('concept')
+            ->add('nom', 'text', array('label' => 'Nom de l\'oeuvre'))
+            ->add('concept', 'text', array('label' => 'Concept de l\'oeuvre'))
             ->add('prodDer', 'text', array('label' => 'Produits dérivés'))
+            ->add('image', 'text', array('label' => 'Image de l\'oeuvre'), new ImageType())
             -> add('TrancheAge', 'entity',
-            array('label' => 'Tranche dÂge',
+            array('label' => 'Tranche d\'Âge de l\'oeuvre',
             'class' => 'NarratioWebOeuvresBundle:TrancheAge',
             'property' => 'intitule',
             'multiple' => false,
             'expanded' => false))
             -> add('Epoque', 'entity',
-            array('label' => 'Epoque',
+            array('label' => 'Epoque de l\'oeuvre',
             'class' => 'NarratioWebOeuvresBundle:Epoque',
             'property' => 'intitule',
             'multiple' => false,
             'expanded' => false))
             -> add('Genre', 'entity',
-            array('label' => 'Genre',
+            array('label' => 'Genre de l\'oeuvre',
             'class' => 'NarratioWebOeuvresBundle:Genre',
             'property' => 'intitule',
             'multiple' => false,
             'expanded' => false))
             -> add('Thematique', 'entity',
-            array('label' => 'Thématique',
+            array('label' => 'Thématique de l\'oeuvre',
             'class' => 'NarratioWebOeuvresBundle:Thematique',
             'property' => 'intitule',
             'multiple' => false,

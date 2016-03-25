@@ -1,12 +1,13 @@
 <style type="text/css"> 
+
 	#user {
 	/*position:fixed;*/
-	top:10px;
-	right:30;
-	/* z-index:100; */
-	background-color:#fff;
+	margin-top:3em;
+	margin-right:3em;
+
 	border-radius: 5px;
 	}
+
 	#titre:link, #titre:link, #titre:hover, #titre:active{
 	text-align: center;
 	font-family: garamond;
@@ -27,6 +28,7 @@
 	width:8em;
 	height:2em;
 	}
+	
 
 </style>
 
@@ -51,9 +53,15 @@
 			<div class="row">
 				<div class="col-lg-12">
 					{% block header2 %}
-					<div id="user" style='float:right;'>
-						{#{% include "NarratioWebUserBundle:login.html.twig" %}#}
-					</div>
+						<div id="user" style='float:right;'>
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+					    <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+						{% else %}
+						<a href="{{ path ('fos_user_security_login') }}">Connexion</a>
+						<br/>
+						<a href="{{ path ('fos_user_registration_register') }}">Inscription</a>
+						{% endif %}
+						</div>
 					{% endblock %}
 				</div>
 			</div>

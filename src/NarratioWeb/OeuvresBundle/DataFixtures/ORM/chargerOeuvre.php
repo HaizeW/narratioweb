@@ -123,6 +123,49 @@ class Oeuvres implements FixtureInterface
 		$trancheGrandPub = new TrancheAge();
 		$trancheGrandPub->setIntitule("Grand Public");
 		$manager->persist($trancheGrandPub);
+		
+		 /* ******************************************************* */
+         /* Création des images des oeuvres                  */
+        /* ******************************************************* */  
+		$ImageHG = new Image();
+		$ImageHG -> setUrl("http://cdn02.cdn.justjared.com/wp-content/uploads/headlines/2015/03/hunger-games-mockingjay-available-dvd.jpg");
+		$manager->persist($ImageHG);
+		
+		$ImageNEC = new Image();
+		$ImageNEC  -> setUrl("http://www.photogeniques.fr/wp-content/uploads/2014/09/The-Fault-in-Our-Stars_tfios_Nos-etoiles-contraires_okay-okay.jpg");
+		$manager->persist($ImageNEC);
+		
+		$ImageFCM = new Image();
+		$ImageFCM  -> setUrl("https://parfoissarah.files.wordpress.com/2015/08/ii.png?w=300&h=300");
+		$manager->persist($ImageFCM);
+		
+		$ImageLOTR = new Image();
+		$ImageLOTR  -> setUrl("https://www.nivsbling.com/wp-content/uploads/imported/8MM-Gold-Silver-Black-Lord-of-The-Rings-HOBBIT-Tungsten-Carbide-Band-Mens-Ring-201355151163-2.jpg");
+		$manager->persist($ImageLOTR);
+		
+		$ImageCyrano = new Image();
+		$ImageCyrano -> setUrl("http://thewrittenreel.files.wordpress.com/2011/10/418984_cyrano-de-bergerac.jpg");
+		$manager->persist($ImageCyrano);
+		
+		$ImageHobbit = new Image();
+		$ImageHobbit -> setUrl("http://www.lescinemasaixois.com/films/medias/photo18_8616.jpg");
+		$manager->persist($ImageHobbit);
+		
+		$ImageDPS = new Image();
+		$ImageDPS -> setUrl("http://www.glamourparis.com/uploads/images/thumbs/201130/robin_153092376_north_607x.jpg");
+		$manager->persist($ImageDPS);
+		
+		$ImageGdM = new Image();
+		$ImageGdM -> setUrl("http://fr.web.img6.acsta.net/medias/nmedia/18/35/50/73/18430317.jpg");
+		$manager->persist($ImageGdM );
+		
+		$ImageDiv = new Image();
+		$ImageDiv -> setUrl("http://www.junkiexl.com/wp-content/uploads/2015/04/tom-holkenborg-junkie-xl-divergent-soundtrack.jpg");
+		$manager->persist($ImageDiv);
+		
+		$ImageCOE = new Image();
+		$ImageCOE -> setURL("http://fr.web.img4.acsta.net/pictures/14/08/14/15/42/182502.jpg");
+		$manager->persist($ImageCOE);
         
         /* ******************************************************* */
          /* Création des oeuvres          */
@@ -136,6 +179,7 @@ class Oeuvres implements FixtureInterface
 						-> setGenre($genreScienceFiction)
 						-> setThematique($themeDictature)
 						-> setTrancheAge($trancheGrandPub)
+						-> setImage($ImageHG)
 						-> setCompteurVues(0);
 		$manager->persist($oeuvreHG);
 				
@@ -149,6 +193,7 @@ class Oeuvres implements FixtureInterface
 							-> setGenre($genreDrame)
 							-> setThematique($themeSens)
 							-> setTrancheAge($trancheAdo)
+							-> setImage($ImageNEC)
 							-> setCompteurVues(0);
 				$manager->persist($oeuvreNEC);
 		 
@@ -160,6 +205,7 @@ class Oeuvres implements FixtureInterface
                     -> setGenre($genreDrame)
                     -> setThematique($themeSens)
                     -> setTrancheAge($trancheAdo)
+                    -> setImage($ImageFCM)
                     -> setCompteurVues(0);
 		$manager->persist($oeuvreFCM);
 		
@@ -171,6 +217,7 @@ class Oeuvres implements FixtureInterface
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheAdulte)
                     ->setProdDer("Tous types de produits dérivés sont trouvables : jeux videos, jeux de société, vetements, l'Anneau, ainsi que des figurines en tous genres (exposition, jeu de role ou maquette à taille réelle).")
+                    -> setImage($ImageLOTR)
                     -> setCompteurVues(0);
 		$manager->persist($oeuvreLOTR);
 		
@@ -182,6 +229,7 @@ class Oeuvres implements FixtureInterface
                     -> setThematique($themeRomantisme)
                     ->setTrancheAge($trancheGrandPub)
                     ->setProdDer("Accessoires et déguisements d'époque, le fameux modèle d'épée du héro, la 'rapière' ainsi que de faux nez en plastique pour se mettre dans la peau du personange.")
+                    -> setImage($ImageCyrano)
                     ->setCompteurVues(0);
 		$manager->persist($oeuvreCyrano);
 		
@@ -193,6 +241,7 @@ class Oeuvres implements FixtureInterface
                     -> setThematique($themeQuete)
                     -> setTrancheAge($trancheGrandPub)
                     ->setProdDer("Il y a tout types de produits qui sont dérivés de cette oeuvre : des jeux vidéos, des figurines, ou encore des costumes.")
+                    -> setImage($ImageHobbit)
                     -> setCompteurVues(0);
 		$manager->persist($oeuvreHobbit);
 		
@@ -204,6 +253,7 @@ class Oeuvres implements FixtureInterface
                     -> setGenre($genreDrame)
                     -> setThematique($themeEcole)
                     -> setTrancheAge($trancheGrandPub)
+                    -> setImage($ImageDPS)
                     -> setCompteurVues(0);
 		$manager->persist($oeuvreDPS);
 		
@@ -216,6 +266,7 @@ class Oeuvres implements FixtureInterface
 						-> setGenre($genreScienceFiction)
 						-> setThematique($themeSurvie )
 						-> setTrancheAge($trancheAdulte)
+						-> setImage($ImageGdM)
 						-> setCompteurVues(0);
 		$manager->persist($oeuvreGdM );
 		
@@ -227,6 +278,7 @@ class Oeuvres implements FixtureInterface
 						-> setGenre($genreAction)
 						-> setThematique($themeDictature)
 						-> setTrancheAge($trancheAdo)
+						-> setImage($ImageDiv)
 						-> setCompteurVues(0);
 		$manager->persist($oeuvreDiv);
 		
@@ -238,6 +290,7 @@ class Oeuvres implements FixtureInterface
 						-> setGenre($genreAction)
 						-> setThematique($themeEnquete)
 						-> setTrancheAge($trancheGrandPub)
+						-> setImage($ImageCOE)
 						-> setCompteurVues(0);
 		$manager->persist($oeuvreCOE);
 		
@@ -1197,61 +1250,9 @@ class Oeuvres implements FixtureInterface
 						-> setImagefilm($ImageFCOE);
 		$manager->persist($FilmCOE);
 		 
-		 /* ******************************************************* */
-         /* Création des images                  */
-        /* ******************************************************* */  
-		$ImageHG = new Image();
-		$ImageHG -> setUrl("http://cdn02.cdn.justjared.com/wp-content/uploads/headlines/2015/03/hunger-games-mockingjay-available-dvd.jpg")
-				-> setOeuvre($oeuvreHG);
-		$manager->persist($ImageHG);
-		
-		$ImageNEC = new Image();
-		$ImageNEC  -> setUrl("http://www.photogeniques.fr/wp-content/uploads/2014/09/The-Fault-in-Our-Stars_tfios_Nos-etoiles-contraires_okay-okay.jpg")
-                    -> setOeuvre($oeuvreNEC);
-		$manager->persist($ImageNEC);
-		
-		$ImageFCM = new Image();
-		$ImageFCM  -> setUrl("https://parfoissarah.files.wordpress.com/2015/08/ii.png?w=300&h=300")
-                    -> setOeuvre($oeuvreFCM);
-		$manager->persist($ImageFCM);
-		
-		$ImageLOTR = new Image();
-		$ImageLOTR  -> setUrl("https://www.nivsbling.com/wp-content/uploads/imported/8MM-Gold-Silver-Black-Lord-of-The-Rings-HOBBIT-Tungsten-Carbide-Band-Mens-Ring-201355151163-2.jpg")
-                    ->setOeuvre($oeuvreLOTR);
-		$manager->persist($ImageLOTR);
-		
-		$ImageCyrano = new Image();
-		$ImageCyrano -> setUrl("http://thewrittenreel.files.wordpress.com/2011/10/418984_cyrano-de-bergerac.jpg")
-                      -> setOeuvre($oeuvreCyrano);
-		$manager->persist($ImageCyrano);
-		
-		$ImageHobbit = new Image();
-		$ImageHobbit -> setUrl("http://www.lescinemasaixois.com/films/medias/photo18_8616.jpg")
-                      -> setOeuvre($oeuvreHobbit);
-		$manager->persist($ImageHobbit);
-		
-		$ImageDPS = new Image();
-		$ImageDPS -> setUrl("http://www.glamourparis.com/uploads/images/thumbs/201130/robin_153092376_north_607x.jpg")
-                      -> setOeuvre($oeuvreDPS);
-		$manager->persist($ImageDPS);
-		
-		$ImageGdM = new Image();
-		$ImageGdM -> setUrl("http://fr.web.img6.acsta.net/medias/nmedia/18/35/50/73/18430317.jpg")
-				-> setOeuvre($oeuvreGdM);
-		$manager->persist($ImageGdM );
-		
-		$ImageDiv = new Image();
-		$ImageDiv -> setUrl("http://www.junkiexl.com/wp-content/uploads/2015/04/tom-holkenborg-junkie-xl-divergent-soundtrack.jpg")
-				-> setOeuvre($oeuvreDiv);
-		$manager->persist($ImageDiv);
-		
-		$ImageCOE = new Image();
-		$ImageCOE -> setURL("http://fr.web.img4.acsta.net/pictures/14/08/14/15/42/182502.jpg")
-		          -> setOeuvre($oeuvreCOE);
-		$manager->persist($ImageCOE);
 		
 		/* ******************************************************* */
-         /* Création des images                  */
+         /* Création des notes                  */
         /* ******************************************************* */  
         
         $noteHG = new Note();

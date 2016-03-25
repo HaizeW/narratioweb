@@ -68,6 +68,11 @@ class Oeuvre
     private $trancheAge;
     
     /**
+     * @ORM\OneToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Image")
+     */
+    private $image;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -241,5 +246,28 @@ class Oeuvre
         public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \NarratioWeb\OeuvresBundle\Entity\Image $image
+     * @return Oeuvre
+     */
+    public function setImage(\NarratioWeb\OeuvresBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \NarratioWeb\OeuvresBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

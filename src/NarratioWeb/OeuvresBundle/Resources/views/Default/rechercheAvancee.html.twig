@@ -54,14 +54,6 @@
     
 </style>
 
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-{% else %}
-    {% render "FOSUserBundle:Security:login" %}
-{% endif %}
-
-
-
 <!-- Ligne 1 -->
 <div class="row">
     <div class="col-lg-12" align="center">

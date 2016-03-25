@@ -2,68 +2,75 @@ services:
 #    narratio_web_oeuvres.example:
 #        class: NarratioWeb\OeuvresBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
-    narratio_web_oeuvres.admin.oeuvre:
-        class: NarratioWeb\OeuvresBundle\Admin\OeuvreAdmin
-        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Oeuvre, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Oeuvre}
-
-    narratio_web_oeuvres.admin.livre:
-        class: NarratioWeb\OeuvresBundle\Admin\LivreAdmin
-        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Livre, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Livre}
-
-    narratio_web_oeuvres.admin.film:
-        class: NarratioWeb\OeuvresBundle\Admin\FilmAdmin
-        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Film, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Film}
-
-    narratio_web_oeuvres.admin.epoque:
-        class: NarratioWeb\OeuvresBundle\Admin\EpoqueAdmin
-        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Epoque, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Epoque}
-
-    narratio_web_oeuvres.admin.genre:
-        class: NarratioWeb\OeuvresBundle\Admin\GenreAdmin
-        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Genre, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Genre}
 
     narratio_web_oeuvres.admin.tranche_age:
         class: NarratioWeb\OeuvresBundle\Admin\TrancheAgeAdmin
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\TrancheAge, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: TrancheAge}
+            - {name: sonata.admin, manager_type: orm, group: Gestion des critères de recherche, label: Tranches d'Âge}
+    
+    narratio_web_oeuvres.admin.epoque:
+        class: NarratioWeb\OeuvresBundle\Admin\EpoqueAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Epoque, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des critères de recherche, label: Époques}
 
+    narratio_web_oeuvres.admin.genre:
+        class: NarratioWeb\OeuvresBundle\Admin\GenreAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Genre, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des critères de recherche, label: Genres}
+            
+    narratio_web_oeuvres.admin.image:
+        class: NarratioWeb\OeuvresBundle\Admin\ImageAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Image, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des images, label: Images}
+    
+    narratio_web_oeuvres.admin.oeuvre:
+        class: NarratioWeb\OeuvresBundle\Admin\OeuvreAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Oeuvre, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des oeuvres, label: Oeuvres}
+
+    narratio_web_oeuvres.admin.livre:
+        class: NarratioWeb\OeuvresBundle\Admin\LivreAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Livre, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des livres, label: Livres}
+            
     narratio_web_oeuvres.admin.auteur:
         class: NarratioWeb\OeuvresBundle\Admin\AuteurAdmin
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\Auteur, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Auteur}
+            - {name: sonata.admin, manager_type: orm, group: Gestion des livres, label: Auteurs}
+            
+    narratio_web_oeuvres.admin.editeur:
+        class: NarratioWeb\OeuvresBundle\Admin\EditeurAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Editeur, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des livres, label: Editeurs}
+
+    narratio_web_oeuvres.admin.film:
+        class: NarratioWeb\OeuvresBundle\Admin\FilmAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Film, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des films, label: Films}
+            
+    narratio_web_oeuvres.admin.acteur:
+        class: NarratioWeb\OeuvresBundle\Admin\ActeurAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Acteur, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Gestion des films, label: Acteurs}
 
     narratio_web_oeuvres.admin.realisateur:
         class: NarratioWeb\OeuvresBundle\Admin\RealisateurAdmin
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\Realisateur, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Realisateur}
-
-    narratio_web_oeuvres.admin.acteur:
-        class: NarratioWeb\OeuvresBundle\Admin\ActeurAdmin
-        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Acteur, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Acteur}
-
-    narratio_web_oeuvres.admin.editeur:
-        class: NarratioWeb\OeuvresBundle\Admin\EditeurAdmin
-        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Editeur, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Editeur}
+            - {name: sonata.admin, manager_type: orm, group: Gestion des films, label: Realisateurs}
 
     narratio_web_oeuvres.admin.type:
         class: NarratioWeb\OeuvresBundle\Admin\TypeAdmin
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\Type, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: Type}
+            - {name: sonata.admin, manager_type: orm, group: Gestion des films, label: Types}

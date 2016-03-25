@@ -13,7 +13,6 @@
    <div class="row">
       <ul class="nav nav-tabs nav-justified">
          <li class="active"><a data-toggle="tab" href="#Oeuvre" name="oeuvre"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b> Ajouter l'Oeuvre</b></a></li>
-         <li ><a data-toggle="tab" href="#ImageOeuvre" name="imageO"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span><b> Ajouter l'image de l'Oeuvre</b></a></li>
          <li ><a data-toggle="tab" href="#Livre" name="livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><b> Ajouter le(s) livre(s)</b></a></li>
          <li><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><b> Ajouter le(s) film(s)</b></a></li>
       </ul>
@@ -27,27 +26,33 @@
                   </h4>
                </div>
                {# novalidate sert à supprimer la vérif côté client #}
-               <form method="post" novalidate="novalidate"
-               {{ form_enctype(formulaireOeuvre) }}> 
-               {{ form_widget(formulaireOeuvre) }} 
+               
+               <ul class="list-group">
+        				
+        					<li class="list-group-item">
+        		                <center><b>Genre : </b>{{form_widget(monForm.Genre)}}</center>
+        		            </li>
+        		                
+        		            <li class="list-group-item">
+        		                <center><b>Thematique : </b>{{form_widget(monForm.Thematique)}}</center>
+        		            </li>
+        				
+        					<li class="list-group-item">
+        						<center><b>Epoque : </b>{{form_widget(monForm.Epoque)}}</center>
+        					</li>
+        						
+        					<li class="list-group-item">
+        		                <center><b>Produits dérivés : </b>{{form_widget(monForm.ProduitDerive, { 'attr': { 'rows' : '10', 'cols' : '20' }})}}</center>
+        		        	</li>
+        		        	
+        		        	<li class="list-group-item">
+        		                <center><b>Image de l'oeuvre : </b>{{form_widget(monForm.Image)}}</center>
+        		        	</li>
+        		        
+        		        </ul>
+               
                <input type="submit" class="btn btn-primary" />
-               </form>
-            </div>
-         </div>
-         <!-- DEUXIEME ONGLET ImageOeuvre -->
-         <div id="ImageOeuvre" class="tab-pane fade">
-            <div class = "panel panel-default">
-               <div class= "panel-heading">
-                  <h4>
-                     <center>Ajouter l'image de l'oeuvre</center>
-                  </h4>
-               </div>
-               {# novalidate sert à supprimer la vérif côté client #}
-               <form method="post" novalidate="novalidate"
-               {{ form_enctype(formulaireImage) }}> 
-               {{ form_widget(formulaireImage) }} 
-               <input type="submit" class="btn btn-primary" />
-               </form>
+              
             </div>
          </div>
          <!-- TROISIEME ONGLET Livres -->

@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class TypeAdmin extends Admin
+class ImageAdmin extends Admin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,7 +17,7 @@ class TypeAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('intitule')
+            ->add('url')
         ;
     }
 
@@ -28,7 +28,7 @@ class TypeAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('intitule')
+            ->add('url')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -45,7 +45,7 @@ class TypeAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('intitule')
+            ->add('url')
         ;
     }
 
@@ -56,7 +56,7 @@ class TypeAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('intitule')
+            ->add('url')
         ;
     }
 }

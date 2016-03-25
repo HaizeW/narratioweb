@@ -256,7 +256,7 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
                                                 $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
-
+//var_dump($tabImage);
                                                 // je definis l'image de l'oeuvre
                                                 $image = $tabImage[0];
                                                 
@@ -804,13 +804,14 @@ public function voirOeuvreAction($id)
                 $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
                 // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
                 $tabFilms = $repositoryFilms->getFilmsByOeuvre($idOeuvre);
-                
+                /*
                 // je charge mon repository de Image pour executer une requete sur la BD
                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                 // j'execute la requete perso pour remplir mon image de l oeuvre
                 $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
                 // je definis l image principale
-                $image = $tabImage[0];
+                $image = $tabImage[0];*/
+                $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                 
                                //var_dump($tabOeuvreChoix);
                                
@@ -829,7 +830,7 @@ public function voirOeuvreAction($id)
                                                         // je récupere les images grace a une requete et l'id des oeuvres
                                                         while ($j<count($tabImagesId)-1)
                                                         {
-                                                                $tabImagesSuggestionsBrut[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
+                                                                $tabImagesSuggestionsBrut[$j] = $repositoryOeuvre->getImageByOeuvre($tabImagesId[$j]);
                                                                 $j++;
                                                         }
                                                       
@@ -919,7 +920,6 @@ public function voirOeuvreAction($id)
             return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  
                                                                                 'tabLivres'=>$tabLivres,
                                                                                 'tabFilms'=>$tabFilms,
-                                                                                'image'=>$image,
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
@@ -1130,10 +1130,9 @@ public function oeuvreAvanceeLivresAction($page, $tabLivresIdBrut, $livresId)
     }
 
 
-    public function espaceMembreAction(){
-        return $this->render('NarratioWebOeuvresBundle:Default:.html.twig');
-    }
-
+public function espaceMembreAction(){
+    return $this->render('NarratioWebOeuvresBundle:Default:.html.twig');
+}
 
 
 public function voteAction($id, $nEtoile)
@@ -1191,6 +1190,8 @@ public function ajouterOeuvreAction(Request $requeteUtilisateur)
 		// Enregistrer après soumission du formulaire les données dans l'objet $oeuvre
 		$formulaireOeuvre -> handleRequest($requeteUtilisateur);
 		
+		$monForm = $formulaireOeuvre;
+		
 		if ($formulaireOeuvre -> isValid())
 		{
 		// on enregistre l'oeuvre en BD
@@ -1200,23 +1201,6 @@ public function ajouterOeuvreAction(Request $requeteUtilisateur)
 		
 		// on redirige l'utilisateur vers la page de l'oeuvre nouvellement ajoutée
 		// return $this ->redirect($this -> generateUrl('narratio_web_oeuvres_oeuvre', array ('id'=>$oeuvre -> getId())));	
-        }
-        
-        // Créer un objet image vide
-		$image = new Image();
-		
-		$formulaireImage = $this -> createForm(new ImageType, $image);
-			
-		// Enregistrer après soumission du formulaire les données dans l'objet $image
-		$formulaireImage -> handleRequest($requeteUtilisateur);
-		
-		if ($formulaireImage -> isValid())
-		{
-		// on enregistre l'image en BD
-		$gestionnaireEntite = $this -> getDoctrine() -> getManager();
-		$gestionnaireEntite -> persist($image);
-		$gestionnaireEntite -> flush();
-		
         }
         
         // Créer un objet livre vide
@@ -1255,7 +1239,6 @@ public function ajouterOeuvreAction(Request $requeteUtilisateur)
         
          // Envoi du formulaire à la vue chargée de l'afficher 
     return $this->render('NarratioWebOeuvresBundle:Default:ajouterOeuvre.html.twig', array('formulaireOeuvre' => $formulaireOeuvre -> createView(),
-                                                                                            'formulaireImage' => $formulaireImage -> createView(),
                                                                                             'formulaireLivre' => $formulaireLivre -> createView(),
                                                                                             'formulaireFilm' => $formulaireFilm -> createView()));
 }

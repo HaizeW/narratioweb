@@ -1,6 +1,7 @@
 <?php
 namespace NarratioWeb\OeuvresBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Image
  *
@@ -21,6 +22,7 @@ class Image
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)
+     * @Assert\Url()
      */
     private $url;
     
@@ -63,6 +65,7 @@ class Image
     {
         return $this->url;
     }
+
     /**
      * Set oeuvre
      *
@@ -72,8 +75,10 @@ class Image
     public function setOeuvre(\NarratioWeb\OeuvresBundle\Entity\Oeuvre $oeuvre = null)
     {
         $this->oeuvre = $oeuvre;
+
         return $this;
     }
+
     /**
      * Get oeuvre
      *
