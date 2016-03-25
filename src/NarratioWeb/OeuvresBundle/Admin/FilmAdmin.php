@@ -50,6 +50,16 @@ class FilmAdmin extends Admin
             ->add('titre')
             ->add('duree', 'text', array('label' => 'Duree (en minutes)'))
             ->add('synopsis')
+            ->add('annee')
+            ->add('acteurs', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Acteur', 
+                                  'multiple' => true, 
+                                  'expanded' => 'true'))
+            ->add('realisateur', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Realisateur', 
+                                  'multiple' => false, 
+                                  'expanded' => 'true'))
+            ->add('type', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Type', 
+                                  'multiple' => false, 
+                                  'expanded' => 'true'))
             ->add('oeuvre', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Oeuvre', 
                                   'multiple' => false, 
                                   'expanded' => 'true'))

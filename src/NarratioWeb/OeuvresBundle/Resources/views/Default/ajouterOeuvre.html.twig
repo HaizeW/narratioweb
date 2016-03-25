@@ -1,15 +1,13 @@
 {% extends "::vueMere.html.twig" %} {#La vue fille 1 hérite de la vue mère #}
 {% block body %} 
-
 <style type="text/css">
-a {
-color : #7D3232;
-}
-a:hover {
-color : #7D3232;
-}
+   a {
+   color : #7D3232;
+   }
+   a:hover {
+   color : #7D3232;
+   }
 </style>
-
 <!-- onglets -->
 <div class="container" style="background-color: #F7F5F0">
    <div class="row">
@@ -37,53 +35,53 @@ color : #7D3232;
             </div>
          </div>
          <!-- DEUXIEME ONGLET ImageOeuvre -->
-        <div id="ImageOeuvre" class="tab-pane fade">
-        	<div class = "panel panel-default">
+         <div id="ImageOeuvre" class="tab-pane fade">
+            <div class = "panel panel-default">
                <div class= "panel-heading">
                   <h4>
                      <center>Ajouter l'image de l'oeuvre</center>
                   </h4>
                </div>
-                {# novalidate sert à supprimer la vérif côté client #}
+               {# novalidate sert à supprimer la vérif côté client #}
                <form method="post" novalidate="novalidate"
                {{ form_enctype(formulaireImage) }}> 
                {{ form_widget(formulaireImage) }} 
                <input type="submit" class="btn btn-primary" />
                </form>
             </div>
-        </div>	
-        <!-- TROISIEME ONGLET Livres -->
-        <div id="Livre" class="tab-pane fade">
-        	<div class = "panel panel-default">
+         </div>
+         <!-- TROISIEME ONGLET Livres -->
+         <div id="Livre" class="tab-pane fade">
+            <div class = "panel panel-default">
                <div class= "panel-heading">
                   <h4>
                      <center>Ajouter le(s) livre(s)</center>
                   </h4>
                </div>
-                {# novalidate sert à supprimer la vérif côté client #}
+               {# novalidate sert à supprimer la vérif côté client #}
                <form method="post" novalidate="novalidate"
                {{ form_enctype(formulaireLivre) }}> 
                {{ form_widget(formulaireLivre) }} 
                <input type="submit" class="btn btn-primary" />
                </form>
             </div>
-        </div>
-        <!-- QUATRIEME ONGLET Films -->
-        <div id="Film" class="tab-pane fade">
-        	<div class = "panel panel-default">
+         </div>
+         <!-- QUATRIEME ONGLET Films -->
+         <div id="Film" class="tab-pane fade">
+            <div class = "panel panel-default">
                <div class= "panel-heading">
                   <h4>
                      <center>Ajouter le(s) film(s)</center>
                   </h4>
                </div>
-                {# novalidate sert à supprimer la vérif côté client #}
+               {# novalidate sert à supprimer la vérif côté client #}
                <form method="post" novalidate="novalidate"
                {{ form_enctype(formulaireFilm) }}> 
                {{ form_widget(formulaireFilm) }} 
                <input type="submit" class="btn btn-primary" />
                </form>
             </div>
-        </div>
+         </div>
       </div>
    </div>
 </div>

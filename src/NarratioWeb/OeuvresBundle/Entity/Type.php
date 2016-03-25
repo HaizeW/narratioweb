@@ -52,4 +52,9 @@ class Type
     {
         return $this->intitule;
     }
+    
+    public function __toString()
+    {
+        return $this->intitule;
+    }
 }

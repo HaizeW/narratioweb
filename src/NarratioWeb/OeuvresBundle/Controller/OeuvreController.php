@@ -9,10 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 use NarratioWeb\OeuvresBundle\Entity\Oeuvre;
-use NarratioWeb\OeuvresBundle\Form\OeuvreType;
 use NarratioWeb\OeuvresBundle\Entity\Image;
-use NarratioWeb\OeuvresBundle\Form\ImageType;
+use NarratioWeb\OeuvresBundle\Entity\Livre;
+use NarratioWeb\OeuvresBundle\Entity\Film;
 use NarratioWeb\OeuvresBundle\Entity\Note;
 use NarratioWeb\OeuvresBundle\Entity\Auteur;
 use NarratioWeb\OeuvresBundle\Entity\Acteur;
@@ -21,7 +22,10 @@ use NarratioWeb\OeuvresBundle\Form\AuteurType;
 use NarratioWeb\OeuvresBundle\Form\ActeurType;
 use NarratioWeb\OeuvresBundle\Form\RealisateurType;
 use NarratioWeb\OeuvresBundle\Form\EditeurType;
-
+use NarratioWeb\OeuvresBundle\Form\OeuvreType;
+use NarratioWeb\OeuvresBundle\Form\ImageType;
+use NarratioWeb\OeuvresBundle\Form\LivreType;
+use NarratioWeb\OeuvresBundle\Form\FilmType;
 
 class OeuvreController extends Controller
 {
@@ -779,7 +783,7 @@ public function rechercheAvanceeAction(Request $requeteUtilisateurL, Request $re
     
             
 public function voirOeuvreAction($id)
-        {
+    {
             
         // recup des oeuvres pour remplir le menu déroulant
         $repositoryOeuvre = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
@@ -806,7 +810,7 @@ public function voirOeuvreAction($id)
                 // j'execute la requete perso pour remplir mon image de l oeuvre
                 $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
                 // je definis l image principale
-                $image = $tabImage[0]; 
+                $image = $tabImage[0];
                 
                                //var_dump($tabOeuvreChoix);
                                
@@ -1177,7 +1181,7 @@ public function voteAction($id, $nEtoile)
 
 
 public function ajouterOeuvreAction(Request $requeteUtilisateur)
-{
+    {
          // Créer un objet oeuvre vide
 		$oeuvre = new Oeuvre();
 		
@@ -1215,9 +1219,45 @@ public function ajouterOeuvreAction(Request $requeteUtilisateur)
 		
         }
         
+        // Créer un objet livre vide
+		$livre = new Livre();
+		
+		$formulaireLivre = $this -> createForm(new LivreType, $livre);
+			
+		// Enregistrer après soumission du formulaire les données dans l'objet $livre
+		$formulaireLivre -> handleRequest($requeteUtilisateur);
+		
+		if ($formulaireLivre -> isValid())
+		{
+		// on enregistre l'livre en BD
+		$gestionnaireEntite = $this -> getDoctrine() -> getManager();
+		$gestionnaireEntite -> persist($livre);
+		$gestionnaireEntite -> flush();
+		
+        }
+        
+        // Créer un objet film vide
+		$film = new Film();
+		
+		$formulaireFilm = $this -> createForm(new FilmType, $film);
+			
+		// Enregistrer après soumission du formulaire les données dans l'objet $film
+		$formulaireFilm -> handleRequest($requeteUtilisateur);
+		
+		if ($formulaireFilm -> isValid())
+		{
+		// on enregistre l'film en BD
+		$gestionnaireEntite = $this -> getDoctrine() -> getManager();
+		$gestionnaireEntite -> persist($film);
+		$gestionnaireEntite -> flush();
+		
+        }
+        
          // Envoi du formulaire à la vue chargée de l'afficher 
     return $this->render('NarratioWebOeuvresBundle:Default:ajouterOeuvre.html.twig', array('formulaireOeuvre' => $formulaireOeuvre -> createView(),
-                                                                                            'formulaireImage' => $formulaireImage -> createView()));
+                                                                                            'formulaireImage' => $formulaireImage -> createView(),
+                                                                                            'formulaireLivre' => $formulaireLivre -> createView(),
+                                                                                            'formulaireFilm' => $formulaireFilm -> createView()));
 }
 
         
@@ -1466,8 +1506,79 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $film->setAnnee($Annee);
         $film->setRealisateur($Realisateur);
         $film->setDuree($Duree);
-        //$film->setActeur($Acteur);
+        $tabActeur=$Acteur->toArray();
+                
+//var_dump($tabActeur);
+
+    $acteurDuFilm = $film->getActeurs()->toArray();
+    $w=0;
+    for($w=0; $w < count($acteurDuFilm); $w++)
+    {
         
+        if((in_array($acteurDuFilm[$w], $tabActeur)) == false)
+        {
+            //var_dump($auteurDuLivre[$w]);
+            $monActeur=$acteurDuFilm[$w];
+            $film -> removeActeur($monActeur);
+        }
+        else
+        {
+            
+        }
+        
+    }
+    
+    // je calcule mon indice d'arret pour trier et enlever les cases vide d'un tableau
+    $indicesTab=array_keys($tabActeur);
+    $lastIndice = $indicesTab[count($indicesTab)-1];
+//var_dump($lastIndice);
+
+    $tabTri=array();
+    $v=0;
+    $b=0;
+    for($v=0;$v<=$lastIndice;$v++)
+    {
+        if(!empty($tabActeur[$v]))
+        {
+            $tabTri[$b]=$tabActeur[$v];
+            $b++;
+        }
+        
+    }
+    $tabActeur=$tabTri;
+    
+//var_dump($tabActeur);
+        $repositoryActeur = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Acteur');
+        $t=0;
+        for ($t=0; $t < count($tabActeur); $t++)
+        {
+            
+            if(($repositoryActeur -> findById($tabActeur[$t]->getId())) != null)
+            {   
+                $leActeur = $repositoryActeur -> findById($tabActeur[$t]->getId());
+                $leActeur=$leActeur[0];
+                $leActeur -> setNom($tabActeur[$t]->getNom());
+                $leActeur -> setPrenom($tabActeur[$t]->getPrenom());
+                
+                $gestionnaireEntite = $this->getDoctrine()->getManager();
+                $gestionnaireEntite->persist($leActeur);
+                $gestionnaireEntite->flush();
+            }
+            else
+            {
+                $monActeur = new Acteur();
+                $monActeur -> setNom($tabActeur[$t]->getNom());
+                $monActeur -> setPrenom($tabActeur[$t]->getPrenom());
+                
+                $gestionnaireEntite = $this->getDoctrine()->getManager();
+                $gestionnaireEntite->persist($monActeur);
+                $gestionnaireEntite->flush();
+                
+                $film -> addActeur($monActeur);
+            }
+            
+        }
+
                 //On met en BD !!
                 $gestionnaireEntite = $this->getDoctrine()->getManager();
                 $gestionnaireEntite->persist($film);
@@ -1499,16 +1610,18 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $livre->setAnnee($Annee);
         $tabAuteur = $Auteur->toArray();
         
-var_dump($tabAuteur);
+//var_dump($tabAuteur);
 
     $auteurDuLivre = $livre->getAuteur()->toArray();
     $w=0;
-    for($w=0; $w < count($tabAuteur); $w++)
+    for($w=0; $w < count($auteurDuLivre); $w++)
     {
         
-        if(in_array($auteurDuLivre[$w], $tabAuteur))
+        if((in_array($auteurDuLivre[$w], $tabAuteur)) == false)
         {
-            
+            //var_dump($auteurDuLivre[$w]);
+            $monAuteur=$auteurDuLivre[$w];
+            $livre -> removeAuteur($monAuteur);
         }
         else
         {
@@ -1518,7 +1631,7 @@ var_dump($tabAuteur);
     }
     
     
-var_dump(($auteurDuLivre[$w]);
+//var_dump($auteurDuLivre);
         $repositoryAuteur = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Auteur');
         $t=0;
         for ($t=0; $t < count($tabAuteur)+1; $t++)
@@ -1573,6 +1686,8 @@ var_dump(($auteurDuLivre[$w]);
             ));
             
 }
+
+
 
 
 }

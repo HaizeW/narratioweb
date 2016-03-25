@@ -90,6 +90,11 @@ class Acteur
         return $this->prenom.' '.$this->nom;
     }
     
+    public function __toString()
+    {
+        return $this->prenom.' '.$this->nom;
+    }
+    
     
     
 }

@@ -55,3 +55,15 @@ services:
         arguments: [~, NarratioWeb\OeuvresBundle\Entity\Acteur, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: Acteur}
+
+    narratio_web_oeuvres.admin.editeur:
+        class: NarratioWeb\OeuvresBundle\Admin\EditeurAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Editeur, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Editeur}
+
+    narratio_web_oeuvres.admin.type:
+        class: NarratioWeb\OeuvresBundle\Admin\TypeAdmin
+        arguments: [~, NarratioWeb\OeuvresBundle\Entity\Type, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Type}

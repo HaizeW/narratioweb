@@ -56,6 +56,14 @@
 	max-width:175px;
 	max-height:175px;
 	}
+	}a {
+    color: #F6EFD2;
+    text-decoration: none;
+}a:hover {
+  color: black;
+  background-color: #212524;
+  text-decoration: underline;
+}
 	a {
 	color : #7D3232;
 	}
@@ -95,7 +103,7 @@
 				<!-- definition des onglets -->
 				<li class="active"><a data-toggle="tab" href="#Oeuvre" name="oeuvre"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span><b> L'Oeuvre</b></a></li>
 				<li ><a data-toggle="tab" href="#Livre" name="livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><b> Livres</b></a></li>
-				<li ><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyph icon-film" aria-hidden="true"></span><b> Films</b></a></li>
+				<li ><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><b> Films</b></a></li>
 				<li><a data-toggle="tab" href="#Autre" name="autre"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span><b> Autres</b></a></li>
 			</ul>
 			<!-- PREMIER ONGLET    OEUVRE-->
@@ -151,10 +159,11 @@
 									<span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{LivreCourant.editeur.nom}}
 								</div>
 								<br><br><br>
+							</div>
 <!-- IF CONNECTE -->
 								<center><a name="action-type-livre" value="modifier" type="submit" href="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monLivre', 'id': LivreCourant.id}) }}"><input name="action-type-livre" name="modifier" type="submit" class="btn btn-warning" value="Modifier ce livre"/></a></center>
 <!-- IF CONNECTE -->
-							</div>
+							
 						</div>
 					</div>
 					{%else%}
@@ -199,7 +208,7 @@
 								</div>
 							</div>
 <!-- IF CONNECTE -->
-            <a name="action-type-film" value="modifier" type="submit" href="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monFilm', 'id': FilmCourant.id}) }}" align="right"><input name="action-type-film" name="modifier" type="submit" class="btn btn-warning" value="Modifier ce film"/></a>
+            <center><a name="action-type-film" value="modifier" type="submit" href="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monFilm', 'id': FilmCourant.id}) }}" id="bouton"><input name="action-type-film" name="modifier" type="submit" class="btn btn-warning" value="Modifier ce film"/></a></center>
 <!-- IF CONNECTE -->
 						</div>
 					</div>

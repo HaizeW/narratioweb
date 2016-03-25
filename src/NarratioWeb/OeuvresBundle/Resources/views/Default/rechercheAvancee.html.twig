@@ -54,9 +54,11 @@
     
 </style>
 
-
-
-
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+{% else %}
+    {% render "FOSUserBundle:Security:login" %}
+{% endif %}
 
 
 
@@ -178,15 +180,16 @@
                         <!-- Ligne 3 --> 
                         <div class="row">
                                     <br><br><br>
+                                    
                                     <div class="col-sm-4" align="center">
                                         <center>
-                                            <div style='float:left;'></div><b>Thématique : </b>{{form_widget(formLivres.ThematiqueL)}}
+                                            <div style='float:left'></div><b> Auteur : </b>{{form_widget(formLivres.Auteur)}}
                                         </center>
                                     </div>
                                     
                                     <div class="col-sm-4" align="center">
                                         <center>
-                                            <div style='float:left'></div><b> Auteur : </b>{{form_widget(formLivres.Auteur)}}
+                                            <div style='float:left;'></div><b>Thématique : </b>{{form_widget(formLivres.ThematiqueL)}}
                                         </center>
                                     </div>
                                     
