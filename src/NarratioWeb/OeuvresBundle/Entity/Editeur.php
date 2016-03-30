@@ -19,8 +19,9 @@ class Editeur
     private $id;
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="nom", type="string", length=255)
+     * 
      */
     private $nom;
     /**

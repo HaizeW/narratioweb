@@ -162,25 +162,7 @@ class OeuvreRepository extends EntityRepository
         
     }
     
-    public function getImageByOeuvre($idOeuvre) // OK
-    {
-        // appel du gestionnaire d'entité
-        $gestionnaireEntite = $this->_em;
-        
-        // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT o.image FROM NarratioWebOeuvresBundle:Oeuvre o
-                                                                    WHERE o.id = :idOeuvre
-                                                        ');
-                                         
-        // je definis mes parametres
-        $requetePerso->setParameter('idOeuvre', $idOeuvre);
-        
-        // execution de la requete et recup du resultat
-        $tabResultats = $requetePerso -> getResult();
-        
-        // retour du resultat
-        return $tabResultats;
-    }
+
     
 }
 

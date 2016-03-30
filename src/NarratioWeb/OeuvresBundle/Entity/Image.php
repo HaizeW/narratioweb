@@ -27,11 +27,6 @@ class Image
     private $url;
     
     /**
-     * @ORM\OneToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
-     */
-    private $oeuvre;
-    
-    /**
      * Get id
      *
      * @return integer 

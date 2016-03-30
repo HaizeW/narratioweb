@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
+
+use NarratioWeb\OeuvresBundle\Form\RealisateurRepository;
+
 use NarratioWeb\OeuvresBundle\Entity\Oeuvre;
 use NarratioWeb\OeuvresBundle\Entity\Image;
 use NarratioWeb\OeuvresBundle\Entity\Livre;
@@ -17,6 +20,8 @@ use NarratioWeb\OeuvresBundle\Entity\Film;
 use NarratioWeb\OeuvresBundle\Entity\Note;
 use NarratioWeb\OeuvresBundle\Entity\Auteur;
 use NarratioWeb\OeuvresBundle\Entity\Acteur;
+use NarratioWeb\OeuvresBundle\Entity\Realisateur;
+use NarratioWeb\OeuvresBundle\Entity\Editeur;
 
 use NarratioWeb\OeuvresBundle\Form\AuteurType;
 use NarratioWeb\OeuvresBundle\Form\ActeurType;
@@ -26,6 +31,8 @@ use NarratioWeb\OeuvresBundle\Form\OeuvreType;
 use NarratioWeb\OeuvresBundle\Form\ImageType;
 use NarratioWeb\OeuvresBundle\Form\LivreType;
 use NarratioWeb\OeuvresBundle\Form\FilmType;
+
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class OeuvreController extends Controller
 {
@@ -97,43 +104,14 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                         // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
                         $tabFilms = $repositoryFilms->getFilmsByOeuvre($idOeuvre);
                         
+                        // je definis l'image de l'oeuvre
+                        $image = $oeuvre->getImage();
+            
                         // je charge mon repository de Image pour executer une requete sur la BD
                         $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
-                        // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                        $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
-                        
-                        // je definis l'image de l'oeuvre
-                        $image = $tabImage[0];
-            
                         // je recup des images de sugg
                         $tabImagesSuggestions = $repositoryImage->getImageSugg();
-                        
-                        
-                                // WEB SERVICE IMDB pour plus d'infos
-                                if ($json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997") != null)
-                                {
 
-                                        $titre = $oeuvre->getNom();
-                                        
-                                        //$annee = $oeuvre ->getAnnee();
-                                        
-                                        // je recupere le json
-                                        $json=file_get_contents("http://www.omdbapi.com/?t=titanic&y=1997");
-                                        
-                                        // je decode le json
-                                        $resImdb=json_decode($json);
-                                        
-                                        
-                                        
-                                        //var_dump($resImdb);
-                                        
-                                }
-                                else
-                                {
-                                    
-                                    $resImdb = null;
-                                    
-                                }
                                 
                                 
                 // je charge mon repository de Note pour executer une requete sur la BD
@@ -175,8 +153,8 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb,
-                                                                                'note'=>$note
+                                                                                'note'=>$note,
+                                                                                'tabOeuvreChoix'=>$tabOeuvreChoix
                                                                                 ));
         	}
     	}
@@ -207,7 +185,7 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                             {
                                 $nbOeuvres = count($tabOeuvreChoix);
                                 // choix aléatoire des oeuvres SI il y en a plus de 6
-                                if ($nbOeuvres < 6)
+                                if ($nbOeuvres < 4)
                                     {
                                         // je prepare mes parametres pour les prochaines requetes
                                         $nbChoixMax = count($tabOeuvreChoix);
@@ -240,7 +218,7 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                         else
                                         {
                                                 $oeuvre = $tabOeuvreChoix[0];
-                                                $idOeuvre = $oeuvre->getId();        
+                                                $idOeuvre = $oeuvre->getId();  
                                         }
                                                 // je charge mon repository de Livre pour executer une requete sur la BD
                                                 $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
@@ -254,66 +232,27 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                 
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
-                                                // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                                                $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
-//var_dump($tabImage);
+                                                
                                                 // je definis l'image de l'oeuvre
-                                                $image = $tabImage[0];
+                                                $image = $oeuvre->getImage();
                                                 
                                                 // IMAGE DE SUGGESTION A FAIRE
-                                                $tabImagesId = array();
+                                                $tabImagesSuggestionsBrut = array();
                                                 $s=0;
                                                         while ($s<count($tabOeuvreChoix))
                                                         {
-                                                                $tabImagesId[$s] = $tabOeuvreChoix[$s]->getId();
+                                                                $tabImagesSuggestionsBrut[$s] = $tabOeuvreChoix[$s]->getImage();
                                                                 $s++;
                                                         }
-                                                $tabImagesSuggestionsBrut = array();
-                                                $j=0;
-                                                        // je récupere les images grace a une requete et l'id des oeuvres
-                                                        while ($j<count($tabImagesId))
-                                                        {
-                                                                $tabImagesSuggestionsBrut[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
-                                                                $j++;
-                                                        }
-                                                      
+                                                        
                                                 // je met en forme le tableau pour qu'il soit utilisable facilement
                                                 $tabImagesSuggestions = array();
                                                 $l=0;
                                                         while ($l<count($tabImagesSuggestionsBrut))
                                                         {
-                                                                $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l][0];
+                                                                $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l];
                                                                 $l++;
                                                         }
-                                        
-                                // je prepare mes parametres pour le web service de IMDB
-                                $titre = $tabFilms[0]->getOeuvre()->getNom();     
-                                $annee = $tabFilms[0]->getAnnee();
-                                // j'ajoute le %20 a la place des espaces
-                                $titreUrl=rawurlencode($titre);
-                                 
-                                // je recupere le web service pour voir si ca echoue ou pas
-                                $resImdbBrut=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
-                                // je le decode pour avoir l objet et non la string
-                                $resImdb=json_decode($resImdbBrut);
-                                $resImdbBool=$resImdb->{'Response'};
-                                
-                                if ($resImdbBool != "False")
-                                {
-                                            
-                                    // je recupere le json
-                                    $json=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
-                                    
-                                    // je decode le json
-                                    $resImdb=json_decode($json);
-                                        
-                                }
-                                else
-                                {
-                                    
-                                    $resImdb = null;
-                                    
-                                }
                                 
                                 
                 // je charge mon repository de Note pour executer une requete sur la BD
@@ -356,8 +295,8 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb,
-                                                                                'note'=>$note
+                                                                                'note'=>$note,
+                                                                                'tabOeuvreChoix'=>$tabOeuvreChoix
                                                                                 ));
                                     }
                                 else 
@@ -378,7 +317,7 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                         
                                         $tabOeuvreHasard = array();
                                         $i=0;
-                                        while ($i<count($tabOeuvreChoix))
+                                        while ($i<count($alea))
                                         {
                                                 $tabOeuvreHasard[$i] = $tabOeuvreChoix[$alea[$i]];
                                                 $i++;
@@ -398,57 +337,27 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                 
                                                 // je charge mon repository de Image pour executer une requete sur la BD
                                                 $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
-                                                // j'execute la requete perso pour remplir un tableau d'oeuvre en accord avec le formulaire de page d'acceuil
-                                                $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
                                                 
-                                                // je definis l image principale
-                                                $image = $tabImage[0];
+                                                // je definis l'image de l'oeuvre
+                                                $image = $oeuvre->getImage();
                                                 
                                                 // IMAGE DE SUGGESTION A FAIRE
-                                                $tabImagesId = array();
-                                                $i=0;
-                                                while ($i<count($tabOeuvreChoix))
-                                                {
-                                                        $tabImagesId[$i] = $tabOeuvreChoix[$i+1]->getId();
-                                                        $i++;
-                                                }
+                                                $tabImagesSuggestionsBrut = array();
+                                                $s=0;
+                                                        while ($s<count($tabOeuvreChoix))
+                                                        {
+                                                                $tabImagesSuggestionsBrut[$s] = $tabOeuvreChoix[$s]->getImage();
+                                                                $s++;
+                                                        }
+                                                        
+                                                // je met en forme le tableau pour qu'il soit utilisable facilement
                                                 $tabImagesSuggestions = array();
-                                                $j=0;
-                                                while ($j<count($tabImagesId))
-                                                {
-                                                        $tabImagesSuggestions[$j] = $repositoryImage->getImageByOeuvre($tabImagesId[$j]);
-                                                        $j++;
-                                                }
-                                                
-                                        
-                                // je prepare mes parametres pour le web service de IMDB
-                                $titre = $tabFilms[0]->getOeuvre()->getNom();     
-                                $annee = $tabFilms[0]->getAnnee();
-                                // j'ajoute le %20 a la place des espaces
-                                $titreUrl=rawurlencode($titre);
-                                 
-                                // je recupere le web service pour voir si ca echoue ou pas
-                                $resImdbBrut=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
-                                // je le decode pour avoir l objet et non la string
-                                $resImdb=json_decode($resImdbBrut);
-                                $resImdbBool=$resImdb->{'Response'};
-                                
-                                if ($resImdbBool != "False")
-                                {
-                                            
-                                    // je recupere le json
-                                    $json=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
-                                    
-                                    // je decode le json
-                                    $resImdb=json_decode($json);
-                                        
-                                }
-                                else
-                                {
-                                    
-                                    $resImdb = null;
-                                    
-                                }
+                                                $l=0;
+                                                        while ($l<count($tabImagesSuggestionsBrut))
+                                                        {
+                                                                $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l];
+                                                                $l++;
+                                                        }
                                 
                                 
                 // je charge mon repository de Note pour executer une requete sur la BD
@@ -490,7 +399,6 @@ public function indexAction(Request $requeteUtilisateurChoix, Request $requeteUt
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb,
                                                                                 'note'=>$note
                                                                                 ));
                                     }
@@ -804,44 +712,29 @@ public function voirOeuvreAction($id)
                 $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
                 // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
                 $tabFilms = $repositoryFilms->getFilmsByOeuvre($idOeuvre);
-                /*
-                // je charge mon repository de Image pour executer une requete sur la BD
-                $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
-                // j'execute la requete perso pour remplir mon image de l oeuvre
-                $tabImage = $repositoryImage->getImageByOeuvre($idOeuvre);
+                
                 // je definis l image principale
-                $image = $tabImage[0];*/
-                $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
+                $image = $oeuvre->getImage();
                 
                                //var_dump($tabOeuvreChoix);
                                
-                                        if(count($tabFilms) > 3)
+                                        if(count($tabOeuvreChoix) > 3)
                                         {        
                                                 // IMAGE DE SUGGESTION A FAIRE
-                                                $tabImagesId = array();
+                                                $tabImagesSuggestionsBrut = array();
                                                 $s=0;
                                                         while ($s<count($tabOeuvreChoix))
                                                         {
-                                                                $tabImagesId[$s] = $tabOeuvreChoix[$s]->getId();
+                                                                $tabImagesSuggestionsBrut[$s] = $tabOeuvreChoix[$s]->getImage();
                                                                 $s++;
                                                         }
-                                                $tabImagesSuggestionsBrut = array();
-                                                $j=0;
-                                                        // je récupere les images grace a une requete et l'id des oeuvres
-                                                        while ($j<count($tabImagesId)-1)
-                                                        {
-                                                                $tabImagesSuggestionsBrut[$j] = $repositoryOeuvre->getImageByOeuvre($tabImagesId[$j]);
-                                                                $j++;
-                                                        }
                                                       
-                                                      
-                                                        
                                                 // je met en forme le tableau pour qu'il soit utilisable facilement
                                                 $tabImagesSuggestions = array();
                                                 $l=0;
-                                                        while ($l<count($tabImagesSuggestionsBrut)-1)
+                                                        while ($l<count($tabImagesSuggestionsBrut))
                                                         {
-                                                                $tabImagesSuggestions[$l] = $tabImagesSuggestionsBrut[$l][0];
+                                                                $tabImagesSuggestions[$l][0] = $tabImagesSuggestionsBrut[$l];
                                                                 $l++;
                                                         }
                                                         
@@ -849,39 +742,10 @@ public function voirOeuvreAction($id)
                                         }
                                         else
                                         {
+                                            $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
                                                 $tabImagesSuggestions = array();
                                                 $tabImagesSuggestions = $repositoryImage->getImageSugg();
                                         }
-                                        
-                                
-                                // je prepare mes parametres pour le web service de IMDB
-                                $titre = $tabFilms[0]->getOeuvre()->getNom();     
-                                $annee = $tabFilms[0]->getAnnee();
-                                // j'ajoute le %20 a la place des espaces
-                                $titreUrl=rawurlencode($titre);
-                                 
-                                // je recupere le web service pour voir si ca echoue ou pas
-                                $resImdbBrut=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
-                                // je le decode pour avoir l objet et non la string
-                                $resImdb=json_decode($resImdbBrut);
-                                $resImdbBool=$resImdb->{'Response'};
-                                
-                                if ($resImdbBool != "False")
-                                {
-                                            
-                                    // je recupere le json
-                                    $json=file_get_contents("http://www.omdbapi.com/?t=$titreUrl&y=$annee&plot=short&r=json");
-                                    
-                                    // je decode le json
-                                    $resImdb=json_decode($json);
-                                        
-                                }
-                                else
-                                {
-                                    
-                                    $resImdb = null;
-                                    
-                                }
                                 
                                 
                 // je charge mon repository de Note pour executer une requete sur la BD
@@ -916,6 +780,7 @@ public function voirOeuvreAction($id)
                                 $gestionnaireEntite->persist($oeuvre);
                                 $gestionnaireEntite->flush();               
             
+            
             // je retourne la vue avec les oeuvres a mettre en forme
             return $this->render('NarratioWebOeuvresBundle:Default:oeuvre.html.twig', array(  
                                                                                 'tabLivres'=>$tabLivres,
@@ -923,8 +788,8 @@ public function voirOeuvreAction($id)
                                                                                 'oeuvre'=>$oeuvre,
                                                                                 'tabImagesSuggestions'=>$tabImagesSuggestions,
                                                                                 'id'=>$idOeuvre,
-                                                                                'resImdb'=>$resImdb,
-                                                                                'note'=>$note
+                                                                                'note'=>$note,
+                                                                                'tabOeuvreChoix'=>$tabOeuvreChoix
                                                                                 ));
             
         }
@@ -1137,7 +1002,10 @@ public function espaceMembreAction(){
 
 public function voteAction($id, $nEtoile)
     {
-        
+        // Contrôle d'accès sur cette action métier
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')){
+            throw new AccessDeniedException();
+        }
         
         switch ($nEtoile)
         {
@@ -1179,78 +1047,350 @@ public function voteAction($id, $nEtoile)
     }
 
 
-public function ajouterOeuvreAction(Request $requeteUtilisateur)
-    {
-         // Créer un objet oeuvre vide
-		$oeuvre = new Oeuvre();
-		
-		// Création du formulaire d'ajout d'une oeuvre
-		$formulaireOeuvre = $this -> createForm(new OeuvreType, $oeuvre);
-			
-		// Enregistrer après soumission du formulaire les données dans l'objet $oeuvre
-		$formulaireOeuvre -> handleRequest($requeteUtilisateur);
-		
-		$monForm = $formulaireOeuvre;
-		
-		if ($formulaireOeuvre -> isValid())
-		{
-		// on enregistre l'oeuvre en BD
-		$gestionnaireEntite = $this -> getDoctrine() -> getManager();
-		$gestionnaireEntite -> persist($oeuvre);
-		$gestionnaireEntite -> flush();
-		
-		// on redirige l'utilisateur vers la page de l'oeuvre nouvellement ajoutée
-		// return $this ->redirect($this -> generateUrl('narratio_web_oeuvres_oeuvre', array ('id'=>$oeuvre -> getId())));	
+public function ajouterFilmLivreAction($type, $id, Request $requeteUtilisateurF, Request $requeteUtilisateurL)
+{
+    // Contrôle d'accès sur cette action métier
+   if (false === $this->get('security.context')->isGranted('ROLE_USER')){
+            throw new AccessDeniedException();
+        } 
+    // je charge mon repository de Oeuvre pour executer une requete sur la BD
+                            $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
+                            // j'execute la requete perso pour remplir un tableau de oeuvre en accord avec le formulaire de page d'acceuil
+                            $oeuvre = $repositoryOeuvres->findById($id);
+                            $obj=$oeuvre;
+    
+    // je prepare mes formulaires !!!
+    // Tableau dans lequel les données du formulaire seront recueillies
+        $tabFilm = array();
+        $tabLivre = array();
+
+    switch ($type)
+        {
+            case 'monFilm':
+                // code...
+                            
+                            // Créateur formulaire FILM
+                            $formFilm = $this->createFormBuilder($tabFilm)
+                                ->add('Acteur','collection', array('label'=>null,
+                                                                    'type'=> new ActeurType(),
+                                                                    'allow_add'=> true,
+                                                                    'allow_delete'=> true,
+                                                                    'by_reference'=>false,
+                                                                    'query_builder' => function(EntityRepository $er) {
+                                                                        return $er->createQueryBuilder('a')
+                                                                            ->groupBy('a.prenom')
+                                                                            ->orderBy('a.prenom', 'ASC');
+                                                                    }))
+                                ->add('Realisateur', new RealisateurType(), array('label'=>'Realisateur'
+                                                                    ))                                           
+                                ->add('Type','entity', array('label'=>'Type',
+                                                                    'class'=>'NarratioWebOeuvresBundle:Type',
+                                                                    'property'=>'intitule',
+                                                                    'multiple' => false,
+                                                                    'expanded' => false
+                                                                    ))
+                                                                    
+                                ->add('Synopsis','textarea', array('label'=>'Synopsis'
+                                                                    ))
+                                ->add('Annee','text', array('label'=>'Annee de parution'
+                                                                    ))
+                                ->add('Duree','integer', array('label'=>'Duree du film'
+                                                                    ))
+                                ->add('Image','url', array('label'=>'Image du film'
+                                                                    ))  
+                                ->add('Titre','text', array('label'=>'Titre du film'
+                                                                    )) 
+                                ->getForm();
+                            $monForm=$formFilm;
+                            
+                break;
+            case 'monLivre':
+                // code...
+                            
+                            // Créateur formulaire LIVRE
+                            $formLivre = $this->createFormBuilder($tabLivre)
+                                ->add('Resume','textarea', array('label'=>'Resume',
+                                                                    ))
+                                ->add('Annee','text', array('label'=>'Annee de parution',
+                                                                    ))     
+                                ->add('Auteur', 'collection', array('label'=>null,
+                                                                    'type'=> new AuteurType(),
+                                                                    'allow_add'=> true,
+                                                                    'allow_delete'=> true,
+                                                                    'by_reference'=>false
+                                                                    ))
+                                ->add('Editeur', new EditeurType(), array('label'=>'Editeur'
+                                                                    ))
+                                ->add('Image','url', array('label'=>'Image du livre'
+                                                                    ))  
+                                ->add('Titre','text', array('label'=>'Titre du livre'
+                                                                    )) 
+                                ->getForm();
+                            $monForm=$formLivre;
+                            
+                break;
         }
         
-        // Créer un objet livre vide
-		$livre = new Livre();
-		
-		$formulaireLivre = $this -> createForm(new LivreType, $livre);
-			
-		// Enregistrer après soumission du formulaire les données dans l'objet $livre
-		$formulaireLivre -> handleRequest($requeteUtilisateur);
-		
-		if ($formulaireLivre -> isValid())
-		{
-		// on enregistre l'livre en BD
-		$gestionnaireEntite = $this -> getDoctrine() -> getManager();
-		$gestionnaireEntite -> persist($livre);
-		$gestionnaireEntite -> flush();
-		
+        if ($this->getRequest()->get('action-type-livre') =='Valider')
+        {
+            
+            $formLivre->handleRequest($requeteUtilisateurL);
+            
+            $tabLivre = $formLivre -> getData();
+            
+            // je recup mes variables
+            $Resume = $tabLivre['Resume'];
+            $image = $tabLivre['Image'];
+            $Annee = $tabLivre['Annee'];
+            $Titre = $tabLivre['Titre'];
+            $editeur=$tabLivre['Editeur'];
+            $auteurs=$tabLivre['Auteur'];
+            
+            $livre = new Livre();  
+            
+            $Image = new Image();
+            $Image->setUrl($image);
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Image);
+                    $gestionnaireEntite->flush();
+            
+            $p=0;
+            for($p=0; $p<count($auteurs); $p++)
+            {
+            
+            $Auteur = new Auteur();
+            $Auteur=$auteurs[$p];
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Auteur);
+                    $gestionnaireEntite->flush();
+                    
+            $livre->addAuteur($Auteur);
+            
+            }
+            
+            $Editeur = new Editeur();
+            $Editeur=$editeur;
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Editeur);
+                    $gestionnaireEntite->flush();
+                    
+//var_dump($Editeur);
+            $livre->setTitre($Titre);
+            $livre->setAnnee($Annee);
+            $livre->setResume($Resume);
+            $livre->setEditeur($Editeur);
+            $livre->setImageLivre($Image);
+            $livre->setOeuvre($oeuvre[0]);
+            
+                    //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($livre);
+                    $gestionnaireEntite->flush();
+            
+        return $this->voirOeuvreAction($id);
+                
         }
         
-        // Créer un objet film vide
-		$film = new Film();
-		
-		$formulaireFilm = $this -> createForm(new FilmType, $film);
-			
-		// Enregistrer après soumission du formulaire les données dans l'objet $film
-		$formulaireFilm -> handleRequest($requeteUtilisateur);
-		
-		if ($formulaireFilm -> isValid())
-		{
-		// on enregistre l'film en BD
-		$gestionnaireEntite = $this -> getDoctrine() -> getManager();
-		$gestionnaireEntite -> persist($film);
-		$gestionnaireEntite -> flush();
-		
+        if ($this->getRequest()->get('action-type-film') =='Valider')
+        {
+            
+            $formFilm->handleRequest($requeteUtilisateurF);
+            
+            $tabFilm = $formFilm -> getData();
+            
+            // je recup mes variables
+            $Titre = $tabFilm['Titre'];
+            $image = $tabFilm['Image'];
+            $Duree = $tabFilm['Duree'];
+            $Annee = $tabFilm['Annee'];
+            $Synopsis = $tabFilm['Synopsis'];
+            $Type = $tabFilm['Type'];
+            $realisateur=$tabFilm['Realisateur'];
+            $acteurs=$tabFilm['Acteur'];
+            
+            $film = new Film();  
+            
+            $Image = new Image();
+            $Image->setUrl($image);
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Image);
+                    $gestionnaireEntite->flush();
+            
+            $p=0;
+            for($p=0; $p<count($acteurs); $p++)
+            {
+            
+            $Acteur = new Acteur();
+            $Acteur=$acteurs[$p];
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Acteur);
+                    $gestionnaireEntite->flush();
+                    
+            $film->addActeur($Acteur);
+            
+            }
+            
+            $Realisateur = new Realisateur();
+            $Realisateur=$realisateur;
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Realisateur);
+                    $gestionnaireEntite->flush();
+                    
+//var_dump($acteurs);
+            $film->setTitre($Titre);
+            $film->setAnnee($Annee);
+            $film->setDuree($Duree);
+            $film->setRealisateur($Realisateur);
+            $film->setSynopsis($Synopsis);
+            $film->setImageFilm($Image);
+            $film->setType($Type);
+            $film->setOeuvre($oeuvre[0]);
+            
+                    //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($film);
+                    $gestionnaireEntite->flush();
+            
+        return $this->voirOeuvreAction($id);
+                
         }
         
-         // Envoi du formulaire à la vue chargée de l'afficher 
-    return $this->render('NarratioWebOeuvresBundle:Default:ajouterOeuvre.html.twig', array('formulaireOeuvre' => $formulaireOeuvre -> createView(),
-                                                                                            'formulaireLivre' => $formulaireLivre -> createView(),
-                                                                                            'formulaireFilm' => $formulaireFilm -> createView()));
+        
+    // Envoi du formulaire à la vue chargée de l'afficher 
+        return $this->render('NarratioWebOeuvresBundle:Default:ajouterFilmLivre.html.twig', array(
+                                                                                'type'=>$type,
+                                                                                'id'=>$id,
+                                                                                'monForm'=>$monForm->createView(),
+                                                                                'obj'=>$obj
+                                                                                ));
+                                                                                
+                                                                                
+                                                                                
 }
 
         
+public function ajouterOeuvreAction(Request $requeteUtilisateur)
+{
+    // Contrôle d'accès sur cette action métier
+    if (false === $this->get('security.context')->isGranted('ROLE_USER')){
+            throw new AccessDeniedException();
+        }        
     
+    // je prepare mes formulaires !!!
+    // Tableau dans lequel les données du formulaire seront recueillies
+        $tabOeuvre = array();
+
+                // Créateur formulaire OEUVRE
+                $formOeuvre = $this->createFormBuilder($tabOeuvre)
+                    ->add('TrancheAge','entity', array('label'=>'Tranche d Age',
+                                                        'class'=>'NarratioWebOeuvresBundle:TrancheAge',
+                                                        'property'=>'intitule',
+                                                        'multiple' => false,
+                                                        'expanded' => false
+                                                        
+                                                        ))
+                    ->add('Genre','entity', array('label'=>'Genre',
+                                                        'class'=>'NarratioWebOeuvresBundle:Genre',
+                                                        'property'=>'intitule',
+                                                        'multiple' => false,
+                                                        'expanded' => false
+                                                        ))
+                    ->add('Epoque','entity', array('label'=>'Epoque',
+                                                        'class'=>'NarratioWebOeuvresBundle:Epoque',
+                                                        'property'=>'intitule',
+                                                        'multiple' => false,
+                                                        'expanded' => false
+                                                        ))
+                    ->add('Thematique','entity', array('label'=>'Thematique',
+                                                        'class'=>'NarratioWebOeuvresBundle:Thematique',
+                                                        'property'=>'intitule',
+                                                        'multiple' => false,
+                                                        'expanded' => false
+                                                        ))                                                
+                    ->add('ProduitDerive','textarea', array('label'=>'Produits dérivés'
+                                                        ))   
+                    ->add('Concept','textarea', array('label'=>'Concept de l oeuvre'
+                                                        ))   
+                    ->add('Image','url', array('label'=>'Image de l oeuvre'
+                                                        )) 
+                    ->add('Nom','text', array('label'=>'Nom de l oeuvre'
+                                                        )) 
+                    ->getForm();
+                $monForm=$formOeuvre;
+             
+        if ($this->getRequest()->get('action-type-oeuvre') =='ajouter')
+        {
+            
+            $formOeuvre->handleRequest($requeteUtilisateur);
+            
+            $tabOeuvre = $formOeuvre -> getData();
+            
+            // je recup mes variables
+            $Epoque = $tabOeuvre['Epoque'];
+            $Genre = $tabOeuvre['Genre'];
+            $TrancheAge = $tabOeuvre['TrancheAge'];
+            $Thematique = $tabOeuvre['Thematique'];
+            $ProduitDerive = $tabOeuvre['ProduitDerive'];
+            $Concept = $tabOeuvre['Concept'];
+            $image=$tabOeuvre['Image'];
+            $Nom=$tabOeuvre['Nom'];
+            
+            $oeuvre = new Oeuvre();  
+            
+            $Image = new Image();
+            $Image->setUrl($image);
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Image);
+                    $gestionnaireEntite->flush();
+                    
+            $Note = new Note();
+            $Note->setValeur(0);
+            //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($Note);
+                    $gestionnaireEntite->flush();
+                    
+            $oeuvre->setEpoque($Epoque);
+            $oeuvre->setGenre($Genre);
+            $oeuvre->setTrancheAge($TrancheAge);
+            $oeuvre->setThematique($Thematique);
+            $oeuvre->setConcept($Concept);
+            $oeuvre->setProdDer($ProduitDerive);
+            $oeuvre->setImage($Image);
+            $oeuvre->setNom($Nom);
+            $oeuvre->setCompteurVues(0);
+            
+                    //On met en BD !!
+                    $gestionnaireEntite = $this->getDoctrine()->getManager();
+                    $gestionnaireEntite->persist($oeuvre);
+                    $gestionnaireEntite->flush();
+            
+        return $this->voirOeuvreAction($oeuvre->getId());
+                
+        }
+             
+             
+             
+    // Envoi du formulaire à la vue chargée de l'afficher 
+        return $this->render('NarratioWebOeuvresBundle:Default:ajouterOeuvre.html.twig', array(
+                                                                                'monForm'=>$monForm->createView()
+                                                                                ));
+}
 
         
-
 public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, Request $requeteUtilisateurF, Request $requeteUtilisateurO)
 {
-        
+    // Contrôle d'accès sur cette action métier
+    if (false === $this->get('security.context')->isGranted('ROLE_USER')){
+            throw new AccessDeniedException();
+        }    
     
     // je prepare mes formulaires !!!
     // Tableau dans lequel les données du formulaire seront recueillies
@@ -1268,14 +1408,10 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
                             // j'execute la requete perso pour remplir un tableau de oeuvre en accord avec le formulaire de page d'acceuil
                             $oeuvre = $repositoryOeuvres->findById($id);
                             $obj=$oeuvre;
-                            //var_dump($oeuvre);
                             
-                            // je charge mon repository de Image pour executer une requete sur la BD
-                            $repositoryImage = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Image');
-                            // j'execute la requete perso pour remplir mon image de l oeuvre
-                            $tabImage = $repositoryImage->getImageByOeuvre($id);
-                            // je definis l image principale
-                            $image = $tabImage[0]->getUrl();
+                            $ImageOeuvre=$oeuvre[0]->getImage();
+                            $image=$ImageOeuvre->getUrl();
+                            //var_dump($idImage);
                             
                             // Créateur formulaire OEUVRE
                             $formOeuvre = $this->createFormBuilder($tabOeuvre)
@@ -1337,6 +1473,9 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
                             $obj=$film;
                             //var_dump($film);
                             $image=$film[0]->getImageFilm()->getUrl();
+                                $ImageFilm=$film[0]->getImageFilm();
+                            
+                //var_dump($ImageFilm);
                             
                             // Créateur formulaire FILM
                             $formFilm = $this->createFormBuilder($tabFilm)
@@ -1390,6 +1529,9 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
                             $obj=$livre;
                             //var_dump($livre);
                             $image=$livre[0]->getImageLivre()->getUrl();
+                                $ImageLivre=$livre[0]->getImageLivre();
+                            
+                //var_dump($ImageLivre);
                             
                             // Créateur formulaire LIVRE
                             $formLivre = $this->createFormBuilder($tabLivre)
@@ -1442,6 +1584,14 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $Thematique = $tabOeuvre['Thematique'];
         $ProduitDerive = $tabOeuvre['ProduitDerive'];
         $Concept = $tabOeuvre['Concept'];
+        $Image=$tabOeuvre['Image'];
+        
+        // je remet l'url a l'image
+        $ImageOeuvre->setUrl($Image);
+        //On met en BD !!
+                $gestionnaireEntite = $this->getDoctrine()->getManager();
+                $gestionnaireEntite->persist($ImageOeuvre);
+                $gestionnaireEntite->flush();
         
             // je charge mon repository de Oeuvre pour executer une requete sur la BD
             $repositoryOeuvres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Oeuvre');
@@ -1455,6 +1605,7 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $oeuvre->setThematique($Thematique);
         $oeuvre->setConcept($Concept);
         $oeuvre->setProdDer($ProduitDerive);
+        $oeuvre->setImage($ImageOeuvre);
         
                 //On met en BD !!
                 $gestionnaireEntite = $this->getDoctrine()->getManager();
@@ -1477,7 +1628,15 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $Realisateur = $tabFilm['Realisateur'];
         $Duree = $tabFilm['Duree'];
         $Acteur = $tabFilm['Acteur'];
+        $Image=$tabFilm['Image'];
         
+        // je remet l'url a l'image
+        $ImageFilm->setUrl($Image);
+        //On met en BD !!
+                $gestionnaireEntite = $this->getDoctrine()->getManager();
+                $gestionnaireEntite->persist($ImageFilm);
+                $gestionnaireEntite->flush();
+                
             // je charge mon repository de Film pour executer une requete sur la BD
             $repositoryFilms = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Film');
             // j'execute la requete perso pour remplir un tableau de film en accord avec le formulaire de page d'acceuil
@@ -1489,6 +1648,7 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $film->setAnnee($Annee);
         $film->setRealisateur($Realisateur);
         $film->setDuree($Duree);
+        $film->setImageFilm($ImageFilm);
         $tabActeur=$Acteur->toArray();
                 
 //var_dump($tabActeur);
@@ -1581,6 +1741,14 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $Resume = $tabLivre['Resume'];
         $Annee = $tabLivre['Annee'];
         $Auteur = $tabLivre['Auteur'];
+        $Image=$tabLivre['Image'];
+        
+        // je remet l'url a l'image
+        $ImageLivre->setUrl($Image);
+        //On met en BD !!
+                $gestionnaireEntite = $this->getDoctrine()->getManager();
+                $gestionnaireEntite->persist($ImageLivre);
+                $gestionnaireEntite->flush();
         
             // je charge mon repository de Film pour executer une requete sur la BD
             $repositoryLivres = $this->getDoctrine()->getEntityManager()->getRepository('NarratioWebOeuvresBundle:Livre');
@@ -1591,6 +1759,7 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
         $livre->setEditeur($Editeur);
         $livre->setResume($Resume);
         $livre->setAnnee($Annee);
+        $livre->setImageLivre($ImageLivre);
         $tabAuteur = $Auteur->toArray();
         
 //var_dump($tabAuteur);
@@ -1677,20 +1846,5 @@ public function modifierOeuvreAction($type, $id, Request $requeteUtilisateurL, R
 /*
 
 
-->add('Auteur', CollectionType::class, array(
-                                                // each entry in the array will be an "email" field
-                                                'type' => 'text',
-                                                'data'=>$obj[0]->getAuteur(),
-                                                // these options are passed to each "email" type
-                                                'entry_options' => array(
-                                                    'required' => false,
-                                                    'attr' => array('class' => 'Auteur')
-                                                )))
-
-
-->add('Auteur','text', array('label'=>'Auteur',
-                                                                    'required'=>false,
-                                                                    'data'=>$obj[0]->getAuteur()->getLabel()
-                                                                    ))
 
 */

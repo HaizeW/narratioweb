@@ -20,14 +20,18 @@ security:
                 default_target_path: /accueil
                 always_use_default_target_path: true
                 provider: fos_userbundle
-            logout:       true
+            logout:
+                path: /logout
+                target: narratio_web_oeuvres_homepage
             anonymous:    true
+
 
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/membre, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }
 
     role_hierarchy:

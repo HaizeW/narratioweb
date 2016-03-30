@@ -48,6 +48,7 @@ class LivreAdmin extends Admin
             ->add('titre')
             ->add('resume')
             ->add('annee')
+            ->add('imageLivre', 'sonata_type_admin', array('btn_add'=>false, 'delete'=>false))
             ->add('auteur', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Auteur', 
                                   'multiple' => true, 
                                   'expanded' => 'true'))

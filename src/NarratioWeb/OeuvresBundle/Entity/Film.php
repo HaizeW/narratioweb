@@ -61,6 +61,7 @@ class Film
 
     /**
      * @ORM\ManyToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Oeuvre")
+     * 
      */
     private $oeuvre;
     

@@ -2,6 +2,7 @@ narratio_web_oeuvres_homepage:
     path:     /accueil
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:index }
     
+
 narratio_web_oeuvres_rechercheAvancee:
     path:     /rechercheAvancee
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:rechercheAvancee }
@@ -19,12 +20,6 @@ narratio_web_oeuvres_voirOeuvre:
     defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:voirOeuvre }
     requirements:
         id: \d+
-       
-narratio_web_oeuvres_vote:
-    path:     /oeuvre/{id}/{nEtoile}
-    defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:vote }
-    requirements:
-        id: \d+
 
 narratio_web_oeuvres_oeuvreMenu:
     path:     /oeuvre/{id}
@@ -34,7 +29,17 @@ narratio_web_oeuvres_oeuvreMenu:
 narratio_web_oeuvres_ajouterOeuvre:
     path:     /membre/ajoutOeuvre
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:ajouterOeuvre }
+    
+narratio_web_oeuvres_ajouterFilmLivre:
+    path:     /membre/ajout/{type}/{id}
+    defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:ajouterFilmLivre }
 
 narratio_web_oeuvres_modifierOeuvre:
     path:     /membre/modifierOeuvre/{type}/{id}
     defaults: { _controller: NarratioWebOeuvresBundle:Oeuvre:modifierOeuvre }
+    
+narratio_web_oeuvres_vote:
+    path:     /oeuvre/{id}/{nEtoile}
+    defaults:    { _controller: NarratioWebOeuvresBundle:Oeuvre:vote }
+    requirements:
+        id: \d+

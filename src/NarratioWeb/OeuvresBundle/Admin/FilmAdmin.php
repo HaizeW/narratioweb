@@ -51,6 +51,7 @@ class FilmAdmin extends Admin
             ->add('duree', 'text', array('label' => 'Duree (en minutes)'))
             ->add('synopsis')
             ->add('annee')
+            ->add('imageFilm', 'sonata_type_admin', array('btn_add'=>false, 'delete'=>false))
             ->add('acteurs', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Acteur', 
                                   'multiple' => true, 
                                   'expanded' => 'true'))

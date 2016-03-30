@@ -27,7 +27,7 @@
 	}
 	#ptitle{
 	padding:10px;
-	color:white;
+	color:black;
 	text-align:center;
 	font-style:italic;
 	font-weight:bold;
@@ -51,84 +51,6 @@
 </style>
 
 <div class="container" style="background-color: #F7F5F0">
-
-{% if type == 'monOeuvre' %}
-
-	<form action="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monOeuvre', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
-		
-		<div class="panel panel-default">
-  		<!-- Default panel contents -->
-  			<div class="panel-heading" style=" background-image:url({{ asset(image |default('undefined'))}}); -webkit-filter:opacity(50%);">
-  			<h3 id=ptitle align="center" class="panel-title" >{{obj[0].nom}}</h3>
-  			</div>
-		
-			<div class="panel-body">
-				<!-- panel body -->    
-				<div class="h5"><h5><b>Modifier {{obj[0].nom}} grâce à ce formulaire !</b></h5></div>
-				
-        		<div class="row">
-        			
-        			
-        		    <div class="col-md-6" align="center">
-        			
-        				<ul class="list-group">
-        				
-        					<li class="list-group-item">
-        		                <center><b>Genre : </b>{{form_widget(monForm.Genre)}}</center>
-        		            </li>
-        		                
-        		            <li class="list-group-item">
-        		                <center><b>Thematique : </b>{{form_widget(monForm.Thematique)}}</center>
-        		            </li>
-        				
-        					<li class="list-group-item">
-        						<center><b>Epoque : </b>{{form_widget(monForm.Epoque)}}</center>
-        					</li>
-        						
-        					<li class="list-group-item">
-        		                <center><b>Produits dérivés : </b>{{form_widget(monForm.ProduitDerive, { 'attr': { 'rows' : '10', 'cols' : '20' }})}}</center>
-        		        	</li>
-        		        	
-        		        	<li class="list-group-item">
-        		                <center><b>Image de l'oeuvre : </b>{{form_widget(monForm.Image)}}</center>
-        		        	</li>
-        		        
-        		        </ul>
-        		        
-        			</div>
-        			
-        			<div class="col-md-6" align="center">
-        			
-        				<ul class="list-group">
-        			
-        					<li class="list-group-item">
-        						<center><b>Tranche d'Age : </b>{{form_widget(monForm.TrancheAge)}}</center>
-        					</li>
-        			
-        					<li class="list-group-item">
-        		                <center><b>Concept de l'oeuvre : </b>{{form_widget(monForm.Concept, { 'attr': { 'rows' : '20', 'cols' : '30' }})}}</center>
-        		            </li>
-        		                
-        		        </ul>
-        		        
-        			</div>
-        		            
-        		            
-        		</div>
-			
-			</div>
-			
-			<div class="panel-footer">
-				
-				<center> <input name="action-type-oeuvre" value="Valider" type="submit" class="btn btn-warning" id="oeuvre"/> </center> 
-				
-			</div>
-			
-		</div>
-			
-	</form>
-
-{% endif %}
 
 {% if type == 'monLivre' %}
 
@@ -189,18 +111,27 @@
     
 
 
-	<form action="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monLivre', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
+	<form action="{{ path('narratio_web_oeuvres_ajouterFilmLivre', {'type': 'monLivre', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
 		
 		<div class="panel panel-default">
   		<!-- Default panel contents -->
-  			<div class="panel-heading" style=" background-image:url({{ asset(image |default('undefined'))}}); -webkit-filter:opacity(50%);">
-  			<h3 id=ptitle align="center" class="panel-title" >{{obj[0].titre}}</h3>
+  			<div class="panel-heading" style="background-color:black; -webkit-filter:opacity(80%);">
+  			<h3 id=ptitle align="center" class="panel-title" >Remplissez ce formulaire pour créer un nouveau livre</h3>
   			</div>
 		
 			<div class="panel-body">
 				<!-- panel body -->    
-				<div class="h5"><h5><b>Modifier {{obj[0].titre}} grâce à ce formulaire !</b></h5></div>
+				<div class="h5"><h5><b>Ajouter un livre à l'oeuvre <big><big><b>{{obj[0].nom}}</b></big></big> grâce à ce formulaire !</b></h5></div>
 				
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6" style="color:black;">
+		<center><b>Titre du livre : </b>{{form_widget(monForm.Titre)}}</center>
+		      </div>
+		      <div class="col-md-3"></div>
+			</div>
+			<br>
+			
         		<div class="row">
         			
         			
@@ -312,18 +243,27 @@
     });
 </script>
 
-	<form action="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monFilm', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
+	<form action="{{ path('narratio_web_oeuvres_ajouterFilmLivre', {'type': 'monFilm', 'id': id}) }}" align="center" method = "post" {{ form_enctype(monForm)}}>
 		
 		<div class="panel panel-default">
   		<!-- Default panel contents -->
-  			<div class="panel-heading" style=" background-image:url({{ asset(image |default('undefined'))}}); -webkit-filter:opacity(50%);">
-  			<h3 id=ptitle align="center" class="panel-title" >{{obj[0].titre}}</h3>
+  			<div class="panel-heading" style="background-color:black; -webkit-filter:opacity(80%);">
+  			<h3 id=ptitle align="center" class="panel-title" >Remplissez ce formulaire pour créer une nouveau film</h3>
   			</div>
 		
 			<div class="panel-body">
 				<!-- panel body -->    
-				<div class="h5"><h5><b>Modifier {{obj[0].titre}} grâce à ce formulaire !</b></h5></div>
+				<div class="h5"><h5><b>Ajouter un film à l'oeuvre <big><big><b>{{obj[0].nom}}</b></big></big> grâce à ce formulaire !</b></h5></div>
 				
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6" style="color:black;">
+		<center><b>Titre du film : </b>{{form_widget(monForm.Titre)}}</center>
+		      </div>
+		      <div class="col-md-3"></div>
+			</div>
+			<br>
+			
         		<div class="row">
         			
         			
@@ -360,7 +300,7 @@
         						<li class="list-group-item">
         							<center><b>Réalisateur : </b></center>
         		               		<div  class="col-md-6" align="left">Nom : {{form_widget(monForm.Realisateur.nom)}}</div>
-        		                	<div  class="col-md-6" align="right">Prenom : {{form_widget(monForm.Realisateur.prenom)}}</div>
+        		                	<div  class="col-md-6" align="right">Prénom : {{form_widget(monForm.Realisateur.prenom)}}</div>
         		                	<br>
         		                	<br>
         		                	<br>
@@ -394,6 +334,7 @@
 	</form>
 
 {% endif %}
+
 
 </div>
 

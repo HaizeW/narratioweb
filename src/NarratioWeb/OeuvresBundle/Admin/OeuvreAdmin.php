@@ -52,6 +52,7 @@ class OeuvreAdmin extends Admin
             ->add('nom')
             ->add('concept')
             ->add('prodDer', null, array('label' => 'Produits Derives'))
+            ->add('image', 'sonata_type_admin', array('btn_add'=>false, 'delete'=>false))
             ->add('epoque', 'entity', array('class' => 'NarratioWeb\OeuvresBundle\Entity\Epoque', 
                                   'multiple' => false, 
                                   'expanded' => 'true'))

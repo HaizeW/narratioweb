@@ -1,33 +1,84 @@
-{% extends "::vueMere.html.twig" %} {#La vue fille 1 hérite de la vue mère #}
-{% block body %} 
+{%extends 'vueMere.html.twig' %}
+
+{% block body %}
+
+
+{# On charge la bibliothèque jQuery #}
+<script src="{{ asset('js/jquery.js')}}"></script>
+
 <style type="text/css">
-   a {
-   color : #7D3232;
-   }
-   a:hover {
-   color : #7D3232;
-   }
+	#titre1{
+	color:#F6EFD2;
+	text-align:center;
+	font-size:30px;
+	font-family: garamond;
+	background-color:#212524;
+	text-decoration:none;
+	border-color:#7D3232;
+	border-width:25%;
+	border-radius: 25px 10px / 10px 25px;
+	border-radius: 25px 10px / 10px 25px;
+	}
+	.h5{
+	text-align:center;
+	font-size:20px;
+	text-decoration:none;
+	color:#7D3232;
+	}
+	#ptitle{
+	padding:10px;
+	color:black;
+	text-align:center;
+	font-style:italic;
+	font-weight:bold;
+	font-size:20px;
+	font-family: georgia;
+	text-shadow: 2px 2px #000;
+	text-shadow: -1px 0 #151515, 1px 0 #151515, 0 1px #000, 0 -1px #151515;
+	color: #fff;
+	}
+	.panel > .panel-heading {
+	color: white;
+	height:60px;
+	}
+	.panel{
+	color: white;
+	}
+	.list-group-item {
+	color: black;
+	}
+	
 </style>
-<!-- onglets -->
+
 <div class="container" style="background-color: #F7F5F0">
-   <div class="row">
-      <ul class="nav nav-tabs nav-justified">
-         <li class="active"><a data-toggle="tab" href="#Oeuvre" name="oeuvre"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b> Ajouter l'Oeuvre</b></a></li>
-         <li ><a data-toggle="tab" href="#Livre" name="livre"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><b> Ajouter le(s) livre(s)</b></a></li>
-         <li><a data-toggle="tab" href="#Film" name="film"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><b> Ajouter le(s) film(s)</b></a></li>
-      </ul>
-      <!-- PREMIER ONGLET Oeuvre -->
-      <div class="tab-content" >
-         <div id="Oeuvre" class="tab-pane fade in active">
-            <div class = "panel panel-default">
-               <div class= "panel-heading">
-                  <h4>
-                     <center>Ajouter une oeuvre</center>
-                  </h4>
-               </div>
-               {# novalidate sert à supprimer la vérif côté client #}
-               
-               <ul class="list-group">
+
+	<form action="{{ path('narratio_web_oeuvres_ajouterOeuvre') }}" align="center" method = "post" {{ form_enctype(monForm)}}>
+		
+		<div class="panel panel-default">
+  		<!-- Default panel contents -->
+  			<div class="panel-heading" style="background-color:black; -webkit-filter:opacity(80%);">
+  			<h3 id=ptitle align="center" class="panel-title" >Remplissez ce formulaire pour créer une nouvelle oeuvre</h3>
+  			</div>
+		
+			<div class="panel-body">
+				<!-- panel body -->    
+				<div class="h5"><h5><b>Vous pourrez ajouter ses films et livres associés via la fiche de l'oeuvre !</b></h5></div>
+				
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6" style="color:black;">
+		<center><b>Nom de l'oeuvre : </b>{{form_widget(monForm.Nom)}}</center>
+		      </div>
+		      <div class="col-md-3"></div>
+			</div>
+			<br>
+			
+        		<div class="row">
+        			
+        			
+        		    <div class="col-md-6" align="center">
+        			
+        				<ul class="list-group">
         				
         					<li class="list-group-item">
         		                <center><b>Genre : </b>{{form_widget(monForm.Genre)}}</center>
@@ -50,44 +101,46 @@
         		        	</li>
         		        
         		        </ul>
-               
-               <input type="submit" class="btn btn-primary" />
-              
-            </div>
-         </div>
-         <!-- TROISIEME ONGLET Livres -->
-         <div id="Livre" class="tab-pane fade">
-            <div class = "panel panel-default">
-               <div class= "panel-heading">
-                  <h4>
-                     <center>Ajouter le(s) livre(s)</center>
-                  </h4>
-               </div>
-               {# novalidate sert à supprimer la vérif côté client #}
-               <form method="post" novalidate="novalidate"
-               {{ form_enctype(formulaireLivre) }}> 
-               {{ form_widget(formulaireLivre) }} 
-               <input type="submit" class="btn btn-primary" />
-               </form>
-            </div>
-         </div>
-         <!-- QUATRIEME ONGLET Films -->
-         <div id="Film" class="tab-pane fade">
-            <div class = "panel panel-default">
-               <div class= "panel-heading">
-                  <h4>
-                     <center>Ajouter le(s) film(s)</center>
-                  </h4>
-               </div>
-               {# novalidate sert à supprimer la vérif côté client #}
-               <form method="post" novalidate="novalidate"
-               {{ form_enctype(formulaireFilm) }}> 
-               {{ form_widget(formulaireFilm) }} 
-               <input type="submit" class="btn btn-primary" />
-               </form>
-            </div>
-         </div>
-      </div>
-   </div>
+        		        
+        			</div>
+        			
+        			<div class="col-md-6" align="center">
+        			
+        				<ul class="list-group">
+        			
+        					<li class="list-group-item">
+        						<center><b>Tranche d'Age : </b>{{form_widget(monForm.TrancheAge)}}</center>
+        					</li>
+        			
+        					<li class="list-group-item">
+        		                <center><b>Concept de l'oeuvre : </b>{{form_widget(monForm.Concept, { 'attr': { 'rows' : '20', 'cols' : '30' }})}}</center>
+        		            </li>
+        		                
+        		        </ul>
+        		        
+        			</div>
+        		            
+        		            
+        		</div>
+			
+			</div>
+			
+			<div class="panel-footer">
+				
+				<center> <input name="action-type-oeuvre" value="Valider" type="submit" class="btn btn-warning" id="oeuvre"/> </center> 
+				
+			</div>
+			
+		</div>
+			
+	</form>
+
+
 </div>
+
+
+    
 {% endblock %}
+
+
+        			

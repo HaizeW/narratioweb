@@ -2,8 +2,8 @@
 
 	#user {
 	/*position:fixed;*/
-	margin-top:3em;
-	margin-right:3em;
+	margin-top:1em;
+	margin-right:2em;
 
 	border-radius: 5px;
 	}
@@ -28,7 +28,16 @@
 	width:8em;
 	height:2em;
 	}
-	
+	#btnMembre{
+	color:#F6EFD2;
+	text-align:center;
+	font-size:1.5em;
+	font-family: garamond;
+	background-color:#7D3232;
+	text-decoration:none;
+	border-radius: 25px 10px / 10px 25px;
+	border-radius: 25px 10px / 10px 25px;
+	}
 
 </style>
 
@@ -55,12 +64,18 @@
 					{% block header2 %}
 						<div id="user" style='float:right;'>
 						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-					    <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+					    <a id="btnMembre" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+					    	{% if is_granted('ROLE_ADMIN') %}
+					    		<a id="btnMembre" href="http://narratioweb-haize.c9users.io/NarratioWeb/web/app_dev.php/admin/dashboard"> Administration</a>
+					    	{% endif %}
 						{% else %}
-						<a href="{{ path ('fos_user_security_login') }}">Connexion</a>
-						<br/>
-						<a href="{{ path ('fos_user_registration_register') }}">Inscription</a>
+					<div class="col-md-6">
+						<a align="left" id="btnMembre" href="{{ path ('fos_user_security_login') }}">Connexion</a>
+					</div>
+					<div class="col-md-6">
+						<a align="right" id="btnMembre" href="{{ path ('fos_user_registration_register') }}">Inscription</a>
 						{% endif %}
+					</div>
 						</div>
 					{% endblock %}
 				</div>

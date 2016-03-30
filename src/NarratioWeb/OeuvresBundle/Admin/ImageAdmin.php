@@ -28,7 +28,6 @@ class ImageAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('url')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

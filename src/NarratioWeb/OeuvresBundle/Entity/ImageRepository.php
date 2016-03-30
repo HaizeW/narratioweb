@@ -21,7 +21,7 @@ class ImageRepository extends EntityRepository
         
         // ecriture de la requete personnalisée
         $requetePerso = $gestionnaireEntite->createQuery('SELECT i FROM NarratioWebOeuvresBundle:Image i
-                                                                    WHERE i.oeuvre = :idOeuvre
+                                                                    WHERE :idOeuvre = i.id
                                                         ');
                                          
         // je definis mes parametres
@@ -41,9 +41,7 @@ class ImageRepository extends EntityRepository
         $gestionnaireEntite = $this->_em;
         
         // ecriture de la requete personnalisée
-        $requetePerso = $gestionnaireEntite->createQuery('SELECT i, o FROM NarratioWebOeuvresBundle:Image i
-                                                            LEFT JOIN i.oeuvre o
-                                                                WHERE i.oeuvre IS NOT NULL
+        $requetePerso = $gestionnaireEntite->createQuery('SELECT i FROM NarratioWebOeuvresBundle:Image i
                                                             ');
                                                         
         $requetePerso->setMaxResults(5);

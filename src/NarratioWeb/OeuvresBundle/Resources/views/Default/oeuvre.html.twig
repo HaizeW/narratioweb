@@ -17,7 +17,8 @@
 	font-size:20px;
 	width:66%;
 	font-family: garamond;
-	background-color:#848484;
+	background-color:black;
+	-webkit-filter:opacity(75%);
 	margin-left:18%;
 	text-decoration:none;
 	border-radius: 10px 20px / 20px 10px;
@@ -89,6 +90,33 @@
 	color: white;
 	height:60px;
 	}
+	   
+   .btn-warning
+   {
+       background-color:#7D3232;
+       border-color:#7D3232;
+       
+   }
+   .btn-warning:hover
+   {
+       background-color:white;
+       color:#7D3232;
+       border-color:#7D3232;
+       
+   }
+   
+.panel {
+    border-color: #7D3232;
+}
+.panel > .panel-heading {
+    border-color: #7D3232;
+}
+.panel > .panel-body {
+    border-color: #7D3232;
+}	
+.panel > .panel-footer {
+    border-color: #7D3232;
+}
 </style>
 <!-- mise en place des onglets -->
 <div class="container" style="background-color: #F7F5F0">
@@ -119,16 +147,16 @@
 							<br/>
 						</div>
 					</div>
-<!-- IF CONNECTE -->
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 					<center><a name="action-type-oeuvre" value="modifier" type="submit" href="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monOeuvre', 'id': id}) }}"><input name="action-type-oeuvre" name="modifier" type="submit" class="btn btn-warning" value="Modifier cette oeuvre"/></a></center>
-<!-- IF CONNECTE -->
+{% endif %}
 				</div>
 				<!-- DEUXIEME ONGLET LIVRE -->
 				<div id="Livre" class="tab-pane fade">
 					<br/>
 					{% for LivreCourant in tabLivres %}
 					<div class="panel panel-default">
-						<div class="panel-heading" style=" background-image:url({{ asset(LivreCourant.imageLivre.url |default('undefined'))}}); -webkit-filter:opacity(50%);">
+						<div class="panel-heading" style=" background-image:url({{ asset(LivreCourant.imageLivre.url |default('undefined'))}}); -webkit-filter:opacity(80%);">
 							<h3 id=ptitle align="center" class="panel-title">
 								{{LivreCourant.titre}}<br/>
 								<!-- <b>~ ~ ~</b> -->
@@ -160,23 +188,28 @@
 								</div>
 								<br><br><br>
 							</div>
-<!-- IF CONNECTE -->
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 								<center><a name="action-type-livre" value="modifier" type="submit" href="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monLivre', 'id': LivreCourant.id}) }}"><input name="action-type-livre" name="modifier" type="submit" class="btn btn-warning" value="Modifier ce livre"/></a></center>
-<!-- IF CONNECTE -->
+{% endif %}
 							
 						</div>
 					</div>
 					{%else%}
-					Erreur.
+					<center>Aucun livre n'a encore été ajouté à cette oeuvre.</center>
+					<br>
 					{%endfor%}
-					<br/>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        
+			<center><a type="submit" href="{{ path('narratio_web_oeuvres_ajouterFilmLivre', {'type': 'monLivre', 'id': id }) }}"><input  type="submit" class="btn btn-warning" value="Ajouter un livre"/></a></center>
+			
+{% endif %}
 				</div>
 				<!-- TROISIEME ONGLET  FILM-->
 				<div id="Film" class="tab-pane fade">
 					<br/>
 					{% for FilmCourant in tabFilms %}
 					<div class="panel panel-default">
-						<div class="panel-heading" style=" background-image:url({{ asset(FilmCourant.imageFilm.url |default('undefined'))}}); -webkit-filter:opacity(50%);">
+						<div class="panel-heading" style=" background-image:url({{ asset(FilmCourant.imageFilm.url |default('undefined'))}}); -webkit-filter:opacity(80%);">
 							<h3 id=ptitle align="center" class="panel-title">
 								{{FilmCourant.titre}}
 							</h3>
@@ -207,14 +240,22 @@
 									<span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{FilmCourant.realisateur.label}}<br/>
 								</div>
 							</div>
-<!-- IF CONNECTE -->
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <center><a name="action-type-film" value="modifier" type="submit" href="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monFilm', 'id': FilmCourant.id}) }}" id="bouton"><input name="action-type-film" name="modifier" type="submit" class="btn btn-warning" value="Modifier ce film"/></a></center>
-<!-- IF CONNECTE -->
+{% endif %}
 						</div>
 					</div>
 					{%else%}
-					Erreur.
+					<center>Aucun film n'a encore été ajouté à cette oeuvre.</center>
+					<br>
 					{%endfor%}
+					
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        
+			<center><a type="submit" href="{{ path('narratio_web_oeuvres_ajouterFilmLivre', {'type': 'monFilm', 'id': id }) }}"><input  type="submit" class="btn btn-warning" value="Ajouter un film"/></a></center>
+			
+{% endif %}
+					
 				</div>
 				<!-- QUATRIEME ONGLET  AUTRE-->
 				<div id="Autre" class="tab-pane fade">
@@ -227,46 +268,11 @@
 							{{oeuvre.prodDer}}
 							<br>
 							<br>
-							{% if resImdb |length > 0 %}
-							<div align="center" class="">
-								<!-- Trigger the modal with a button -->
-								<button id="modalButton" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#modal">Plus d'informations sur un film de {{oeuvre.nom}}</button>
-								<!-- Modal -->
-								<div id="modal" class="modal fade" role="dialog">
-									<div class="modal-dialog">
-										<!-- Modal content-->
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-												<h4 class="modal-title">{{ resImdb.Title }} - {{ resImdb.Year }}</h4>
-											</div>
-											<div class="modal-body">
-												<p>
-													L'auteur du film est {{ resImdb.Writer }}.
-													<br>
-													Les acteurs de ce film sont {{ resImdb.Actors }}.
-													<br>
-													Disponible en {{ resImdb.Language }}.
-													<br>
-													Les récompenses obtenues par ce film : {{ resImdb.Awards }}.
-													<br>
-													Avec un total de {{ resImdb.imdbVotes }} votes, ce film a une note de {{ resImdb.imdbRating }} sur Imdb.
-													<br>
-												</p>
-											</div>
-											<div class="modal-footer">
-												<button id="modalButton" type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							{% endif %}
 						</div>
 					</div>
-<!-- IF CONNECTE -->
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 					<center><a name="action-type-oeuvre" value="modifier" type="submit" href="{{ path('narratio_web_oeuvres_modifierOeuvre', {'type': 'monOeuvre', 'id': id}) }}"><input name="action-type" name="modifier" type="submit" class="btn btn-warning" value="Modifier cette oeuvre"/></a></center>
-<!-- IF CONNECTE -->
+{% endif %}
 				</div>
 			</div>
 		</div>
@@ -307,19 +313,18 @@
 		</div>
 	</div>
 	<br>
-	<!-- SUGGESTIONS   -->
+	<!-- SUGGESTIONS -->
 	<div class="row">
 		{% if tabImagesSuggestions != null %}
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<i>Suggestions</i>
 		<br>
-		{%for imageCourante in tabImagesSuggestions |slice(0, 4) if imageCourante.oeuvre.id != id %}
+		{%for oeuvre in tabOeuvreChoix |slice(0, 4) if oeuvre.id != id %}
 		<div class="col-xs-4 col-md-2" align="center">
-			<a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id':imageCourante.oeuvre.id}) }}" class="thumbnail">
-			<img id="images" src="{{ imageCourante.url }}" alt="Suggestions"></a>
-			</a>
+			<a href="{{ path('narratio_web_oeuvres_voirOeuvre', {'id' : oeuvre.id}) }}" class="thumbnail">
+			<img id="images" src="{{ oeuvre.image.url }}" alt="Suggestions"></a>
 		</div>
-		{%endfor%} 
+		{% endfor %} 
 		{% endif %}
 	</div>
 </div>

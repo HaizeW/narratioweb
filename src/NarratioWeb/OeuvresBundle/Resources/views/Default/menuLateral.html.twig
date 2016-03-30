@@ -28,6 +28,22 @@
    border-color:none;
    }
    
+   .btn-warning
+   {
+       background-color:#7D3232;
+       border-color:#7D3232;
+       
+   }
+   .btn-warning:hover
+   {
+       background-color:white;
+       color:#7D3232;
+       border-color:#7D3232;
+       
+   }
+   
+
+
    /* align icon */
    .left-addon .glyphicon  { left:  0px;}
    /* add padding  */
@@ -57,6 +73,12 @@
          </div>
          </center>
          </form>
+         
+         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <center><a name="action-type-oeuvre" value="ajouter" type="submit" href="{{ path('narratio_web_oeuvres_ajouterOeuvre') }}" id="bouton"><input name="action-type-oeuvre" type="submit" class="btn btn-warning" value="Ajouter une oeuvre"/></a></center>
+            <br>
+        {% endif %} 
+         
       </div>
       <div class ="panel panel-default" >
          <div class= "panel-heading" style="background-color: #DED9B7;">

@@ -68,7 +68,7 @@ class Oeuvre
     private $trancheAge;
     
     /**
-     * @ORM\OneToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Image")
+     * @ORM\OneToOne(targetEntity="NarratioWeb\OeuvresBundle\Entity\Image", cascade={"persist"})
      */
     private $image;
     
@@ -243,7 +243,7 @@ class Oeuvre
         return $this->trancheAge;
     }
     
-        public function __toString()
+    public function __toString()
     {
         return $this->nom;
     }

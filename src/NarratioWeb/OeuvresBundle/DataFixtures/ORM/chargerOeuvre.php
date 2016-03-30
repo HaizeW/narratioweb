@@ -28,6 +28,10 @@ class Oeuvres implements FixtureInterface
         /* Création des epoques     */
         /* ******************************************************* */
         
+		$epoqueAntiquite = new Epoque();
+		$epoqueAntiquite->setIntitule("Antiquite");
+		$manager->persist($epoqueAntiquite);
+        
         $epoqueContemporaine = new Epoque();
 		$epoqueContemporaine->setIntitule("Contemporaine");
 		$manager->persist($epoqueContemporaine);
@@ -44,30 +48,10 @@ class Oeuvres implements FixtureInterface
 		$epoqueMoyenAge->setIntitule("Moyen Age");
 		$manager->persist($epoqueMoyenAge);
 		
-		$epoqueAntiquite = new Epoque();
-		$epoqueAntiquite->setIntitule("Antiquite");
-		$manager->persist($epoqueAntiquite);
-        
-		//$epoqueAvantJC = new Epoque();
-		//$epoqueAvantJC->setIntitule("Avant JC");
-		//$manager->persist($epoqueAvantJC);
-        
         /* ******************************************************* */
         /* Création des genres     */
         /* ******************************************************* */
         
-		$genreScienceFiction = new Genre();
-		$genreScienceFiction->setIntitule("Science Fiction");
-		$manager->persist($genreScienceFiction);
-        
-		$genreDrame = new Genre();
-		$genreDrame->setIntitule("Drame");
-		$manager->persist($genreDrame);
-		
-		$genreComedie = new Genre();
-		$genreComedie->setIntitule("Comedie");
-		$manager->persist($genreComedie);
-		
 		$genreAction = new Genre();
 		$genreAction->setIntitule("Action");
 		$manager->persist($genreAction);
@@ -76,38 +60,50 @@ class Oeuvres implements FixtureInterface
 		$genreAventure->setIntitule("Aventure");
 		$manager->persist($genreAventure);
         
+		$genreComedie = new Genre();
+		$genreComedie->setIntitule("Comedie");
+		$manager->persist($genreComedie);
+		
+		$genreDrame = new Genre();
+		$genreDrame->setIntitule("Drame");
+		$manager->persist($genreDrame);
+		
+		$genreScienceFiction = new Genre();
+		$genreScienceFiction->setIntitule("Science Fiction");
+		$manager->persist($genreScienceFiction);
+        
         /* ******************************************************* */
         /* Création des thématiques     */
         /* ******************************************************* */
         
-		$themeQuete = new Thematique();
-		$themeQuete->setIntitule("Quête Fantaisie");
-		$manager->persist($themeQuete);
-        
-		$themeSens = new Thematique();
-		$themeSens->setIntitule("Sens de la vie");
-		$manager->persist($themeSens);
-		
-		$themeRomantisme = new Thematique();
-		$themeRomantisme->setIntitule("Romantisme");
-		$manager->persist($themeRomantisme);
+		$themeDictature = new Thematique();
+		$themeDictature ->setIntitule("Dictature");
+		$manager->persist($themeDictature);
 		
 		$themeEcole = new Thematique();
 		$themeEcole->setIntitule("École");
 		$manager->persist($themeEcole);
 		
-		$themeSurvie = new Thematique();
-		$themeSurvie ->setIntitule("Survie-Invasion");
-		$manager->persist($themeSurvie);
-		
-		$themeDictature = new Thematique();
-		$themeDictature ->setIntitule("Dictature");
-		$manager->persist($themeDictature);
-		
 		$themeEnquete = new Thematique();
         $themeEnquete->setIntitule("Enquête");
         $manager->persist($themeEnquete);
         
+		$themeQuete = new Thematique();
+		$themeQuete->setIntitule("Quête Fantaisie");
+		$manager->persist($themeQuete);
+        
+		$themeRomantisme = new Thematique();
+		$themeRomantisme->setIntitule("Romantisme");
+		$manager->persist($themeRomantisme);
+		
+		$themeSens = new Thematique();
+		$themeSens->setIntitule("Sens de la vie");
+		$manager->persist($themeSens);
+		
+		$themeSurvie = new Thematique();
+		$themeSurvie ->setIntitule("Survie-Invasion");
+		$manager->persist($themeSurvie);
+		
         /* ******************************************************* */
         /* Création des tranches d'âge     */
         /* ******************************************************* */
@@ -853,6 +849,10 @@ class Oeuvres implements FixtureInterface
          /* Création des types          */
         /* ******************************************************* */  
          
+		$TypeCourtMetrage = new Type();
+		$TypeCourtMetrage -> setIntitule("Court Métrage");
+		$manager->persist($TypeCourtMetrage);
+		
 		$TypeLongMetrage = new Type();
 		$TypeLongMetrage -> setIntitule("Long Métrage");
 		$manager->persist($TypeLongMetrage);
